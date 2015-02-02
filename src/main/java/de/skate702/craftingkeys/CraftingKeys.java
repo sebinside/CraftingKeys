@@ -61,7 +61,7 @@ public class CraftingKeys {
 		proxy.registerRenderers();
 		FMLCommonHandler.instance().bus().register(this);
 
-		Helper.debugPrint("load(): Loaded Mod successful");
+		Helper.debugPrint("load(): Loaded CraftingKeys successful");
 
 	}
 
@@ -83,31 +83,35 @@ public class CraftingKeys {
 	@SubscribeEvent
 	public void onTick(TickEvent.ClientTickEvent tick) {
 
-		// if (mc.currentScreen != null) {
-		// if (mc.currentScreen instanceof
-		// net.minecraft.client.gui.inventory.GuiCrafting) {
-		// Keyboard.isKeyDown(Keyboard.KEY_Q)
+		// Case 1: Classic GUI Screen
+		if (Helper.isCraftingGUI(Helper.client.currentScreen)) {
 
-		// DEBUGGIN TEST START
+			GuiCrafting guiCrafting = (GuiCrafting) Helper.client.currentScreen;
+			Slot currentHoveredSlot = Helper.getSlotAtMousePosition(guiCrafting);
+			int keyDown = Helper.craftingKeyDownToSlotNumber();
 
-		if (Helper.client.currentScreen != null) {
-			if (Helper.client.currentScreen instanceof GuiCrafting) {
-				if (Keyboard.isKeyDown(Keyboard.KEY_C)) {
+			// Block Key Interval (avoid multiple Runs)
+			if (!Helper.isSameKey(keyDown)) {
 
-					GuiCrafting guiCrafting = (GuiCrafting) Helper.client.currentScreen;
-					Slot currentHoveredSlot = Helper.getSlotAtMousePosition(guiCrafting);
+				// Good key, Mouse over Inventory
+				if (keyDown != -1 && currentHoveredSlot != null) {
 
 					ContainerManager con = new ContainerManager(guiCrafting.inventorySlots);
-					if (currentHoveredSlot != null) {
-						con.move(currentHoveredSlot.slotNumber, 8, 1);
-					} else {
-						Helper.debugPrint("onTick(): Outside of inventory");
-					}
+					con.move(currentHoveredSlot.slotNumber, keyDown, 1);
+
+					// TODO: Move more/all!
+
+					// TODO: Strg -> Click on Output
+
+					// TODO: Shift -> Move all!
+
 				}
 			}
 		}
 
-		// DEBUGGIN TEST END
+		// Case 2: Inventory (2x2 Crafting, Quick-Armor)
+
+		// TODO: Case 2
 
 	}
 }

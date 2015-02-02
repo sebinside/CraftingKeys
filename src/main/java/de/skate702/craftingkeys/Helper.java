@@ -1,10 +1,13 @@
 package de.skate702.craftingkeys;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.inventory.GuiCrafting;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 
@@ -45,6 +48,23 @@ public class Helper {
 			System.out.println("CK-DEBUG: " + message);
 		}
 
+	}
+
+	/**
+	 * Returns true, if the current Screen is a instance of GUI-Screen.
+	 * 
+	 * @param screen
+	 *            The input Screen
+	 * @return True, if GuiScreen; False if null
+	 */
+	public static boolean isCraftingGUI(GuiScreen screen) {
+
+		if (screen != null) {
+			if (screen instanceof GuiCrafting) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -121,4 +141,62 @@ public class Helper {
 		return guiContainer.height - (Mouse.getEventY() * guiContainer.height) / client.displayHeight - 1;
 	}
 
+	/**
+	 * Reads the current Keyboard-Input and converts it to a Inventory-Slot.
+	 * 
+	 * @return A Inventory-Slot (based on CraftingGUI)
+	 */
+	public static int craftingKeyDownToSlotNumber() {
+
+		// TODO: Make this dynamic! // Use Settings
+
+		int returnValue = -1;
+
+		if (Keyboard.isKeyDown(Keyboard.KEY_Q)) {
+			returnValue = 1;
+		} else if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
+			returnValue = 2;
+		} else if (Keyboard.isKeyDown(Keyboard.KEY_E)) {
+			returnValue = 3;
+		} else if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
+			returnValue = 4;
+		} else if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
+			returnValue = 5;
+		} else if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
+			returnValue = 6;
+		} else if (Keyboard.isKeyDown(Keyboard.KEY_Y)) {
+			returnValue = 7;
+		} else if (Keyboard.isKeyDown(Keyboard.KEY_X)) {
+			returnValue = 8;
+		} else if (Keyboard.isKeyDown(Keyboard.KEY_C)) {
+			returnValue = 9;
+		}
+
+		return returnValue;
+	}
+
+	/**
+	 * Saves the last Key that was Pressed
+	 */
+	private static int lastKeyDown = -1;
+
+	/**
+	 * Returns, if the current KeyValue is the same
+	 * 
+	 * @param currentKey
+	 *            the new input value, saved in the method
+	 * @return True, if these are the same keys
+	 */
+	public static boolean isSameKey(int currentKey) {
+
+		boolean returnValue = false;
+
+		if (lastKeyDown == currentKey && currentKey != -1) {
+			returnValue = true;
+		}
+
+		lastKeyDown = currentKey;
+		return returnValue;
+
+	}
 }
