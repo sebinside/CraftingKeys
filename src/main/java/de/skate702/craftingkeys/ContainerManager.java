@@ -1,5 +1,6 @@
 package de.skate702.craftingkeys;
 
+import net.minecraft.client.gui.inventory.GuiCrafting;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -33,22 +34,13 @@ public class ContainerManager {
 	 */
 	public void moveAll(int srcIndex, int destIndex) {
 
-		// TODO: Consistency - Use move()-Method
-
 		ItemStack source = getItemStack(srcIndex);
-		ItemStack destination = getItemStack(destIndex);
 
-		leftClick(srcIndex);
-		leftClick(destIndex);
-
-		Helper.debugPrint("moveAll(): Moved Stack from " + srcIndex + " to " + destIndex + "!");
-
-		// Stack Swapping
-		if (Helper.client.thePlayer.inventory.getItemStack() != null) {
-
-			Helper.debugPrint("moveAll(): Destination not empty!");
-			leftClick(srcIndex);
-
+		if (source == null) {
+			Helper.debugPrint("moveAll(): source == null");
+		} else {
+			Helper.debugPrint("moveAll(): Redirected to move()");
+			move(srcIndex, destIndex, source.stackSize);
 		}
 
 	}
@@ -67,6 +59,7 @@ public class ContainerManager {
 	public void move(int srcIndex, int destIndex, int amount) {
 
 		// TODO: What if not same type? Fallback Solution (Stack out of the way)
+		// or swap // if (Helper.client.thePlayer.inventory.getItemStack() !=
 
 		// Stacks
 		ItemStack source = getItemStack(srcIndex);
@@ -74,7 +67,7 @@ public class ContainerManager {
 
 		// Same Location?
 		if (source == null || srcIndex == destIndex) {
-			Helper.debugPrint("Move(): srcIndex == destIndex");
+			Helper.debugPrint("Move(): srcIndex == destIndex OR source == null");
 			return;
 		}
 
@@ -123,6 +116,39 @@ public class ContainerManager {
 			return null;
 
 		}
+
+	}
+
+	/**
+	 * Sends a click on the crafting output (craftingGUI or Inventory)
+	 * 
+	 * @param isCraftingGUI
+	 *            true, if the craftingGUI is opened
+	 */
+	public void clickOnCraftingOutput(boolean isCraftingGUI) {
+
+		// TODO: Put current Item away
+
+		if (isCraftingGUI) {
+
+			// Click on crafting output
+			Helper.debugPrint("clickOnCraftingOutput(): Clicked on Crafing Output.");
+			leftClick(0);
+
+		}
+
+	}
+
+	/**
+	 * Takes all items from a slot and moves them to the next empty slot or
+	 * drops them.
+	 * 
+	 * @param index
+	 *            The index of the slot to move items from
+	 */
+	private void putStackToNextEmptySlot(int index) {
+
+		// TODO: Method (maybe from INVTW...?)
 
 	}
 

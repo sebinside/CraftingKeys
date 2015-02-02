@@ -93,19 +93,37 @@ public class CraftingKeys {
 			// Block Key Interval (avoid multiple Runs)
 			if (!Helper.isSameKey(keyDown)) {
 
-				// Good key, Mouse over Inventory
+				ContainerManager con = new ContainerManager(guiCrafting.inventorySlots);
+
+				// Moving item to crafting table
 				if (keyDown != -1 && currentHoveredSlot != null) {
 
-					ContainerManager con = new ContainerManager(guiCrafting.inventorySlots);
-					con.move(currentHoveredSlot.slotNumber, keyDown, 1);
-
-					// TODO: Move more/all!
-
-					// TODO: Strg -> Click on Output
-
-					// TODO: Shift -> Move all!
+					// Shift = Move all
+					if (guiCrafting.isShiftKeyDown()) {
+						con.moveAll(currentHoveredSlot.slotNumber, keyDown);
+					} else {
+						con.move(currentHoveredSlot.slotNumber, keyDown, 1);
+					}
 
 				}
+
+				// Strg = Take the output
+				if (guiCrafting.isCtrlKeyDown()) {
+
+					if (guiCrafting.isShiftKeyDown()) {
+
+						// TODO: Strg + Shift = Empty Crafting Table
+						Helper.debugPrint("onTick(): [TODO] Move all items back or drop them.");
+
+					} else {
+
+						// Send mouse click on crafting output
+						con.clickOnCraftingOutput(true);
+
+					}
+
+				}
+
 			}
 		}
 

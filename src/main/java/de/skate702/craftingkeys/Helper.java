@@ -171,7 +171,7 @@ public class Helper {
 		} else if (Keyboard.isKeyDown(Keyboard.KEY_C)) {
 			returnValue = 9;
 		}
-
+		
 		return returnValue;
 	}
 
