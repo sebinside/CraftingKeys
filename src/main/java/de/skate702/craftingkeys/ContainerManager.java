@@ -127,7 +127,7 @@ public class ContainerManager {
 	 */
 	public void clickOnCraftingOutput(boolean isCraftingGUI) {
 
-		// TODO: Put current Item away
+		// TODO: Put current Item away 
 
 		if (isCraftingGUI) {
 

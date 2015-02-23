@@ -96,7 +96,7 @@ public class CraftingKeys {
 				ContainerManager con = new ContainerManager(guiCrafting.inventorySlots);
 
 				// Moving item to crafting table
-				if (keyDown != -1 && currentHoveredSlot != null) {
+				if (keyDown > 0 && currentHoveredSlot != null) {
 
 					// Shift = Move all
 					if (guiCrafting.isShiftKeyDown()) {
@@ -107,21 +107,36 @@ public class CraftingKeys {
 
 				}
 
+				if (keyDown == -2) {
+
+					// TODO: Space = Move all back
+					Helper.debugPrint("onTick(): [TODO] Move all items back or drop them.");
+
+				}
+
 				// Strg = Take the output
 				if (guiCrafting.isCtrlKeyDown()) {
 
 					if (guiCrafting.isShiftKeyDown()) {
 
-						// TODO: Strg + Shift = Empty Crafting Table
-						Helper.debugPrint("onTick(): [TODO] Move all items back or drop them.");
+						//Strg + Shift = Move all (resp. faster!)
+						con.clickOnCraftingOutput(true);
 
 					} else {
 
-						// Send mouse click on crafting output
-						con.clickOnCraftingOutput(true);
+						// Send mouse click on crafting output (accept also
+						// holding)
+						int ticksdown = Helper.getStrgTimesDown(true);
+						if (ticksdown == 2 || ticksdown % 15 == 0 || (ticksdown > 60 && ticksdown % 8 == 0)) {
+							con.clickOnCraftingOutput(true);
+						}
 
 					}
 
+				} else {
+
+					// Reset Strg
+					Helper.getStrgTimesDown(false);
 				}
 
 			}

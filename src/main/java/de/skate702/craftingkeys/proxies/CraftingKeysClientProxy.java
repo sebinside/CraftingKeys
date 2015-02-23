@@ -13,7 +13,7 @@ public class CraftingKeysClientProxy extends CraftingKeysProxy {
 
 	@Override
 	public void registerRenderers() {
-
+ 
 	}
 
 	@Override

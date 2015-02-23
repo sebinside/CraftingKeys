@@ -144,7 +144,8 @@ public class Helper {
 	/**
 	 * Reads the current Keyboard-Input and converts it to a Inventory-Slot.
 	 * 
-	 * @return A Inventory-Slot (based on CraftingGUI)
+	 * @return A Inventory-Slot (based on CraftingGUI), -1 for wrong input, -2
+	 *         for space
 	 */
 	public static int craftingKeyDownToSlotNumber() {
 
@@ -170,8 +171,10 @@ public class Helper {
 			returnValue = 8;
 		} else if (Keyboard.isKeyDown(Keyboard.KEY_C)) {
 			returnValue = 9;
+		} else if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+			returnValue = -2;
 		}
-		
+
 		return returnValue;
 	}
 
@@ -197,6 +200,27 @@ public class Helper {
 
 		lastKeyDown = currentKey;
 		return returnValue;
+
+	}
+
+	/**
+	 * Saves the times strg was pressed before reseting
+	 */
+	private static int strgTimesDown = 0;
+
+	/**
+	 * Return the times Strg was pressed before reseting
+	 * 
+	 * @param strgDown
+	 *            false, if reset
+	 * @return A number of tick strg was down before
+	 */
+	public static int getStrgTimesDown(boolean strgDown) {
+
+		if (!strgDown)
+			strgTimesDown = 0;
+
+		return ++strgTimesDown;
 
 	}
 }

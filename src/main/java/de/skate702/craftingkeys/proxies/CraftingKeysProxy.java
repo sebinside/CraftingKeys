@@ -19,7 +19,7 @@ public class CraftingKeysProxy {
 	public void registerRenderers() {
 
 	}
-
+ 
 	/**
 	 * The Minecraft call to send a mouse click to a GUI. [Based on INVTW]
 	 * 
