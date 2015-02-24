@@ -4,6 +4,8 @@ import net.minecraft.client.gui.inventory.GuiCrafting;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
 
 /**
  * Managing Class to move Items in Inventory Containers.
@@ -57,9 +59,6 @@ public class ContainerManager {
 	 *            The amount of items to move (can be bigger then Stack Size)
 	 */
 	public void move(int srcIndex, int destIndex, int amount) {
-
-		// TODO: What if not same type? Fallback Solution (Stack out of the way)
-		// or swap // if (Helper.client.thePlayer.inventory.getItemStack() !=
 
 		// Stacks
 		ItemStack source = getItemStack(srcIndex);
@@ -127,7 +126,7 @@ public class ContainerManager {
 	 */
 	public void clickOnCraftingOutput(boolean isCraftingGUI) {
 
-		// TODO: Put current Item away 
+		putItemAway(isCraftingGUI);
 
 		if (isCraftingGUI) {
 
@@ -135,6 +134,8 @@ public class ContainerManager {
 			Helper.debugPrint("clickOnCraftingOutput(): Clicked on Crafing Output.");
 			leftClick(0);
 
+		} else {
+			// TODO: Same for inventory
 		}
 
 	}
@@ -143,13 +144,89 @@ public class ContainerManager {
 	 * Takes all items from a slot and moves them to the next empty slot or
 	 * drops them.
 	 * 
-	 * @param index
+	 * @param sourceIndex
 	 *            The index of the slot to move items from
+	 * @param isCraftingGUI
+	 *            true, if the craftingGUI is opened
 	 */
-	private void putStackToNextEmptySlot(int index) {
+	public void putStackToNextEmptySlot(int sourceIndex, boolean isCraftingGUI, boolean isHeld) {
 
-		// TODO: Method (maybe from INVTW...?)
+		// Check for Item-Type
+		ItemStack stackToMove;
+		if (isHeld) {
+			stackToMove = Helper.client.thePlayer.inventory.getItemStack();
+		} else {
+			putItemAway(isCraftingGUI);
+			stackToMove = getItemStack(sourceIndex);
+		}
 
+		// Test for empty crafting table slot
+		if (!isHeld && getItemStack(sourceIndex) == null) {
+
+			Helper.debugPrint("putStackToNextEmptySlot(): No Item Stack @ " + sourceIndex + ".");
+			return;
+		}
+
+		// Get Destination Index
+		int destIndex = getFirstPropperSlotIndex(isCraftingGUI, stackToMove);
+
+		// Additional click on source index, if not held
+		if (!isHeld) {
+			leftClick(sourceIndex);
+		}
+
+		// TODO: Optional (beta-like): Fill the items up. Let's become INVTW!
+
+		// destIndex = -1 -> drop item
+		if (destIndex == -1) {
+			leftClick(-999); // Nice one, InvTweaks!
+		} else {
+			leftClick(destIndex);
+		}
+
+	}
+
+	private void putItemAway(boolean isCraftingGUI) {
+		// Put current Item away
+		if (Helper.client.thePlayer.inventory.getItemStack() != null) {
+			putStackToNextEmptySlot(-1, isCraftingGUI, true);
+		}
+	}
+
+	/**
+	 * Returns the first free index in a inventory
+	 * 
+	 * @param isCraftingGUI
+	 *            true, if the craftingGUI is opened
+	 * @return a slot index
+	 */
+	private int getFirstPropperSlotIndex(boolean isCraftingGUI, ItemStack movingItem) {
+
+		if (isCraftingGUI) {
+
+			for (int i = 10; i < container.inventorySlots.size(); i++) {
+
+				if (getItemStack(i) != null) {
+					if (getItemStack(i).isItemEqual(movingItem)) {
+						if (getItemStack(i).stackSize + movingItem.stackSize <= movingItem.getMaxStackSize()) {
+							return i;
+						}
+					}
+				}
+			}
+
+			for (int i = 10; i < container.inventorySlots.size(); i++) {
+
+				if (getItemStack(i) == null) {
+					return i;
+				}
+			}
+			Helper.debugPrint("getFirstProperSlotIndex(): No Propper / Empty Slot found!");
+			return -1;
+		} else {
+			// TODO: Same for inventory
+			return -1;
+		}
 	}
 
 	/**

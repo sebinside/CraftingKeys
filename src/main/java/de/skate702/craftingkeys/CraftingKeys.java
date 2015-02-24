@@ -4,6 +4,7 @@ import org.lwjgl.input.Keyboard;
 
 import net.minecraft.client.gui.inventory.GuiCrafting;
 import net.minecraft.inventory.Slot;
+import net.minecraft.util.ChatComponentText;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -76,12 +77,30 @@ public class CraftingKeys {
 	}
 
 	/**
+	 * To show a chat message at first start in minecraft.
+	 */
+	boolean firstInWorldTick = true;
+
+	/**
 	 * This method will be executed every Ingame Tick.
 	 * 
 	 * @param tick
 	 */
 	@SubscribeEvent
 	public void onTick(TickEvent.ClientTickEvent tick) {
+
+		// Message
+		if (Helper.client.theWorld != null && firstInWorldTick) {
+
+			Helper.client.thePlayer.addChatMessage(new ChatComponentText(
+					"Achtung: Crafting-Keys befindet sich in der Pre-Alpha!"));
+			Helper.client.thePlayer.addChatMessage(new ChatComponentText(
+					"Es gibt noch viele Fehler, und es fehlen noch einige Funktionen."));
+			Helper.client.thePlayer.addChatMessage(new ChatComponentText(
+					"Mehr Info's findest du auf: http://craftingkeys.codeplex.com!"));
+
+			firstInWorldTick = !firstInWorldTick;
+		}
 
 		// Case 1: Classic GUI Screen
 		if (Helper.isCraftingGUI(Helper.client.currentScreen)) {
@@ -90,10 +109,10 @@ public class CraftingKeys {
 			Slot currentHoveredSlot = Helper.getSlotAtMousePosition(guiCrafting);
 			int keyDown = Helper.craftingKeyDownToSlotNumber();
 
+			ContainerManager con = new ContainerManager(guiCrafting.inventorySlots);
+
 			// Block Key Interval (avoid multiple Runs)
 			if (!Helper.isSameKey(keyDown)) {
-
-				ContainerManager con = new ContainerManager(guiCrafting.inventorySlots);
 
 				// Moving item to crafting table
 				if (keyDown > 0 && currentHoveredSlot != null) {
@@ -109,9 +128,14 @@ public class CraftingKeys {
 
 				if (keyDown == -2) {
 
-					// TODO: Space = Move all back
-					Helper.debugPrint("onTick(): [TODO] Move all items back or drop them.");
+					// Space = Move all back
+					Helper.debugPrint("onTick(): Move all items back or drop them.");
 
+					for (int i = 1; i < 10; i++) {
+
+						con.putStackToNextEmptySlot(i, true, false);
+
+					}
 				}
 
 				// Strg = Take the output
@@ -119,7 +143,7 @@ public class CraftingKeys {
 
 					if (guiCrafting.isShiftKeyDown()) {
 
-						//Strg + Shift = Move all (resp. faster!)
+						// Strg + Shift = Move all (resp. faster!)
 						con.clickOnCraftingOutput(true);
 
 					} else {
