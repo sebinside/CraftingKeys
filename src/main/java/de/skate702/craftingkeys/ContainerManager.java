@@ -9,7 +9,7 @@ import net.minecraft.util.IChatComponent;
 
 /**
  * Managing Class to move Items in Inventory Containers.
- * 
+ *
  * @author skate702
  *
  */
@@ -28,7 +28,7 @@ public class ContainerManager {
 
 	/**
 	 * Moves a full Stack from a slot to another.
-	 * 
+	 *
 	 * @param srcIndex
 	 *            The Source Slot Index of the Container
 	 * @param destIndex
@@ -50,7 +50,7 @@ public class ContainerManager {
 	/**
 	 * Moves a specified amount of Items from a slot to another. [Based on
 	 * INVTW]
-	 * 
+	 *
 	 * @param srcIndex
 	 *            The Source Slot Index of the Container
 	 * @param destIndex
@@ -97,7 +97,7 @@ public class ContainerManager {
 
 	/**
 	 * Returns the ItemStack in a slot [Based on INVTW]
-	 * 
+	 *
 	 * @param index
 	 *            The index of the slot in the container
 	 * @return Returns the ItemStack
@@ -120,7 +120,7 @@ public class ContainerManager {
 
 	/**
 	 * Sends a click on the crafting output (craftingGUI or Inventory)
-	 * 
+	 *
 	 * @param isCraftingGUI
 	 *            true, if the craftingGUI is opened
 	 */
@@ -143,7 +143,7 @@ public class ContainerManager {
 	/**
 	 * Takes all items from a slot and moves them to the next empty slot or
 	 * drops them.
-	 * 
+	 *
 	 * @param sourceIndex
 	 *            The index of the slot to move items from
 	 * @param isCraftingGUI
@@ -195,7 +195,7 @@ public class ContainerManager {
 
 	/**
 	 * Returns the first free index in a inventory
-	 * 
+	 *
 	 * @param isCraftingGUI
 	 *            true, if the craftingGUI is opened
 	 * @return a slot index
@@ -231,7 +231,7 @@ public class ContainerManager {
 
 	/**
 	 * Executes a left mouse click on a slot. [Based on INVTW]
-	 * 
+	 *
 	 * @param index
 	 *            The index of the slot in the container
 	 */
@@ -241,7 +241,7 @@ public class ContainerManager {
 
 	/**
 	 * Executes a right mouse click on a slot. [Based on INVTW]
-	 * 
+	 *
 	 * @param index
 	 *            The index of the slot in the container
 	 */
@@ -251,7 +251,7 @@ public class ContainerManager {
 
 	/**
 	 * Executes a mouse click on a slot. [Based on INVTW]
-	 * 
+	 *
 	 * @param index
 	 *            The index of the slot in the container
 	 * @param rightClick
