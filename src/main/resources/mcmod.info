@@ -1,0 +1,16 @@
+[
+{
+  "modid": "CraftingKeysID",
+  "name": "Crafting Keys",
+  "description": "TODO",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "http://skate702.de",
+  "updateUrl": "http://skate702.de",
+  "authorList": ["skate702"],
+  "credits": "Thanks to Inventory-Tweaks!",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

@@ -1,0 +1,12 @@
+.idea/
+.gradle/
+build/
+classes/
+eclipse/
+gradle/
+out/
+**/*.iml
+*.txt
+*.gradle
+gradlew
+gradlew.bat
