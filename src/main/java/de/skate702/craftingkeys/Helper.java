@@ -3,7 +3,7 @@ package de.skate702.craftingkeys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
-import cpw.mods.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
