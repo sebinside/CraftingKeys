@@ -1,6 +1,6 @@
 [
 {
-  "modid": "CraftingKeysID",
+  "modid": "craftingkeys",
   "name": "Crafting Keys",
   "description": "TODO",
   "version": "${version}",

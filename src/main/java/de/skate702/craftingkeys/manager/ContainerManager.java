@@ -1,9 +1,14 @@
-package de.skate702.craftingkeys;
+package de.skate702.craftingkeys.manager;
 
+import de.skate702.craftingkeys.CraftingKeys;
+import de.skate702.craftingkeys.Helper;
 import net.minecraft.client.gui.inventory.GuiCrafting;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraft.item.Item;
+import net.minecraft.block.Block;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 
@@ -214,6 +219,9 @@ public class ContainerManager {
 					}
 				}
 			}
+
+			GameRegistry.addShapelessRecipe(new ItemStack(Item.getByNameOrId("Diamond")),
+					new ItemStack(Block.getBlockFromName("Dirt")));
 
 			for (int i = 10; i < container.inventorySlots.size(); i++) {
 
