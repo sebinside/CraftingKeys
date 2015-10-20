@@ -10,3 +10,8 @@ out/
 *.gradle
 gradlew
 gradlew.bat
+.classpath
+.metadata/
+.project
+.settings/
+bin/
