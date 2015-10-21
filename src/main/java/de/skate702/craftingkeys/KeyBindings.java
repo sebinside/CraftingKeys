@@ -8,11 +8,14 @@ import org.lwjgl.input.Keyboard;
 /**
  * Provides all Key Bindings and methods to register and check them.
  */
+@Deprecated
 public class KeyBindings {
 
-    // WARNING: This does NOT work! Has to been removed. Own Option Dialog OR Settings file. Bindings are exclusive. Shit!
+    // WARNING: This does NOT work! Have to use own Option Dialog OR Settings file. Bindings are exclusive. Shit!
+
 
     private static final String category = "key.categories.craftingkeys";
+
     private static KeyBinding[] bindings = { // Inspired by CSS Position Properties
             new KeyBinding("key.topleft", Keyboard.KEY_Q, category),
             new KeyBinding("key.topcenter", Keyboard.KEY_W, category),
@@ -31,8 +34,10 @@ public class KeyBindings {
     };
 
     /**
-     * Initializes all key bindings and registers them to the client-side.
+     * Initializes all key bindings and registers them to the client-side. Bindings are exclusive.
+     * Do NOT use until there is a solution for this!
      */
+    @Deprecated
     public static void init() {
         for (KeyBinding binding : bindings) {
             ClientRegistry.registerKeyBinding(binding);

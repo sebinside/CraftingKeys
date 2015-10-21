@@ -45,7 +45,7 @@ public class CraftingKeys {
      */
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        KeyBindings.init();
+        Config.loadConfig(event);
 
     }
 
