@@ -10,5 +10,12 @@ key.lowercenter=8. Lower Center
 key.lowerright=9. Lower Right
 key.stack=Stack Key
 key.interact=Interaction Key
+
 # Control Category Name
 key.categories.craftingkeys=Crafting Keys
+
+# Config Stuff
+de.skate702.craftingkeys.keys=Keys
+de.skate702.craftingkeys.other=Other
+de.skate702.craftingkeys.keys.tooltip=Set your Keys here (Just google "LWJGL Key codes"!)
+de.skate702.craftingkeys.other.tooltip=All other settings are here!

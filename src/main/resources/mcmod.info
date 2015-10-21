@@ -1,16 +1,12 @@
 [
 {
-  "modid": "craftingkeys",
-  "name": "Crafting Keys",
-  "description": "TODO",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
-  "url": "http://skate702.de",
-  "updateUrl": "http://skate702.de",
-  "authorList": ["skate702, 0xSeb"],
-  "credits": "Thanks to Inventory-Tweaks!",
-  "logoFile": "",
-  "screenshots": [],
-  "dependencies": []
+"modid": "craftingkeys",
+"name": "Crafting Keys",
+"description": "Simple better crafting! You can change the Key Bindings by clicking on Config.",
+"version": "1.0.0",
+"credits": "Based on the open-source InvTweaks-Mod. Thanks a lot!",
+"mcversion": "1.7.10 - 1.8",
+"url": "http://skate702.de",
+"authorList": [ "skate702", "0xSeb" ]
 }
 ]
