@@ -1,4 +1,4 @@
-?# Control Names
+﻿# Control Names
 key.topleft=1. Top Left
 key.topcenter=2. Top Center
 key.topright=3. Top Right
@@ -11,4 +11,4 @@ key.lowerright=9. Lower Right
 key.stack=Stack Key
 key.interact=Interaction Key
 # Control Category Name
-key.categories.craftingkeys=Crafting Keys (Mostly red Keys are NO problem!)
+key.categories.craftingkeys=Crafting Keys

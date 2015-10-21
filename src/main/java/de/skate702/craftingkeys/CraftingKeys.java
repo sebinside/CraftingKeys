@@ -1,24 +1,20 @@
 package de.skate702.craftingkeys;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.InputEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
 import de.skate702.craftingkeys.manager.ContainerManager;
 import de.skate702.craftingkeys.proxies.CraftingKeysProxy;
 import net.minecraft.client.gui.inventory.GuiCrafting;
 import net.minecraft.inventory.Slot;
-import net.minecraft.util.ChatComponentText;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.Mod.Instance;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.Event;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.InputEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 /**
  * The Main Class of the Mod with the important onTick-Method. Some Methods are
@@ -93,10 +89,9 @@ public class CraftingKeys {
     public void onTick(TickEvent.ClientTickEvent tick) {
 
         // Message
-        if(Helper.isFirstInWorldTick()) {
+        if (Helper.isFirstInWorldTick()) {
             Helper.printWarning();
         }
-
 
 
         // Case 1: Classic GUI Screen
