@@ -1,4 +1,4 @@
-package de.skate702.craftingkeys;
+package de.skate702.craftingkeys.config;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import net.minecraft.client.Minecraft;

@@ -10,11 +10,13 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.InputEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import de.skate702.craftingkeys.config.Config;
 import de.skate702.craftingkeys.manager.ContainerManager;
 import de.skate702.craftingkeys.proxies.CraftingKeysProxy;
+import de.skate702.craftingkeys.util.Helper;
+import de.skate702.craftingkeys.util.InputUtil;
+import de.skate702.craftingkeys.util.Util;
 import net.minecraft.client.gui.inventory.GuiCrafting;
 import net.minecraft.inventory.Slot;
 
@@ -24,7 +26,7 @@ import net.minecraft.inventory.Slot;
  *
  * @author skate702
  */
-@Mod(modid = CraftingKeys.MODID, name = CraftingKeys.VERSION, version = CraftingKeys.NAME,
+@Mod(modid = CraftingKeys.MODID, name = CraftingKeys.NAME, version = CraftingKeys.VERSION,
         guiFactory = "de.skate702.craftingkeys.config.ConfigGuiFactory")
 public class CraftingKeys {
 
@@ -53,7 +55,6 @@ public class CraftingKeys {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         Config.loadConfig(event);
-
     }
 
     /**
@@ -68,14 +69,9 @@ public class CraftingKeys {
         proxy.registerRenderers();
         FMLCommonHandler.instance().bus().register(this);
 
-
+        // TODO: Helper!
         Helper.debugPrint("load(): Loaded CraftingKeys successful");
 
-    }
-
-    @SubscribeEvent
-    public void onKeyInput(InputEvent.KeyInputEvent event) {
-        System.out.println(event.toString());
     }
 
     /**
@@ -102,22 +98,22 @@ public class CraftingKeys {
     public void onTick(TickEvent.ClientTickEvent tick) {
 
         // Message
-        if (Helper.isFirstInWorldTick()) {
-            Helper.printWarning();
+        if (Util.isFirstInWorldTick()) {
+            Util.printWarning();
         }
 
 
         // Case 1: Classic GUI Screen
-        if (Helper.isCraftingGUI(Helper.client.currentScreen)) {
+        if (Util.isCraftingGUI(Util.client.currentScreen)) {
 
-            GuiCrafting guiCrafting = (GuiCrafting) Helper.client.currentScreen;
-            Slot currentHoveredSlot = Helper.getSlotAtMousePosition(guiCrafting);
+            GuiCrafting guiCrafting = (GuiCrafting) Util.client.currentScreen;
+            Slot currentHoveredSlot = InputUtil.getSlotAtMousePosition(guiCrafting);
             int keyDown = Helper.craftingKeyDownToSlotNumber();
 
             ContainerManager con = new ContainerManager(guiCrafting.inventorySlots);
 
             // Block Key Interval (avoid multiple Runs)
-            if (!Helper.isSameKey(keyDown)) {
+            if (!InputUtil.isSameKey(keyDown)) {
 
                 // Moving item to crafting table
                 if (keyDown > 0 && currentHoveredSlot != null) {

@@ -15,7 +15,12 @@ key.interact=Interaction Key
 key.categories.craftingkeys=Crafting Keys
 
 # Config Stuff
-de.skate702.craftingkeys.keys=Keys
-de.skate702.craftingkeys.other=Other
-de.skate702.craftingkeys.keys.tooltip=Set your Keys here (Just google "LWJGL Key codes"!)
-de.skate702.craftingkeys.other.tooltip=All other settings are here!
+de.skate702.craftingkeys.config.keys=Keys
+de.skate702.craftingkeys.config.other=Other
+de.skate702.craftingkeys.config.keys.tooltip=Set your Keys here (Just google "LWJGL Key codes"!)
+de.skate702.craftingkeys.config.other.tooltip=All other settings are here!
+
+# Warning
+de.skate702.craftingkeys.warn.line1=Warning: Crafting Keys is still in development!
+de.skate702.craftingkeys.warn.line2=This mod is not complete and there are some errors left.
+de.skate702.craftingkeys.warn.line3=More Information: https://github.com/0xSeb/CraftingKeys!

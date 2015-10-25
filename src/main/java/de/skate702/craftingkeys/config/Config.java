@@ -14,28 +14,37 @@ public class Config {
     /**
      * Defines the config string for the keys-category.
      */
-    public static final String categoryKeys = "keys";
+    protected static final String categoryKeys = "keys";
 
     /**
      * Defines the config string for the other-category.
      */
-    public static final String categoryOther = "other";
-    /**
-     * Defines all 11 Keys you can use with Crafting Keys.
-     */
-    public static Property keyTopLeft, keyTopCenter, keyTopRight,
-            keyCenterLeft, keyCenterCenter, keyCenterRight,
-            keyLowerLeft, keyLowerCenter, keyLowerRight,
-            keyStack, keyInteract;
-    /**
-     * Defines, if NumPad is always active for crafting.
-     */
-    public static Property enableNumPad;
-
+    protected static final String categoryOther = "other";
     /**
      * Provides the Suggested Config File.
      */
-    public static Configuration configFile;
+    protected static Configuration configFile = null;
+    /**
+     * Defines all 11 Keys you can use with Crafting Keys.
+     */
+    private static Property keyTopLeft, keyTopCenter, keyTopRight,
+            keyCenterLeft, keyCenterCenter, keyCenterRight,
+            keyLowerLeft, keyLowerCenter, keyLowerRight,
+            keyStack, keyInteract, keyDrop;
+    /**
+     * Defines, if NumPad is always active for crafting.
+     */
+    private static Property enableNumPad;
+
+    public static boolean isNumPadEnabled() {
+        return enableNumPad.getBoolean(true);
+    }
+
+
+    public static int getKeyCode(KeyType key) {
+        //return ((Property)(Config.class.getField((key.toString())))..getInt(-1); // TODO!
+        return 0;
+    }
 
     /**
      * Initializes the configFile Files, loads all values (or sets them to default).
@@ -59,7 +68,12 @@ public class Config {
      */
     public static void syncConfig() {
 
-        syncProperties();
+        if (configFile == null) {
+            // TODO: Throw Error!
+            return;
+        }
+
+        syncProperties(); // TODO: Why here?
 
         if (configFile.hasChanged())
             configFile.save();
@@ -101,13 +115,21 @@ public class Config {
 
         // Special Keys
 
-        keyStack = configFile.get(categoryKeys, "Stack Key", Keyboard.KEY_LSHIFT, "Key to move stacks instead of single items");
-        keyInteract = configFile.get(categoryKeys, "Interaction Key", Keyboard.KEY_LCONTROL, "Key to interact with e.g. crafting output");
+        keyStack = configFile.get(categoryKeys, "Stack Key", Keyboard.KEY_LSHIFT, "Key to move stacks instead of single items (key value)");
+        keyInteract = configFile.get(categoryKeys, "Interaction Key", Keyboard.KEY_LCONTROL, "Key to interact with e.g. crafting output (key value)");
+        keyDrop = configFile.get(categoryKeys, "Drop Key", Keyboard.KEY_SPACE, "Key to drop all items from crafting (key value)");
 
         // Other Settings
 
         enableNumPad = configFile.get(categoryOther, "Enable Num Pad", true, "Activates the NumPad for crafting");
 
+    }
+
+    public enum KeyType {
+        keyTopLeft, keyTopCenter, keyTopRight,
+        keyCenterLeft, keyCenterCenter, keyCenterRight,
+        keyLowerLeft, keyLowerCenter, keyLowerRight,
+        keyStack, keyInteract, keyDrop
     }
 
 }

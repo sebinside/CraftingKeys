@@ -17,7 +17,6 @@ public class ConfigGui extends GuiConfig {
     public ConfigGui(GuiScreen parent) {
         super(parent, getConfigElements(),
                 CraftingKeys.MODID, false, false, CraftingKeys.NAME);
-
     }
 
     /**
@@ -28,8 +27,8 @@ public class ConfigGui extends GuiConfig {
     private static List<IConfigElement> getConfigElements() {
         List<IConfigElement> list = new ArrayList<IConfigElement>();
 
-        list.add(categoryElement(Config.categoryKeys, Config.categoryKeys, "de.skate702.craftingkeys.keys"));
-        list.add(categoryElement(Config.categoryOther, Config.categoryOther, "de.skate702.craftingkeys.other"));
+        list.add(categoryElement(Config.categoryKeys, Config.categoryKeys, "de.skate702.craftingkeys.config.keys"));
+        list.add(categoryElement(Config.categoryOther, Config.categoryOther, "de.skate702.craftingkeys.config.other"));
 
         return list;
     }

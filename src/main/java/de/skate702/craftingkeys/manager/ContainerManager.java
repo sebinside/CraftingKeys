@@ -1,7 +1,8 @@
 package de.skate702.craftingkeys.manager;
 
 import de.skate702.craftingkeys.CraftingKeys;
-import de.skate702.craftingkeys.Helper;
+import de.skate702.craftingkeys.util.Helper;
+import de.skate702.craftingkeys.util.Util;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -143,7 +144,7 @@ public class ContainerManager {
         // Check for Item-Type
         ItemStack stackToMove;
         if (isHeld) {
-            stackToMove = Helper.client.thePlayer.inventory.getItemStack();
+            stackToMove = Util.client.thePlayer.inventory.getItemStack();
         } else {
             putItemAway(isCraftingGUI);
             stackToMove = getItemStack(sourceIndex);
@@ -177,7 +178,7 @@ public class ContainerManager {
 
     private void putItemAway(boolean isCraftingGUI) {
         // Put current Item away
-        if (Helper.client.thePlayer.inventory.getItemStack() != null) {
+        if (Util.client.thePlayer.inventory.getItemStack() != null) {
             putStackToNextEmptySlot(-1, isCraftingGUI, true);
         }
     }
@@ -247,8 +248,8 @@ public class ContainerManager {
 
         int rightClickData = (rightClick) ? 1 : 0;
 
-        CraftingKeys.instance.proxy.sendSlotClick(Helper.client.playerController, container.windowId, index,
-                rightClickData, 0, Helper.client.thePlayer);
+        CraftingKeys.instance.proxy.sendSlotClick(Util.client.playerController, container.windowId, index,
+                rightClickData, 0, Util.client.thePlayer);
 
     }
 
