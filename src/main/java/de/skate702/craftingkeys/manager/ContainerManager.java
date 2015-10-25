@@ -1,28 +1,67 @@
 package de.skate702.craftingkeys.manager;
 
 import de.skate702.craftingkeys.CraftingKeys;
-import de.skate702.craftingkeys.util.Helper;
+import de.skate702.craftingkeys.config.Config;
 import de.skate702.craftingkeys.util.Util;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import org.lwjgl.input.Keyboard;
 
-/**
- * Managing Class to move Items in Inventory Containers.
- *
- * @author skate702
- */
-public class ContainerManager {
+public abstract class ContainerManager {
 
     /**
      * The Container to work with.
      */
-    private Container container;
+    protected Container container;
 
+    /**
+     * Creates a new ContainerManager with the given container.
+     *
+     * @param container The container to work with
+     */
     public ContainerManager(Container container) {
-
         this.container = container;
+    }
 
+    /**
+     * Checks the current keyDown-Value and does the work!
+     */
+    public abstract void acceptKey();
+
+    /**
+     * Converts the first specific pressed Key to the slot in a given Inventory.
+     * Does also accept Interaction (mapped to -101) and drop key (mapped to -102).
+     *
+     * @return The slot index in the currently managed inventory gui
+     */
+    protected abstract int specificKeyDownToSlotIndex();
+
+    /**
+     * Returns, if the stack key is pressed
+     *
+     * @return True, if pressed
+     */
+    protected boolean isStackKeyDown() {
+        return Keyboard.isKeyDown(Config.getKeyStack());
+    }
+
+    /**
+     * Returns, if the Interaction key is pressed
+     *
+     * @return True, if pressed
+     */
+    protected boolean isInteractionKeyDown() {
+        return Keyboard.isKeyDown(Config.getKeyInteract());
+    }
+
+    /**
+     * Returns, if the Drop key is pressed
+     *
+     * @return True, if pressed
+     */
+    protected boolean isDropKeyDown() {
+        return Keyboard.isKeyDown(Config.getKeyDrop());
     }
 
     /**
@@ -36,9 +75,9 @@ public class ContainerManager {
         ItemStack source = getItemStack(srcIndex);
 
         if (source == null) {
-            Helper.debugPrint("moveAll(): source == null");
+            System.out.println("moveAll(): source == null");
         } else {
-            Helper.debugPrint("moveAll(): Redirected to move()");
+            System.out.println("moveAll(): Redirected to move()");
             move(srcIndex, destIndex, source.stackSize);
         }
 
@@ -59,8 +98,11 @@ public class ContainerManager {
         ItemStack destination = getItemStack(destIndex);
 
         // Same Location?
-        if (source == null || srcIndex == destIndex) {
-            Helper.debugPrint("Move(): srcIndex == destIndex OR source == null");
+        if (source == null) {
+            System.out.println("Move(): srcIndex == destIndex OR source == null");
+            return;
+        } else if (srcIndex == destIndex) {
+            System.out.println("Move(): srcIndex == destIndex OR source == null");
             return;
         }
 
@@ -81,12 +123,11 @@ public class ContainerManager {
                 leftClick(srcIndex);
             }
 
-            Helper.debugPrint("move(): Moved " + movedAmount + " from " + srcIndex + " to " + destIndex + "!");
+            System.out.println("move(): Moved " + movedAmount + " from " + srcIndex + " to " + destIndex + "!");
 
         } else {
-            Helper.debugPrint("Move(): Not the same block type!");
+            System.out.println("Move(): Not the same block type!");
         }
-
     }
 
     /**
@@ -104,30 +145,9 @@ public class ContainerManager {
 
         } else {
 
-            Helper.debugPrint("getItemStack(): Invalid index");
+            System.out.println("getItemStack(): Invalid index");
             return null;
 
-        }
-
-    }
-
-    /**
-     * Sends a click on the crafting output (craftingGUI or Inventory)
-     *
-     * @param isCraftingGUI true, if the craftingGUI is opened
-     */
-    public void clickOnCraftingOutput(boolean isCraftingGUI) {
-
-        putItemAway(isCraftingGUI);
-
-        if (isCraftingGUI) {
-
-            // Click on crafting output
-            Helper.debugPrint("clickOnCraftingOutput(): Clicked on Crafing Output.");
-            leftClick(0);
-
-        } else {
-            // TODO: Same for inventory
         }
 
     }
@@ -139,7 +159,7 @@ public class ContainerManager {
      * @param sourceIndex   The index of the slot to move items from
      * @param isCraftingGUI true, if the craftingGUI is opened
      */
-    public void putStackToNextEmptySlot(int sourceIndex, boolean isCraftingGUI, boolean isHeld) {
+    protected void putStackToNextEmptySlot(int sourceIndex, boolean isCraftingGUI, boolean isHeld) {
 
         // Check for Item-Type
         ItemStack stackToMove;
@@ -153,7 +173,7 @@ public class ContainerManager {
         // Test for empty crafting table slot
         if (!isHeld && getItemStack(sourceIndex) == null) {
 
-            Helper.debugPrint("putStackToNextEmptySlot(): No Item Stack @ " + sourceIndex + ".");
+            System.out.println("putStackToNextEmptySlot(): No Item Stack @ " + sourceIndex + ".");
             return;
         }
 
@@ -176,7 +196,7 @@ public class ContainerManager {
 
     }
 
-    private void putItemAway(boolean isCraftingGUI) {
+    protected void putItemAway(boolean isCraftingGUI) {
         // Put current Item away
         if (Util.client.thePlayer.inventory.getItemStack() != null) {
             putStackToNextEmptySlot(-1, isCraftingGUI, true);
@@ -189,7 +209,7 @@ public class ContainerManager {
      * @param isCraftingGUI true, if the craftingGUI is opened
      * @return a slot index
      */
-    private int getFirstPropperSlotIndex(boolean isCraftingGUI, ItemStack movingItem) {
+    protected int getFirstPropperSlotIndex(boolean isCraftingGUI, ItemStack movingItem) {
 
         if (isCraftingGUI) {
 
@@ -210,7 +230,7 @@ public class ContainerManager {
                     return i;
                 }
             }
-            Helper.debugPrint("getFirstProperSlotIndex(): No Propper / Empty Slot found!");
+            System.out.println("getFirstProperSlotIndex(): No Propper / Empty Slot found!");
             return -1;
         } else {
             // TODO: Same for inventory
@@ -223,7 +243,7 @@ public class ContainerManager {
      *
      * @param index The index of the slot in the container
      */
-    private void leftClick(int index) {
+    protected void leftClick(int index) {
         slotClick(index, false);
     }
 
@@ -232,7 +252,7 @@ public class ContainerManager {
      *
      * @param index The index of the slot in the container
      */
-    private void rightClick(int index) {
+    protected void rightClick(int index) {
         slotClick(index, true);
     }
 
@@ -242,13 +262,13 @@ public class ContainerManager {
      * @param index      The index of the slot in the container
      * @param rightClick True, if the click is with the right mouse button
      */
-    private void slotClick(int index, boolean rightClick) {
+    protected void slotClick(int index, boolean rightClick) {
 
-        Helper.debugPrint("slotClick(): Clicked @ Slot " + index + " with data " + rightClick + ".");
+        System.out.println("slotClick(): Clicked @ Slot " + index + " with data " + rightClick + ".");
 
         int rightClickData = (rightClick) ? 1 : 0;
 
-        CraftingKeys.instance.proxy.sendSlotClick(Util.client.playerController, container.windowId, index,
+        CraftingKeys.proxy.sendSlotClick(Util.client.playerController, container.windowId, index,
                 rightClickData, 0, Util.client.thePlayer);
 
     }

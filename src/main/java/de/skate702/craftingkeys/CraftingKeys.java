@@ -13,12 +13,10 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import de.skate702.craftingkeys.config.Config;
 import de.skate702.craftingkeys.manager.ContainerManager;
+import de.skate702.craftingkeys.manager.CraftingManager;
 import de.skate702.craftingkeys.proxies.CraftingKeysProxy;
-import de.skate702.craftingkeys.util.Helper;
-import de.skate702.craftingkeys.util.InputUtil;
 import de.skate702.craftingkeys.util.Util;
 import net.minecraft.client.gui.inventory.GuiCrafting;
-import net.minecraft.inventory.Slot;
 
 /**
  * The Main Class of the Mod with the important onTick-Method. Some Methods are
@@ -69,9 +67,6 @@ public class CraftingKeys {
         proxy.registerRenderers();
         FMLCommonHandler.instance().bus().register(this);
 
-        // TODO: Helper!
-        Helper.debugPrint("load(): Loaded CraftingKeys successful");
-
     }
 
     /**
@@ -102,74 +97,20 @@ public class CraftingKeys {
             Util.printWarning();
         }
 
-
-        // Case 1: Classic GUI Screen
         if (Util.isCraftingGUI(Util.client.currentScreen)) {
 
-            GuiCrafting guiCrafting = (GuiCrafting) Util.client.currentScreen;
-            Slot currentHoveredSlot = InputUtil.getSlotAtMousePosition(guiCrafting);
-            int keyDown = Helper.craftingKeyDownToSlotNumber();
+            ContainerManager con = new CraftingManager(
+                    ((GuiCrafting) Util.client.currentScreen).inventorySlots);
+            con.acceptKey();
 
-            ContainerManager con = new ContainerManager(guiCrafting.inventorySlots);
-
-            // Block Key Interval (avoid multiple Runs)
-            if (!InputUtil.isSameKey(keyDown)) {
-
-                // Moving item to crafting table
-                if (keyDown > 0 && currentHoveredSlot != null) {
-
-                    // Shift = Move all
-                    if (guiCrafting.isShiftKeyDown()) {
-                        con.moveAll(currentHoveredSlot.slotNumber, keyDown);
-                    } else {
-                        con.move(currentHoveredSlot.slotNumber, keyDown, 1);
-                    }
-
-                }
-
-                if (keyDown == -2) {
-
-                    // Space = Move all back
-                    Helper.debugPrint("onTick(): Move all items back or drop them.");
-
-                    for (int i = 1; i < 10; i++) {
-
-                        con.putStackToNextEmptySlot(i, true, false);
-
-                    }
-                }
-
-                // Strg = Take the output
-                if (guiCrafting.isCtrlKeyDown()) {
-
-                    if (guiCrafting.isShiftKeyDown()) {
-
-                        // Strg + Shift = Move all (resp. faster!)
-                        con.clickOnCraftingOutput(true);
-
-                    } else {
-
-                        // Send mouse click on crafting output (accept also
-                        // holding)
-                        int ticksdown = Helper.getStrgTimesDown(true);
-                        if (ticksdown == 2 || ticksdown % 15 == 0 || (ticksdown > 60 && ticksdown % 8 == 0)) {
-                            con.clickOnCraftingOutput(true);
-                        }
-
-                    }
-
-                } else {
-
-                    // Reset Strg
-                    Helper.getStrgTimesDown(false);
-                }
-
-            }
+        } else if (Util.isInventoryGUI(Util.client.currentScreen)) {
+            // do do do
+            System.out.println("Inventory");
+        } else if (Util.isVillagerGUI(Util.client.currentScreen)) {
+            // do do do
+            //((GuiMerchant) Util.client.currentScreen).inventorySlots
+            System.out.println("Villager");
         }
-
-        // Case 2: Inventory (2x2 Crafting, Quick-Armor)
-
-        // TODO: Case 2
 
     }
 }
