@@ -7,6 +7,7 @@ import org.lwjgl.input.Keyboard;
  *
  * @author sebastian
  */
+@Deprecated
 public class Helper {
 
     /**

@@ -20,10 +20,17 @@ public class Config {
      * Defines the config string for the other-category.
      */
     protected static final String categoryOther = "other";
+
+    /**
+     * Standard Return Key if there is a problem reading the config.
+     */
+    private static final int retDefKey = -1;
+
     /**
      * Provides the Suggested Config File.
      */
     protected static Configuration configFile = null;
+
     /**
      * Defines all 11 Keys you can use with Crafting Keys.
      */
@@ -31,19 +38,62 @@ public class Config {
             keyCenterLeft, keyCenterCenter, keyCenterRight,
             keyLowerLeft, keyLowerCenter, keyLowerRight,
             keyStack, keyInteract, keyDrop;
+
     /**
      * Defines, if NumPad is always active for crafting.
      */
     private static Property enableNumPad;
 
-    public static boolean isNumPadEnabled() {
-        return enableNumPad.getBoolean(true);
+    public static int getKeyTopLeft() {
+        return keyTopLeft.getInt(retDefKey);
     }
 
+    public static int getkeyTopCenter() {
+        return keyTopCenter.getInt(retDefKey);
+    }
 
-    public static int getKeyCode(KeyType key) {
-        //return ((Property)(Config.class.getField((key.toString())))..getInt(-1); // TODO!
-        return 0;
+    public static int getKeyTopRight() {
+        return keyTopRight.getInt(retDefKey);
+    }
+
+    public static int getKeyCenterLeft() {
+        return keyCenterLeft.getInt(retDefKey);
+    }
+
+    public static int getKeyCenterCenter() {
+        return keyCenterCenter.getInt(retDefKey);
+    }
+
+    public static int getKeyCenterRight() {
+        return keyCenterRight.getInt(retDefKey);
+    }
+
+    public static int getKeyLowerLeft() {
+        return keyLowerLeft.getInt(retDefKey);
+    }
+
+    public static int getKeyLowerCenter() {
+        return keyLowerCenter.getInt(retDefKey);
+    }
+
+    public static int getKeyLowerRight() {
+        return keyLowerRight.getInt(retDefKey);
+    }
+
+    public static int getKeyStack() {
+        return keyStack.getInt(retDefKey);
+    }
+
+    public static int getKeyInteract() {
+        return keyInteract.getInt(retDefKey);
+    }
+
+    public static int getKeyDrop() {
+        return keyDrop.getInt(retDefKey);
+    }
+
+    public static boolean getEnableNumPad() {
+        return enableNumPad.getBoolean(true);
     }
 
     /**
@@ -82,24 +132,18 @@ public class Config {
 
     /**
      * Generates comments for easier understanding of the categories.
-     *
-     * @param config Mod related Configuration File
      */
     private static void genComments() {
-
         configFile.addCustomCategoryComment(categoryKeys, "Keyboard codes based on http://minecraft.gamepedia.com/Key_codes");
         configFile.addCustomCategoryComment(categoryOther, "Other settings which have effects @ crafting keys");
-
     }
 
     /**
      * Loads all properties from the configFile file.
-     *
-     * @param config Mod related Configuration File
      */
     private static void syncProperties() {
 
-        // Standart Keys
+        // Standard Keys
 
         keyTopLeft = configFile.get(categoryKeys, "1. Top Left", Keyboard.KEY_Q, "Top Left crafting key (key value)");
         keyTopCenter = configFile.get(categoryKeys, "2. Top Center", Keyboard.KEY_W, "Top Center crafting key (key value)");
@@ -123,13 +167,6 @@ public class Config {
 
         enableNumPad = configFile.get(categoryOther, "Enable Num Pad", true, "Activates the NumPad for crafting");
 
-    }
-
-    public enum KeyType {
-        keyTopLeft, keyTopCenter, keyTopRight,
-        keyCenterLeft, keyCenterCenter, keyCenterRight,
-        keyLowerLeft, keyLowerCenter, keyLowerRight,
-        keyStack, keyInteract, keyDrop
     }
 
 }
