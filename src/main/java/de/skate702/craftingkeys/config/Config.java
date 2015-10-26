@@ -92,7 +92,7 @@ public class Config {
         return keyDrop.getInt(retDefKey);
     }
 
-    public static boolean getEnableNumPad() {
+    public static boolean isNumPadEnabled() {
         return enableNumPad.getBoolean(true);
     }
 

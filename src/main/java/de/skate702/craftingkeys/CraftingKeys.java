@@ -15,6 +15,7 @@ import de.skate702.craftingkeys.config.Config;
 import de.skate702.craftingkeys.manager.ContainerManager;
 import de.skate702.craftingkeys.manager.CraftingManager;
 import de.skate702.craftingkeys.proxies.CraftingKeysProxy;
+import de.skate702.craftingkeys.util.Logger;
 import de.skate702.craftingkeys.util.Util;
 import net.minecraft.client.gui.inventory.GuiCrafting;
 
@@ -87,7 +88,7 @@ public class CraftingKeys {
     /**
      * This method will be executed every Ingame Tick.
      *
-     * @param tick
+     * @param tick This is a tick. What did you think about it?
      */
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent tick) {
@@ -105,11 +106,11 @@ public class CraftingKeys {
 
         } else if (Util.isInventoryGUI(Util.client.currentScreen)) {
             // do do do
-            System.out.println("Inventory");
+            Logger.warn("onTick()", "Inventory");
         } else if (Util.isVillagerGUI(Util.client.currentScreen)) {
             // do do do
             //((GuiMerchant) Util.client.currentScreen).inventorySlots
-            System.out.println("Villager");
+            Logger.warn("onTick()", "Villager");
         }
 
     }

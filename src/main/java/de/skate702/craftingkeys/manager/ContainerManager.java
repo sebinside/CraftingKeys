@@ -2,6 +2,7 @@ package de.skate702.craftingkeys.manager;
 
 import de.skate702.craftingkeys.CraftingKeys;
 import de.skate702.craftingkeys.config.Config;
+import de.skate702.craftingkeys.util.Logger;
 import de.skate702.craftingkeys.util.Util;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
@@ -75,9 +76,8 @@ public abstract class ContainerManager {
         ItemStack source = getItemStack(srcIndex);
 
         if (source == null) {
-            System.out.println("moveAll(): source == null");
+            Logger.debug("moveAll(i,i)", "Source ItemStack from Index == null");
         } else {
-            System.out.println("moveAll(): Redirected to move()");
             move(srcIndex, destIndex, source.stackSize);
         }
 
@@ -99,10 +99,8 @@ public abstract class ContainerManager {
 
         // Same Location?
         if (source == null) {
-            System.out.println("Move(): srcIndex == destIndex OR source == null");
             return;
         } else if (srcIndex == destIndex) {
-            System.out.println("Move(): srcIndex == destIndex OR source == null");
             return;
         }
 
@@ -123,10 +121,10 @@ public abstract class ContainerManager {
                 leftClick(srcIndex);
             }
 
-            System.out.println("move(): Moved " + movedAmount + " from " + srcIndex + " to " + destIndex + "!");
+            Logger.info("move(i,i,i)", "Moved " + movedAmount + " from " + srcIndex + " to " + destIndex + "!");
 
         } else {
-            System.out.println("Move(): Not the same block type!");
+            Logger.info("move(i,i,i)", "Not the same block type!");
         }
     }
 
@@ -145,7 +143,7 @@ public abstract class ContainerManager {
 
         } else {
 
-            System.out.println("getItemStack(): Invalid index");
+            Logger.debug("getItemStack(i)", "Invalid index");
             return null;
 
         }
@@ -153,42 +151,45 @@ public abstract class ContainerManager {
     }
 
     /**
-     * Takes all items from a slot and moves them to the next empty slot or
-     * drops them.
+     * Moves a stack (held or not) to the next fitting inventory slot.
      *
-     * @param sourceIndex   The index of the slot to move items from
-     * @param isCraftingGUI true, if the craftingGUI is opened
+     * @param sourceIndex A slot index of the source items
      */
-    protected void putStackToNextEmptySlot(int sourceIndex, boolean isCraftingGUI, boolean isHeld) {
+    protected void moveStackToInventory(int sourceIndex) {
 
-        // Check for Item-Type
-        ItemStack stackToMove;
-        if (isHeld) {
-            stackToMove = Util.client.thePlayer.inventory.getItemStack();
+        // Moving Stack
+        ItemStack stackToMove = null;
+
+        // Get the stack, index or held, cleanup held stack
+        if (sourceIndex == -1) {
+            if (Util.client.thePlayer.inventory.getItemStack() != null) {
+                stackToMove = Util.client.thePlayer.inventory.getItemStack();
+            }
         } else {
-            putItemAway(isCraftingGUI);
             stackToMove = getItemStack(sourceIndex);
+
+            // Is there a currently held stack?
+            if (Util.client.thePlayer.inventory.getItemStack() != null) {
+                moveStackToInventory(-1);
+            }
         }
 
-        // Test for empty crafting table slot
-        if (!isHeld && getItemStack(sourceIndex) == null) {
-
-            System.out.println("putStackToNextEmptySlot(): No Item Stack @ " + sourceIndex + ".");
+        // Test stack
+        if (stackToMove == null) {
+            Logger.debug("moveStackToInvetory(i)", "Stack at sourceIndex not found.");
             return;
         }
 
-        // Get Destination Index
-        int destIndex = getFirstPropperSlotIndex(isCraftingGUI, stackToMove);
+        // Get destination index
+        int destIndex = calcInventoryDestination(stackToMove);
 
         // Additional click on source index, if not held
-        if (!isHeld) {
+        if (sourceIndex != -1) {
             leftClick(sourceIndex);
         }
 
-        // TODO: Optional (beta-like): Fill the items up. Let's become INVTW!
-
-        // destIndex = -1 -> drop item
-        if (destIndex == -1) {
+        // Move the item
+        if (destIndex == -1) { // -1 means: Found none, drop item
             leftClick(-999); // Nice one, InvTweaks!
         } else {
             leftClick(destIndex);
@@ -196,47 +197,47 @@ public abstract class ContainerManager {
 
     }
 
-    protected void putItemAway(boolean isCraftingGUI) {
-        // Put current Item away
-        if (Util.client.thePlayer.inventory.getItemStack() != null) {
-            putStackToNextEmptySlot(-1, isCraftingGUI, true);
-        }
-    }
-
     /**
-     * Returns the first free index in a inventory
+     * Calculates the next fitting or free inventory slot.
      *
-     * @param isCraftingGUI true, if the craftingGUI is opened
-     * @return a slot index
+     * @param stackToMove The ItemType and sized Stack to move
+     * @return A super cool inventory slot index! Or -1, if you are to dumb
+     * to keep your bloody inventory sorted! WHY U NO USE INV TWEAKS?!
      */
-    protected int getFirstPropperSlotIndex(boolean isCraftingGUI, ItemStack movingItem) {
+    private int calcInventoryDestination(ItemStack stackToMove) {
 
-        if (isCraftingGUI) {
+        // First run: Try to find a nice stack to put items on additionally
+        for (int i = getInventoryStartIndex(); i < container.inventorySlots.size(); i++) {
 
-            for (int i = 10; i < container.inventorySlots.size(); i++) {
+            ItemStack potentialGoalStack = getItemStack(i);
 
-                if (getItemStack(i) != null) {
-                    if (getItemStack(i).isItemEqual(movingItem)) {
-                        if (getItemStack(i).stackSize + movingItem.stackSize <= movingItem.getMaxStackSize()) {
-                            return i;
-                        }
+            if (potentialGoalStack != null && stackToMove != null) {
+                if (potentialGoalStack.isItemEqual(stackToMove)) {
+                    if (potentialGoalStack.stackSize + stackToMove.stackSize <= stackToMove.getMaxStackSize()) {
+                        return i;
                     }
                 }
             }
-
-            for (int i = 10; i < container.inventorySlots.size(); i++) {
-
-                if (getItemStack(i) == null) {
-                    return i;
-                }
-            }
-            System.out.println("getFirstProperSlotIndex(): No Propper / Empty Slot found!");
-            return -1;
-        } else {
-            // TODO: Same for inventory
-            return -1;
         }
+
+        // Second run: Find a free slot
+        for (int i = getInventoryStartIndex(); i < container.inventorySlots.size(); i++) {
+            if (getItemStack(i) == null) {
+                return i;
+            }
+        }
+
+        // Third run: No slot found. Drop this shit!
+        return -1;
+
     }
+
+    /**
+     * Returns the start index of the user inventory in the current Gui.
+     *
+     * @return A slot index
+     */
+    protected abstract int getInventoryStartIndex();
 
     /**
      * Executes a left mouse click on a slot. [Based on INVTW]
@@ -264,7 +265,7 @@ public abstract class ContainerManager {
      */
     protected void slotClick(int index, boolean rightClick) {
 
-        System.out.println("slotClick(): Clicked @ Slot " + index + " with data " + rightClick + ".");
+        Logger.info("slotClick(i,b)", "Clicked @ Slot " + index + " with data " + rightClick + ".");
 
         int rightClickData = (rightClick) ? 1 : 0;
 

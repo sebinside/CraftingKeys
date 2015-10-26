@@ -41,7 +41,7 @@ public class InputUtil {
             }
             return null;
         } else {
-            System.out.println("getSlotAtMousePosition(): guiContainer == null");
+            Logger.debug("getSlotAtMousePosition(gui)", "guiContainer == null");
             return null;
         }
     }
