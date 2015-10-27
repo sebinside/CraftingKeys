@@ -1,6 +1,7 @@
 package de.skate702.craftingkeys.config;
 
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import de.skate702.craftingkeys.CraftingKeys;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import org.lwjgl.input.Keyboard;
@@ -103,7 +104,7 @@ public class Config {
      */
     public static void loadConfig(FMLPreInitializationEvent event) {
 
-        configFile = new Configuration(event.getSuggestedConfigurationFile());
+        configFile = new Configuration(event.getSuggestedConfigurationFile(), CraftingKeys.VERSION);
 
         configFile.load();
 
@@ -142,31 +143,42 @@ public class Config {
      * Loads all properties from the configFile file.
      */
     private static void syncProperties() {
-
         // Standard Keys
 
-        keyTopLeft = configFile.get(categoryKeys, "1. Top Left", Keyboard.KEY_Q, "Top Left crafting key (key value)");
-        keyTopCenter = configFile.get(categoryKeys, "2. Top Center", Keyboard.KEY_W, "Top Center crafting key (key value)");
-        keyTopRight = configFile.get(categoryKeys, "3. Top Right", Keyboard.KEY_E, "Top Right crafting key (key value)");
+        keyTopLeft = configFile.get(categoryKeys, "1.0-keyTopLeft", Keyboard.KEY_Q, "Top Left crafting key (key value)");
+        keyTopLeft.setLanguageKey("key.topleft");
+        keyTopCenter = configFile.get(categoryKeys, "1.1-2keyTopCenter", Keyboard.KEY_W, "Top Center crafting key (key value)");
+        keyTopCenter.setLanguageKey("key.topcenter");
+        keyTopRight = configFile.get(categoryKeys, "1.2-keyTopRight", Keyboard.KEY_E, "Top Right crafting key (key value)");
+        keyTopRight.setLanguageKey("key.topright");
 
-        keyCenterLeft = configFile.get(categoryKeys, "4. Center Left", Keyboard.KEY_A, "Center Left crafting key (key value)");
-        keyCenterCenter = configFile.get(categoryKeys, "5. Center Center", Keyboard.KEY_S, "Center Center crafting key (key value)");
-        keyCenterRight = configFile.get(categoryKeys, "6. Center Right", Keyboard.KEY_D, "Center Right crafting key (key value)");
+        keyCenterLeft = configFile.get(categoryKeys, "2.0-keyCenterLeft", Keyboard.KEY_A, "Center Left crafting key (key value)");
+        keyCenterLeft.setLanguageKey("key.centerleft");
+        keyCenterCenter = configFile.get(categoryKeys, "2.1-keyCenterCenter", Keyboard.KEY_S, "Center Center crafting key (key value)");
+        keyCenterCenter.setLanguageKey("key.centercenter");
+        keyCenterRight = configFile.get(categoryKeys, "2.2-keyCenterRight", Keyboard.KEY_D, "Center Right crafting key (key value)");
+        keyCenterRight.setLanguageKey("key.centerright");
 
-        keyLowerLeft = configFile.get(categoryKeys, "7. Lower Left", Keyboard.KEY_Y, "Lower Left crafting key (key value)"); // German Keyboard Layout
-        keyLowerCenter = configFile.get(categoryKeys, "8. Lower Center", Keyboard.KEY_X, "Lower Center crafting key (key value)");
-        keyLowerRight = configFile.get(categoryKeys, "9. Lower Right", Keyboard.KEY_C, "Lower Right crafting key (key value)");
+        keyLowerLeft = configFile.get(categoryKeys, "3.0-keyLowerLeft", Keyboard.KEY_Y, "Lower Left crafting key (key value)"); // German Keyboard Layout
+        keyLowerLeft.setLanguageKey("key.lowerleft");
+        keyLowerCenter = configFile.get(categoryKeys, "3.1-keyLowerCenter", Keyboard.KEY_X, "Lower Center crafting key (key value)");
+        keyLowerCenter.setLanguageKey("key.lowercenter");
+        keyLowerRight = configFile.get(categoryKeys, "3.2-keyLowerRight", Keyboard.KEY_C, "Lower Right crafting key (key value)");
+        keyLowerRight.setLanguageKey("key.lowerright");
 
         // Special Keys
 
-        keyStack = configFile.get(categoryKeys, "Stack Key", Keyboard.KEY_LSHIFT, "Key to move stacks instead of single items (key value)");
-        keyInteract = configFile.get(categoryKeys, "Interaction Key", Keyboard.KEY_LCONTROL, "Key to interact with e.g. crafting output (key value)");
-        keyDrop = configFile.get(categoryKeys, "Drop Key", Keyboard.KEY_SPACE, "Key to drop all items from crafting (key value)");
+        keyStack = configFile.get(categoryKeys, "4.0-keyStack", Keyboard.KEY_LSHIFT, "Key to move stacks instead of single items (key value)");
+        keyStack.setLanguageKey("key.stack");
+        keyInteract = configFile.get(categoryKeys, "4.1-keyInteract", Keyboard.KEY_LCONTROL, "Key to interact with e.g. crafting output (key value)");
+        keyInteract.setLanguageKey("key.interact");
+        keyDrop = configFile.get(categoryKeys, "4.2-keyDrop", Keyboard.KEY_SPACE, "Key to drop all items from crafting (key value)");
+        keyDrop.setLanguageKey("key.drop");
 
         // Other Settings
 
-        enableNumPad = configFile.get(categoryOther, "Enable Num Pad", true, "Activates the NumPad for crafting");
-
+        enableNumPad = configFile.get(categoryOther, "numPadEnabled", true, "Activates the NumPad for crafting");
+        enableNumPad.setLanguageKey("options.numpadEnabled");
     }
 
 }
