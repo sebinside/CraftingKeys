@@ -10,6 +10,9 @@ key.lowercenter=8. Unten Mitte
 key.lowerright=9. Unten Rechts
 key.stack=Stack Taste
 key.interact=Interaktions Taste
+key.drop=Drop Taste
+
+options.numpadEnabled=Aktiviere Num pad
 
 # Control Category Name
 key.categories.craftingkeys=Crafting Keys
