@@ -17,7 +17,9 @@ import de.skate702.craftingkeys.manager.CraftingManager;
 import de.skate702.craftingkeys.proxies.CraftingKeysProxy;
 import de.skate702.craftingkeys.util.Logger;
 import de.skate702.craftingkeys.util.Util;
-import net.minecraft.client.gui.inventory.GuiCrafting;
+import net.minecraft.client.gui.GuiMerchant;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.inventory.*;
 
 /**
  * The Main Class of the Mod with the important onTick-Method. Some Methods are
@@ -98,19 +100,37 @@ public class CraftingKeys {
             Util.printWarning();
         }
 
-        if (Util.isCraftingGUI(Util.client.currentScreen)) {
+        // Get current Screen, then test
+        GuiScreen currentScreen = Util.client.currentScreen;
 
-            ContainerManager con = new CraftingManager(
-                    ((GuiCrafting) Util.client.currentScreen).inventorySlots);
-            con.acceptKey();
+        if (currentScreen != null) {
 
-        } else if (Util.isInventoryGUI(Util.client.currentScreen)) {
-            // do do do
-            Logger.warn("onTick()", "Inventory");
-        } else if (Util.isVillagerGUI(Util.client.currentScreen)) {
-            // do do do
-            //((GuiMerchant) Util.client.currentScreen).inventorySlots
-            Logger.warn("onTick()", "Villager");
+            if (currentScreen instanceof GuiCrafting) {
+
+                ContainerManager con = new CraftingManager(
+                        ((GuiCrafting) currentScreen).inventorySlots);
+                con.acceptKey();
+
+            } else if (currentScreen instanceof GuiInventory) {
+
+                Logger.warn("onTick()", "Inventory not implemented");
+            } else if (currentScreen instanceof GuiMerchant) {
+
+                Logger.warn("onTick()", "Villager not implemented");
+            } else if (currentScreen instanceof GuiFurnace) {
+
+                Logger.warn("onTick()", "Furnace not implemented");
+
+            } else if (currentScreen instanceof GuiDispenser) {
+
+                Logger.warn("onTick()", "Dispenser not implemented");
+            } else if (currentScreen instanceof GuiBrewingStand) {
+
+                Logger.warn("onTick()", "BrewingStand not implemented");
+            }
+
+            // TODO: What else should we support?
+
         }
 
     }

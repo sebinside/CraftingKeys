@@ -19,7 +19,7 @@ key.categories.craftingkeys=Crafting Keys
 
 # Config Stuff
 de.skate702.craftingkeys.config.keys=Tastaturbelegung
-de.skate702.craftingkeys.config.other=Weiteres
+de.skate702.craftingkeys.config.other=Anderes
 de.skate702.craftingkeys.config.keys.tooltip=Belege hier deine Tasten (Einfach mal "LWJGL Key codes" googlen!)
 de.skate702.craftingkeys.config.other.tooltip=Saemtliche anderen Einstellungen sind hier!
 

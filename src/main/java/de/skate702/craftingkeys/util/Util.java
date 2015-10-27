@@ -2,9 +2,6 @@ package de.skate702.craftingkeys.util;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.inventory.GuiCrafting;
-import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.util.ChatComponentTranslation;
 
 /**
@@ -58,39 +55,6 @@ public class Util {
         printMessage("de.skate702.craftingkeys.warn.line1");
         printMessage("de.skate702.craftingkeys.warn.line2");
         printMessage("de.skate702.craftingkeys.warn.line3");
-    }
-
-    /**
-     * Returns true, if the current Screen is a instance of GUI-Screen.
-     *
-     * @param screen The input Screen
-     * @return True, if GuiScreen; False if null
-     */
-    public static boolean isCraftingGUI(GuiScreen screen) {
-        if (screen != null) {
-            if (screen instanceof GuiCrafting) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean isInventoryGUI(GuiScreen screen) {
-        if (screen != null) {
-            if (screen instanceof GuiInventory) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean isVillagerGUI(GuiScreen screen) {
-        if (screen != null) {
-            if (screen instanceof net.minecraft.client.gui.GuiMerchant) {
-                return true;
-            }
-        }
-        return false;
     }
 
 }
