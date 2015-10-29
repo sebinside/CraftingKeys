@@ -1,25 +1,29 @@
-#Crafting Keys - Minecraft Forge Mod
-_(English Version available at: [Google Translator](https://translate.google.com/translate?act=url&depth=1&hl=en&ie=UTF8&prev=_t&rurl=translate.google.com&sl=de&tl=en&u=https://github.com/0xSeb/CraftingKeys))_
+#Crafting Keys - Simple better Crafting!
+##Minecraft Forge Mod
 
-Crafting Keys ist ein Forge Mod für Minecraft und soll das Craften wesentlich beschleunigen und auf eine ganz neue Ebene heben. Es handelt sich dabei aber um keinen Hack oder Cheat; um mit der neuen Art über Tastatureingaben zu Craften muss man auch erstmal schnell werden :)
+Crafting Keys is a modification which adds a lot of new key bindings to minecraft to enable crafting simply using the keyboard. There are also speed ups for moving items to furnaces or brewing stands. Basically every vanilla gui is supported. In future, there will hopefully be a API, to use this mod with other guis (e.g. EnderIO), too. Let's see...
 
+##Development Progress
 
-##Mehr Infos
+The whole project had been refactored and is now almost ready to be release. But there are missing a few things:
+- Optimizing the Tick-Method
+- Packet Handling (Multiplayer)
+- Better Log Output
+- Unit Tests
+- Implementing all vanilla guis
+- Better, all new GUI
 
-Mehr Infos gibt's z.B. in meinem ersten Video dazu: https://www.youtube.com/watch?v=y0iD8ReCKgU
+## More Information
 
+There are several videos about this on my youtube channel. E.g. https://www.youtube.com/watch?v=y0iD8ReCKgU
 
-##Aktueller Fortschritt
+## Support
 
-Die Mod steht ist noch weit davon entfernt, fertig zu sein. Der aktuelle Stand ist sogar noch vor einer Alpha. Wenn ihr aktuell damit rum testen wollt, buildet euch euren Code selbst :P
+If you like my work, you are welcome to [donate](https://www.twitchalerts.com/donate/skate702germany)! Programming is even more fun with hot pizza or cold coffee.
+Also, you can support the code directly with pull requests if you have a cool idea. Feedback is nice, too!
 
-
-##Kontakt & Spenden
-
-Feedback, Bugs, Verbesserungsvorschläge, Tipps und Anregungen für neue Funktionen nehme ich gerne per Mail entgegen: dev@skate702.de
-
-Wenn du außerdem das Projekt aktiv unterstützen möchtest, kannst du auch gerne dafür [spenden](https://www.twitchalerts.com/donate/skate702germany) - im Allgemeinen programmiert es sicher besser mit ungesunder Pizza und kaltem Kaffee!
+Mail-Address: dev@skate702.de
 
 --- 
 
-Noch mehr Infos: http://0xSeb.de
+Even more information: http://0xSeb.de
