@@ -107,7 +107,7 @@ public class CraftingKeys {
 
             if (currentScreen instanceof GuiCrafting) {
 
-                ContainerManager con = new CraftingManager(
+                ContainerManager con = CraftingManager.getInstance(
                         ((GuiCrafting) currentScreen).inventorySlots);
                 con.acceptKey();
 

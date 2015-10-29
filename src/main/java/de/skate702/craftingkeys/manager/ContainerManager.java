@@ -21,7 +21,7 @@ public abstract class ContainerManager {
      *
      * @param container The container to work with
      */
-    public ContainerManager(Container container) {
+    protected ContainerManager(Container container) {
         this.container = container;
     }
 

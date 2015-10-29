@@ -12,13 +12,30 @@ import org.lwjgl.input.Keyboard;
 
 public class CraftingManager extends ContainerManager {
 
+    private static CraftingManager instance = null;
+
     /**
      * Creates a new Crafting Manager with the given container.
      *
      * @param container The container from a crafting GUI
      */
-    public CraftingManager(Container container) {
+    private CraftingManager(Container container) {
         super(container);
+    }
+
+    /**
+     * Returns a Crafting Manager Instance operating on the given container
+     *
+     * @param container A container from a GUI
+     * @return manager-singleton
+     */
+    public static CraftingManager getInstance(Container container) {
+        if (instance == null) {
+            instance = new CraftingManager(container);
+        } else {
+            instance.container = container;
+        }
+        return instance;
     }
 
     @Override
