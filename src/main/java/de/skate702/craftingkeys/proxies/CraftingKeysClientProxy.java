@@ -19,11 +19,7 @@ public class CraftingKeysClientProxy extends CraftingKeysProxy {
     public void sendSlotClick(PlayerControllerMP controller, int windowId, int slot, int rightClick, int action,
                               EntityPlayer player) {
 
-        // TODO: Make this *** multiplayer friendly
-
         controller.windowClick(windowId, slot, rightClick, action, player);
-        // player.openContainer.slotClick(slot, rightClick, action, player);
-
     }
 
 }
