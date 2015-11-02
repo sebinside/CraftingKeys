@@ -85,8 +85,7 @@ public class CraftingManager extends ContainerManager {
 
                 // Handle NumKey-moving
             } else if (Util.client.thePlayer.inventory.getItemStack() != null) {
-                Logger.warn("acceptKey()", "NumKey-Moving does not work yet. Will probably work never.");
-                //handleNumKey();
+                handleNumKey();
             }
         }
     }

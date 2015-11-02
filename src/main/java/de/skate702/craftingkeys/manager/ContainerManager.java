@@ -32,7 +32,9 @@ public abstract class ContainerManager {
 
     protected void handleNumKey() {
 
-        int hotbarStartIndex = 0;
+        // see: http://wiki.vg/Inventory
+        // hotbar-slots are always the last 9 slots of the currently opened inventory.
+        int hotbarStartIndex = Util.client.thePlayer.openContainer.getInventory().size() - 9 - 1;
 
         if (Keyboard.isKeyDown(Keyboard.KEY_1)) {
             leftClick(hotbarStartIndex + 1);
@@ -55,7 +57,12 @@ public abstract class ContainerManager {
         } else {
             return;
         }
+
         moveStackToInventory(-1);
+        // Minecraft handles the Keyboard-keys as well, that's why we need to clear them first
+        // see: GuiContainer#keyTyped(char,int); -> checkHotbarKeys
+        while (Keyboard.next()) {
+        }
     }
 
     /**
