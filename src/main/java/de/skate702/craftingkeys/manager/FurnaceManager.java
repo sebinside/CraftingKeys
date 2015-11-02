@@ -4,34 +4,33 @@ import de.skate702.craftingkeys.config.Config;
 import de.skate702.craftingkeys.util.InputUtil;
 import de.skate702.craftingkeys.util.Logger;
 import de.skate702.craftingkeys.util.Util;
-import net.minecraft.client.gui.inventory.GuiCrafting;
+import net.minecraft.client.gui.inventory.GuiFurnace;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import org.lwjgl.input.Keyboard;
 
+public class FurnaceManager extends ContainerManager {
 
-public class CraftingManager extends ContainerManager {
-
-    private static CraftingManager instance = null;
+    private static FurnaceManager instance = null;
 
     /**
-     * Creates a new Crafting Manager with the given container.
+     * Creates a new Furnace Manager with the given container.
      *
      * @param container The container from a crafting GUI
      */
-    private CraftingManager(Container container) {
+    private FurnaceManager(Container container) {
         super(container);
     }
 
     /**
-     * Returns a Crafting Manager Instance operating on the given container
+     * Returns a Furnace Manager Instance operating on the given container
      *
      * @param container A container from a GUI
      * @return manager-singleton
      */
-    public static CraftingManager getInstance(Container container) {
+    public static FurnaceManager getInstance(Container container) {
         if (instance == null) {
-            instance = new CraftingManager(container);
+            instance = new FurnaceManager(container);
         } else {
             instance.container = container;
         }
@@ -41,7 +40,7 @@ public class CraftingManager extends ContainerManager {
     @Override
     public void acceptKey() {
 
-        Slot currentHoveredSlot = InputUtil.getSlotAtMousePosition((GuiCrafting) Util.client.currentScreen);
+        Slot currentHoveredSlot = InputUtil.getSlotAtMousePosition((GuiFurnace) Util.client.currentScreen);
 
         int slotIndex = specificKeyDownToSlotIndex();
 
@@ -52,7 +51,7 @@ public class CraftingManager extends ContainerManager {
 
                 Logger.info("acceptKey()", "Drop Key down.");
 
-                for (int i = 1; i < 10; i++) {
+                for (int i = 0; i < 3; i++) {
                     moveStackToInventory(i);
                 }
 
@@ -72,22 +71,22 @@ public class CraftingManager extends ContainerManager {
                 if (isStackKeyDown()) {
 
                     int oldStackSize = -1;
-                    clickOnCraftingOutput();
+                    clickOnFurnaceOutput();
 
                     while (Util.isHoldingStack() &&
                             oldStackSize != Util.getHeldStack().stackSize) {
 
                         oldStackSize = Util.getHeldStack().stackSize;
-                        clickOnCraftingOutput();
+                        clickOnFurnaceOutput();
                     }
 
                 } else {
-                    clickOnCraftingOutput();
+                    clickOnFurnaceOutput();
                 }
 
                 // Move from hovered slot
-            } else if (slotIndex > 0 && currentHoveredSlot != null &&
-                    Util.getHeldStack() == null) {
+            } else if (slotIndex >= 0 && currentHoveredSlot != null &&
+                    !Util.isHoldingStack()) {
 
                 Logger.info("acceptKey()", "Key for index " + slotIndex + " down.");
 
@@ -111,38 +110,26 @@ public class CraftingManager extends ContainerManager {
                 handleNumKey();
             }
         }
+
+    }
+
+    private void clickOnFurnaceOutput() {
+
+        // Click on furnace output
+        Logger.info("clickOnCraftingOutput()", "Clicked on Crafing Output.");
+        rightClick(2);
+
     }
 
     @Override
     protected int specificKeyDownToSlotIndex() {
 
-        if (Keyboard.isKeyDown(Config.getKeyTopLeft()) ||
-                Config.isNumPadEnabled() && Keyboard.isKeyDown(71)) {
-            return 1;
-        } else if (Keyboard.isKeyDown(Config.getKeyTopCenter()) ||
+        if (Keyboard.isKeyDown(Config.getKeyTopCenter()) ||
                 Config.isNumPadEnabled() && Keyboard.isKeyDown(72)) {
-            return 2;
-        } else if (Keyboard.isKeyDown(Config.getKeyTopRight()) ||
-                Config.isNumPadEnabled() && Keyboard.isKeyDown(73)) {
-            return 3;
-        } else if (Keyboard.isKeyDown(Config.getKeyCenterLeft()) ||
-                Config.isNumPadEnabled() && Keyboard.isKeyDown(75)) {
-            return 4;
+            return 0;
         } else if (Keyboard.isKeyDown(Config.getKeyCenterCenter()) ||
                 Config.isNumPadEnabled() && Keyboard.isKeyDown(76)) {
-            return 5;
-        } else if (Keyboard.isKeyDown(Config.getKeyCenterRight()) ||
-                Config.isNumPadEnabled() && Keyboard.isKeyDown(77)) {
-            return 6;
-        } else if (Keyboard.isKeyDown(Config.getKeyLowerLeft()) ||
-                Config.isNumPadEnabled() && Keyboard.isKeyDown(79)) {
-            return 7;
-        } else if (Keyboard.isKeyDown(Config.getKeyLowerCenter()) ||
-                Config.isNumPadEnabled() && Keyboard.isKeyDown(80)) {
-            return 8;
-        } else if (Keyboard.isKeyDown(Config.getKeyLowerRight()) ||
-                Config.isNumPadEnabled() && Keyboard.isKeyDown(81)) {
-            return 9;
+            return 1;
         } else if (Keyboard.isKeyDown(Config.getKeyInteract())) {
             return -101;
         } else if (Keyboard.isKeyDown(Config.getKeyDrop())) {
@@ -155,17 +142,6 @@ public class CraftingManager extends ContainerManager {
 
     @Override
     protected int getInventoryStartIndex() {
-        return 10;
-    }
-
-    /**
-     * Sends a click on the crafting output (craftingGUI or Inventory)
-     */
-    private void clickOnCraftingOutput() {
-
-        // Click on crafting output
-        Logger.info("clickOnCraftingOutput()", "Clicked on Crafing Output.");
-        leftClick(0);
-
+        return 3;
     }
 }

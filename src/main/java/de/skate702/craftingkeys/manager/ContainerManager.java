@@ -147,10 +147,16 @@ public abstract class ContainerManager {
         int sourceSize = source.stackSize;
         int movedAmount = Math.min(amount, sourceSize);
 
+        // Clear goal slot (May fail on full inventory!); only available if not holdling
+        if (destination != null && !source.isItemEqual(destination) && srcIndex >= 0) {
+            moveStackToInventory(destIndex);
+            destination = getItemStack(destIndex);
+        }
+
         // Move some
         if (destination == null || source.isItemEqual(destination)) {
 
-            if (srcIndex > 0) {
+            if (srcIndex >= 0) {
                 leftClick(srcIndex);
             }
 
@@ -166,7 +172,7 @@ public abstract class ContainerManager {
             Logger.info("move(i,i,i)", "Moved " + movedAmount + " from " + srcIndex + " to " + destIndex + "!");
 
         } else {
-            Logger.info("move(i,i,i)", "Not the same block type!");
+            Logger.info("move(i,i,i)", "Unable to move!");
         }
     }
 
@@ -183,8 +189,8 @@ public abstract class ContainerManager {
             Slot slot = (Slot) (container.inventorySlots.get(index));
             return (slot == null) ? null : slot.getStack();
 
-        } else if (index == -1 && Util.client.thePlayer.inventory.getItemStack() != null) {
-            return Util.client.thePlayer.inventory.getItemStack();
+        } else if (index == -1 && Util.isHoldingStack()) {
+            return Util.getHeldStack();
         } else {
 
             Logger.debug("getItemStack(i)", "Invalid index");
@@ -206,14 +212,14 @@ public abstract class ContainerManager {
 
         // Get the stack, index or held, cleanup held stack
         if (sourceIndex == -1) {
-            if (Util.client.thePlayer.inventory.getItemStack() != null) {
-                stackToMove = Util.client.thePlayer.inventory.getItemStack();
+            if (Util.isHoldingStack()) {
+                stackToMove = Util.getHeldStack();
             }
         } else {
             stackToMove = getItemStack(sourceIndex);
 
             // Is there a currently held stack?
-            if (Util.client.thePlayer.inventory.getItemStack() != null) {
+            if (Util.isHoldingStack()) {
                 moveStackToInventory(-1);
             }
         }

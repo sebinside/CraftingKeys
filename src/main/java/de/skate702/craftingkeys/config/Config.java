@@ -50,7 +50,7 @@ public class Config {
         return keyTopLeft.getInt(retDefKey);
     }
 
-    public static int getkeyTopCenter() {
+    public static int getKeyTopCenter() {
         return keyTopCenter.getInt(retDefKey);
     }
 

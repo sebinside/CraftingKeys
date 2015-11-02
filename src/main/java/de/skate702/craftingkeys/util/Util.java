@@ -37,7 +37,7 @@ public class Util {
      * Returns if the current player is helding a item stack.
      * @return True, if held stack != null
      */
-    public static boolean isHeldingStack() {
+    public static boolean isHoldingStack() {
         return (getHeldStack() != null);
     }
 

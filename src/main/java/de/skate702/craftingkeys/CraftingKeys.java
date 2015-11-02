@@ -14,6 +14,7 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import de.skate702.craftingkeys.config.Config;
 import de.skate702.craftingkeys.manager.ContainerManager;
 import de.skate702.craftingkeys.manager.CraftingManager;
+import de.skate702.craftingkeys.manager.FurnaceManager;
 import de.skate702.craftingkeys.proxies.CraftingKeysProxy;
 import de.skate702.craftingkeys.util.Logger;
 import de.skate702.craftingkeys.util.Util;
@@ -114,19 +115,25 @@ public class CraftingKeys {
             } else if (currentScreen instanceof GuiInventory) {
 
                 Logger.warn("onTick()", "Inventory not implemented");
+
             } else if (currentScreen instanceof GuiMerchant) {
 
                 Logger.warn("onTick()", "Villager not implemented");
+
             } else if (currentScreen instanceof GuiFurnace) {
 
-                Logger.warn("onTick()", "Furnace not implemented");
+                ContainerManager con = FurnaceManager.getInstance(
+                        ((GuiFurnace) currentScreen).inventorySlots);
+                con.acceptKey();
 
             } else if (currentScreen instanceof GuiDispenser) {
 
                 Logger.warn("onTick()", "Dispenser not implemented");
+
             } else if (currentScreen instanceof GuiBrewingStand) {
 
                 Logger.warn("onTick()", "BrewingStand not implemented");
+
             }
 
         }
