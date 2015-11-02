@@ -2,13 +2,18 @@ package de.skate702.craftingkeys.manager;
 
 import de.skate702.craftingkeys.CraftingKeys;
 import de.skate702.craftingkeys.config.Config;
+import de.skate702.craftingkeys.util.InputUtil;
 import de.skate702.craftingkeys.util.Logger;
 import de.skate702.craftingkeys.util.Util;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.input.Keyboard;
 
+/**
+ * Provides all needed methods to handle and manage a gui inventory. Does also provide frames for own implementations.
+ */
 public abstract class ContainerManager {
 
     /**
@@ -27,9 +32,123 @@ public abstract class ContainerManager {
 
     /**
      * Checks the current keyDown-Value and does the work!
+     * Use the implementation in ContainerManager if possible. Or define your own.
      */
-    public abstract void acceptKey();
+    public void acceptKey() {
 
+        // Get hovered slot and goal slotIndex of pressed key (if pressed)
+        Slot currentHoveredSlot = InputUtil.getSlotAtMousePosition((GuiContainer) Util.client.currentScreen);
+        int slotIndex = specificKeyToSlotIndex();
+
+        // Handle accepted key
+        if (!InputUtil.isSameKey(slotIndex)) {
+
+
+            if (Config.isKeyDropPressed()) { // DROP
+
+                Logger.info("acceptKey()", "Drop Key pressed.");
+                onDropKeyPressed();
+
+            } else if (Config.isKeyInteractPressed()) { // INTERACT
+
+                Logger.info("acceptKey()", "Interaction Key pressed.");
+                onInteractionKeyPressed();
+
+
+            } else if (slotIndex >= 0 && currentHoveredSlot != null &&
+                    !Util.isHoldingStack()) { // MOVE FROM SLOT
+
+                Logger.info("acceptKey()", "Key for index " + slotIndex + " pressed.");
+                onSpecificKeyPressed(currentHoveredSlot.slotNumber, slotIndex);
+
+
+            } else if (Util.isHoldingStack()) { // MOVE FROM HAND
+
+                onHolding(slotIndex);
+                handleNumKey();
+
+            }
+
+        }
+
+    }
+
+    /**
+     * Handles what to do when the DropKey is pressed in acceptKey().
+     */
+    protected void onDropKeyPressed() {
+
+        // Drop every defined dropSlot-Item
+        for (int i : getDropSlots()) {
+            moveStackToInventory(i);
+        }
+
+    }
+
+    /**
+     * Handles what to do when the InteractionKey is pressed in acceptKey().
+     */
+    protected void onInteractionKeyPressed() {
+
+        // Handles Interaction with items held
+        // Stack up on hand if equal or small enough, else throw held stack away
+        if (Util.isHoldingStack() && getItemStack(getInteractionSlotIndex()) != null && (
+                !Util.getHeldStack().isItemEqual(getItemStack(getInteractionSlotIndex()))
+                        || Util.getHeldStack().stackSize + getItemStack(getInteractionSlotIndex()).stackSize
+                        > getItemStack(getInteractionSlotIndex()).getMaxStackSize())) {
+            moveStackToInventory(-1);
+        }
+
+        // Handle Interaction
+        if (Config.isKeyStackPressed()) {
+
+            int oldStackSize = -1;
+            interact();
+
+            while (Util.isHoldingStack() &&
+                    oldStackSize != Util.getHeldStack().stackSize) {
+
+                oldStackSize = Util.getHeldStack().stackSize;
+                interact();
+            }
+
+        } else {
+            interact();
+        }
+
+    }
+
+    /**
+     * Handles what to do if a specific key is pressed in acceptKey().
+     *
+     * @param currentHoveredSlot the slot number of the currently hovered Slot (mouse hover)
+     * @param slotIndex          the slot index returned from the key input calculation
+     */
+    protected void onSpecificKeyPressed(int currentHoveredSlot, int slotIndex) {
+
+        if (Config.isKeyStackPressed()) {
+            moveAll(currentHoveredSlot, slotIndex);
+            moveStackToInventory(-1);
+        } else {
+            move(currentHoveredSlot, slotIndex, 1);
+        }
+
+    }
+
+    /**
+     * Handles what to do with held items in acceptKey().
+     *
+     * @param slotIndex the slot index returned from the key input calculation
+     */
+    protected void onHolding(int slotIndex) {
+
+        onSpecificKeyPressed(-1, slotIndex);
+
+    }
+
+    /**
+     * Handles what to do with NumKey-Inputs while holding a item.
+     */
     protected void handleNumKey() {
 
         // hotbar-slots are always the last 9 slots of the currently opened inventory
@@ -75,33 +194,52 @@ public abstract class ContainerManager {
      *
      * @return The slot index in the currently managed inventory gui
      */
-    protected abstract int specificKeyDownToSlotIndex();
+    protected abstract int specificKeyToSlotIndex();
 
     /**
-     * Returns, if the stack key is pressed
+     * Maps all specific keys to given indices. Can be used in specificKeyToSlotIndex()
      *
-     * @return True, if pressed
+     * @param topLeft      top-left slot index
+     * @param topCenter    top-center slot index
+     * @param topRight     top-right slot index
+     * @param centerLeft   center-left slot index
+     * @param centerCenter center-center slot index
+     * @param centerRight  center-right slot index
+     * @param lowerLeft    lower-left slot index
+     * @param lowerCenter  lower-center slot index
+     * @param lowerRight   lower-right slot index
+     * @return a slot index. wow!
      */
-    protected boolean isStackKeyDown() {
-        return Keyboard.isKeyDown(Config.getKeyStack());
-    }
+    protected int mapKeyToSlot(int topLeft, int topCenter, int topRight,
+                               int centerLeft, int centerCenter, int centerRight,
+                               int lowerLeft, int lowerCenter, int lowerRight) {
 
-    /**
-     * Returns, if the Interaction key is pressed
-     *
-     * @return True, if pressed
-     */
-    protected boolean isInteractionKeyDown() {
-        return Keyboard.isKeyDown(Config.getKeyInteract());
-    }
+        if (Config.isKeyTopLeftPressed()) {
+            return topLeft;
+        } else if (Config.isKeyTopCenterPressed()) {
+            return topCenter;
+        } else if (Config.isKeyTopRightPressed()) {
+            return topRight;
+        } else if (Config.isKeyCenterLeftPressed()) {
+            return centerLeft;
+        } else if (Config.isKeyCenterCenterPressed()) {
+            return centerCenter;
+        } else if (Config.isKeyCenterRightPressed()) {
+            return centerRight;
+        } else if (Config.isKeyLowerLeftPressed()) {
+            return lowerLeft;
+        } else if (Config.isKeyLowerCenterPressed()) {
+            return lowerCenter;
+        } else if (Config.isKeyLowerRightPressed()) {
+            return lowerRight;
+        } else if (Config.isKeyInteractPressed()) {
+            return -101;
+        } else if (Config.isKeyDropPressed()) {
+            return -102;
+        } else {
+            return -1;
+        }
 
-    /**
-     * Returns, if the Drop key is pressed
-     *
-     * @return True, if pressed
-     */
-    protected boolean isDropKeyDown() {
-        return Keyboard.isKeyDown(Config.getKeyDrop());
     }
 
     /**
@@ -110,7 +248,7 @@ public abstract class ContainerManager {
      * @param srcIndex  The Source Slot Index of the Container
      * @param destIndex The Destination Slot Index of the Container
      */
-    public void moveAll(int srcIndex, int destIndex) {
+    protected void moveAll(int srcIndex, int destIndex) {
 
         ItemStack source = getItemStack(srcIndex);
 
@@ -130,7 +268,7 @@ public abstract class ContainerManager {
      * @param destIndex The Destination Slot Index of the Container
      * @param amount    The amount of items to move (can be bigger then Stack Size)
      */
-    public void move(int srcIndex, int destIndex, int amount) {
+    protected void move(int srcIndex, int destIndex, int amount) {
 
         // Stacks
         ItemStack source = getItemStack(srcIndex);
@@ -290,6 +428,12 @@ public abstract class ContainerManager {
      * @return A slot index
      */
     protected abstract int getInventoryStartIndex();
+
+    protected abstract int getInteractionSlotIndex();
+
+    protected abstract int[] getDropSlots();
+
+    protected abstract void interact();
 
     /**
      * Executes a left mouse click on a slot. [Based on INVTW]

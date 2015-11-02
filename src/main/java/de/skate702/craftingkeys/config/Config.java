@@ -36,7 +36,7 @@ public class Config {
     /**
      * Defines all 11 Keys you can use with Crafting Keys.
      */
-    private static Property keyTopLeft, keyTopCenter, keyTopRight,
+    protected static Property keyTopLeft, keyTopCenter, keyTopRight,
             keyCenterLeft, keyCenterCenter, keyCenterRight,
             keyLowerLeft, keyLowerCenter, keyLowerRight,
             keyStack, keyInteract, keyDrop;
@@ -44,54 +44,54 @@ public class Config {
     /**
      * Defines, if NumPad is always active for crafting.
      */
-    private static Property enableNumPad;
+    protected static Property enableNumPad;
 
-    public static int getKeyTopLeft() {
-        return keyTopLeft.getInt(retDefKey);
+    public static boolean isKeyTopLeftPressed() {
+        return Keyboard.isKeyDown(keyTopLeft.getInt(retDefKey)) || isNumPadEnabled() && Keyboard.isKeyDown(71);
     }
 
-    public static int getKeyTopCenter() {
-        return keyTopCenter.getInt(retDefKey);
+    public static boolean isKeyTopCenterPressed() {
+        return Keyboard.isKeyDown(keyTopCenter.getInt(retDefKey)) || isNumPadEnabled() && Keyboard.isKeyDown(72);
     }
 
-    public static int getKeyTopRight() {
-        return keyTopRight.getInt(retDefKey);
+    public static boolean isKeyTopRightPressed() {
+        return Keyboard.isKeyDown(keyTopRight.getInt(retDefKey)) || isNumPadEnabled() && Keyboard.isKeyDown(73);
     }
 
-    public static int getKeyCenterLeft() {
-        return keyCenterLeft.getInt(retDefKey);
+    public static boolean isKeyCenterLeftPressed() {
+        return Keyboard.isKeyDown(keyCenterLeft.getInt(retDefKey)) || isNumPadEnabled() && Keyboard.isKeyDown(75);
     }
 
-    public static int getKeyCenterCenter() {
-        return keyCenterCenter.getInt(retDefKey);
+    public static boolean isKeyCenterCenterPressed() {
+        return Keyboard.isKeyDown(keyCenterCenter.getInt(retDefKey)) || isNumPadEnabled() && Keyboard.isKeyDown(76);
     }
 
-    public static int getKeyCenterRight() {
-        return keyCenterRight.getInt(retDefKey);
+    public static boolean isKeyCenterRightPressed() {
+        return Keyboard.isKeyDown(keyCenterRight.getInt(retDefKey)) || isNumPadEnabled() && Keyboard.isKeyDown(77);
     }
 
-    public static int getKeyLowerLeft() {
-        return keyLowerLeft.getInt(retDefKey);
+    public static boolean isKeyLowerLeftPressed() {
+        return Keyboard.isKeyDown(keyLowerLeft.getInt(retDefKey)) || isNumPadEnabled() && Keyboard.isKeyDown(79);
     }
 
-    public static int getKeyLowerCenter() {
-        return keyLowerCenter.getInt(retDefKey);
+    public static boolean isKeyLowerCenterPressed() {
+        return Keyboard.isKeyDown(keyLowerCenter.getInt(retDefKey)) || isNumPadEnabled() && Keyboard.isKeyDown(80);
     }
 
-    public static int getKeyLowerRight() {
-        return keyLowerRight.getInt(retDefKey);
+    public static boolean isKeyLowerRightPressed() {
+        return Keyboard.isKeyDown(keyLowerRight.getInt(retDefKey)) || isNumPadEnabled() && Keyboard.isKeyDown(81);
     }
 
-    public static int getKeyStack() {
-        return keyStack.getInt(retDefKey);
+    public static boolean isKeyStackPressed() {
+        return Keyboard.isKeyDown(keyStack.getInt(retDefKey));
     }
 
-    public static int getKeyInteract() {
-        return keyInteract.getInt(retDefKey);
+    public static boolean isKeyInteractPressed() {
+        return Keyboard.isKeyDown(keyInteract.getInt(retDefKey));
     }
 
-    public static int getKeyDrop() {
-        return keyDrop.getInt(retDefKey);
+    public static boolean isKeyDropPressed() {
+        return Keyboard.isKeyDown(keyDrop.getInt(retDefKey));
     }
 
     public static boolean isNumPadEnabled() {
