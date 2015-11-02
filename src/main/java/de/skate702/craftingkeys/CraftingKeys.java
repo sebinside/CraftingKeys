@@ -15,6 +15,7 @@ import de.skate702.craftingkeys.config.Config;
 import de.skate702.craftingkeys.manager.ContainerManager;
 import de.skate702.craftingkeys.manager.CraftingManager;
 import de.skate702.craftingkeys.manager.FurnaceManager;
+import de.skate702.craftingkeys.manager.InventoryManager;
 import de.skate702.craftingkeys.proxies.CraftingKeysProxy;
 import de.skate702.craftingkeys.util.Logger;
 import de.skate702.craftingkeys.util.Util;
@@ -114,7 +115,9 @@ public class CraftingKeys {
 
             } else if (currentScreen instanceof GuiInventory) {
 
-                Logger.warn("onTick()", "Inventory not implemented");
+                ContainerManager con = InventoryManager.getInstance(
+                        ((GuiInventory) currentScreen).inventorySlots);
+                con.acceptKey();
 
             } else if (currentScreen instanceof GuiMerchant) {
 
