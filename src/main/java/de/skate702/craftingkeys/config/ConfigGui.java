@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * Custom Config Gui for Mod Options inside of Minecraft.
  */
+@Deprecated
 public class ConfigGui extends GuiConfig {
     public ConfigGui(GuiScreen parent) {
         super(parent, getConfigElements(),

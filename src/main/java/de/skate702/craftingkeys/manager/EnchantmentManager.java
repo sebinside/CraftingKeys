@@ -4,30 +4,30 @@ import de.skate702.craftingkeys.util.Logger;
 import net.minecraft.inventory.Container;
 
 /**
- * Manages a Inventory GUI Inventory.
+ * Manages a Enchantment Table GUI Inventory.
  */
-public class InventoryManager extends ContainerManager {
+public class EnchantmentManager extends ContainerManager {
 
-    private static InventoryManager instance = null;
+    private static EnchantmentManager instance = null;
 
     /**
-     * Creates a new Inventory Manager with the given container.
+     * Creates a new Enchantment Manager with the given container.
      *
      * @param container The container from a crafting GUI
      */
-    private InventoryManager(Container container) {
+    private EnchantmentManager(Container container) {
         super(container);
     }
 
     /**
-     * Returns a Inventory Manager Instance operating on the given container
+     * Returns a Enchantment Manager Instance operating on the given container
      *
      * @param container A container from a GUI
      * @return manager-singleton
      */
-    public static InventoryManager getInstance(Container container) {
+    public static EnchantmentManager getInstance(Container container) {
         if (instance == null) {
-            instance = new InventoryManager(container);
+            instance = new EnchantmentManager(container);
         } else {
             instance.container = container;
         }
@@ -36,13 +36,15 @@ public class InventoryManager extends ContainerManager {
 
     @Override
     protected int specificKeyToSlotIndex() {
+        return mapKeyToSlot(-1, 0, -1, -1, 0, -1, -1, -1, -1);
+        // return mapKeyToSlot(-1, 0, 1, -1, 0, 1, -1, -1, -1);
 
-        return mapKeyToSlot(-1, 1, 2, -1, 3, 4, -1, -1, -1);
     }
 
     @Override
     protected int getInventoryStartIndex() {
-        return 9;
+        return 1;
+        // return 2;
     }
 
     @Override
@@ -52,18 +54,19 @@ public class InventoryManager extends ContainerManager {
 
     @Override
     protected int[] getDropSlots() {
-        return new int[]{1, 2, 3, 4};
+        return new int[]{0};
+        // return new int[] {0, 1};
     }
 
     @Override
     protected void interact() {
-        clickOnCraftingOutput();
+        clickOnItem();
     }
 
     /**
-     * Sends a click on the crafting output
+     * Sends a click on the enchanted item
      */
-    private void clickOnCraftingOutput() {
+    private void clickOnItem() {
 
         Logger.info("clickOnCraftingOutput()", "Clicked on Crafing Output.");
         leftClick(0);

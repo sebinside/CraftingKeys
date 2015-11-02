@@ -12,13 +12,11 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import de.skate702.craftingkeys.config.Config;
-import de.skate702.craftingkeys.manager.ContainerManager;
-import de.skate702.craftingkeys.manager.CraftingManager;
-import de.skate702.craftingkeys.manager.FurnaceManager;
-import de.skate702.craftingkeys.manager.InventoryManager;
+import de.skate702.craftingkeys.manager.*;
 import de.skate702.craftingkeys.proxies.CraftingKeysProxy;
 import de.skate702.craftingkeys.util.Logger;
 import de.skate702.craftingkeys.util.Util;
+import net.minecraft.client.gui.GuiEnchantment;
 import net.minecraft.client.gui.GuiMerchant;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.*;
@@ -121,7 +119,9 @@ public class CraftingKeys {
 
             } else if (currentScreen instanceof GuiMerchant) {
 
-                Logger.warn("onTick()", "Villager not implemented");
+                ContainerManager con = VillagerManager.getInstance(
+                        ((GuiMerchant) currentScreen).inventorySlots);
+                con.acceptKey();
 
             } else if (currentScreen instanceof GuiFurnace) {
 
@@ -131,11 +131,21 @@ public class CraftingKeys {
 
             } else if (currentScreen instanceof GuiDispenser) {
 
-                Logger.warn("onTick()", "Dispenser not implemented");
+                ContainerManager con = DispenserManager.getInstance(
+                        ((GuiDispenser) currentScreen).inventorySlots);
+                con.acceptKey();
 
             } else if (currentScreen instanceof GuiBrewingStand) {
 
-                Logger.warn("onTick()", "BrewingStand not implemented");
+                ContainerManager con = BrewingManager.getInstance(
+                        ((GuiBrewingStand) currentScreen).inventorySlots);
+                con.acceptKey();
+
+            } else if (currentScreen instanceof GuiEnchantment) {
+
+                ContainerManager con = EnchantmentManager.getInstance(
+                        ((GuiEnchantment) currentScreen).inventorySlots);
+                con.acceptKey();
 
             }
 

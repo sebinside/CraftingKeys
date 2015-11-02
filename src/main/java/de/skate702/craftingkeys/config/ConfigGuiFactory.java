@@ -9,6 +9,7 @@ import java.util.Set;
 /**
  * A Config Gui Factory which always returns the ConfigGUI-Class. Nothing more to see here, go away!
  */
+@Deprecated
 public class ConfigGuiFactory implements IModGuiFactory {
     @Override
     public void initialize(Minecraft minecraftInstance) {

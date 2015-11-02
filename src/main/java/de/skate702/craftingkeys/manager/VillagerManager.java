@@ -1,33 +1,34 @@
 package de.skate702.craftingkeys.manager;
 
+
 import de.skate702.craftingkeys.util.Logger;
 import net.minecraft.inventory.Container;
 
 /**
- * Manages a Furnace GUI Inventory.
+ * Manages a Villager GUI Inventory.
  */
-public class FurnaceManager extends ContainerManager {
+public class VillagerManager extends ContainerManager {
 
-    private static FurnaceManager instance = null;
+    private static VillagerManager instance = null;
 
     /**
-     * Creates a new Furnace Manager with the given container.
+     * Creates a new Villager Manager with the given container.
      *
      * @param container The container from a crafting GUI
      */
-    private FurnaceManager(Container container) {
+    private VillagerManager(Container container) {
         super(container);
     }
 
     /**
-     * Returns a Furnace Manager Instance operating on the given container
+     * Returns a Villager Manager Instance operating on the given container
      *
      * @param container A container from a GUI
      * @return manager-singleton
      */
-    public static FurnaceManager getInstance(Container container) {
+    public static VillagerManager getInstance(Container container) {
         if (instance == null) {
-            instance = new FurnaceManager(container);
+            instance = new VillagerManager(container);
         } else {
             instance.container = container;
         }
@@ -36,9 +37,7 @@ public class FurnaceManager extends ContainerManager {
 
     @Override
     protected int specificKeyToSlotIndex() {
-
-        return mapKeyToSlot(-1, 0, -1, -1, 1, -1, -1, -1, -1);
-
+        return mapKeyToSlot(-1, 0, 1, -1, 0, 1, -1, -1, -1);
     }
 
     @Override
@@ -53,21 +52,21 @@ public class FurnaceManager extends ContainerManager {
 
     @Override
     protected int[] getDropSlots() {
-        return new int[]{0, 1, 2};
+        return new int[]{0, 1};
     }
 
     @Override
     protected void interact() {
-        clickOnFurnaceOutput();
+        clickOnVillagerOutput();
     }
 
     /**
      * Sends a click on the furnace output
      */
-    private void clickOnFurnaceOutput() {
+    private void clickOnVillagerOutput() {
 
-        Logger.info("clickOnFurnaceOutput()", "Clicked on Furnace Output.");
-        rightClick(2);
+        Logger.info("clickOnVillagerOutput()", "Clicked on Villager Output.");
+        leftClick(2);
 
     }
 }
