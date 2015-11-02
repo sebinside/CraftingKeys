@@ -7,9 +7,7 @@ Crafting Keys is a modification which adds a lot of new key bindings to minecraf
 
 The whole project had been refactored and is now almost ready to be release. But there are missing a few things:
 - Better Log Output
-- Unit Tests
 - Implementing all vanilla guis
-- Add number compr.
 - Better, all new GUI
 
 ## More Information

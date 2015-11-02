@@ -30,6 +30,34 @@ public abstract class ContainerManager {
      */
     public abstract void acceptKey();
 
+    protected void handleNumKey() {
+
+        int hotbarStartIndex = 0;
+
+        if (Keyboard.isKeyDown(Keyboard.KEY_1)) {
+            leftClick(hotbarStartIndex + 1);
+        } else if (Keyboard.isKeyDown(Keyboard.KEY_2)) {
+            leftClick(hotbarStartIndex + 2);
+        } else if (Keyboard.isKeyDown(Keyboard.KEY_3)) {
+            leftClick(hotbarStartIndex + 3);
+        } else if (Keyboard.isKeyDown(Keyboard.KEY_4)) {
+            leftClick(hotbarStartIndex + 4);
+        } else if (Keyboard.isKeyDown(Keyboard.KEY_5)) {
+            leftClick(hotbarStartIndex + 5);
+        } else if (Keyboard.isKeyDown(Keyboard.KEY_6)) {
+            leftClick(hotbarStartIndex + 6);
+        } else if (Keyboard.isKeyDown(Keyboard.KEY_7)) {
+            leftClick(hotbarStartIndex + 7);
+        } else if (Keyboard.isKeyDown(Keyboard.KEY_8)) {
+            leftClick(hotbarStartIndex + 8);
+        } else if (Keyboard.isKeyDown(Keyboard.KEY_9)) {
+            leftClick(hotbarStartIndex + 9);
+        } else {
+            return;
+        }
+        moveStackToInventory(-1);
+    }
+
     /**
      * Converts the first specific pressed Key to the slot in a given Inventory.
      * Does also accept Interaction (mapped to -101) and drop key (mapped to -102).

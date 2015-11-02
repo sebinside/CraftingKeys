@@ -47,12 +47,14 @@ public class CraftingManager extends ContainerManager {
 
         if (!InputUtil.isSameKey(slotIndex)) {
 
+            // Drop
             if (isDropKeyDown()) {
 
                 for (int i = 1; i < 10; i++) {
                     moveStackToInventory(i);
                 }
 
+                // Get from output
             } else if (isInteractionKeyDown()) {
 
                 if (isStackKeyDown()) {
@@ -71,6 +73,7 @@ public class CraftingManager extends ContainerManager {
                     clickOnCraftingOutput();
                 }
 
+                // Move
             } else if (slotIndex > 0 && currentHoveredSlot != null) {
 
                 if (isStackKeyDown()) {
@@ -79,6 +82,11 @@ public class CraftingManager extends ContainerManager {
                 } else {
                     move(currentHoveredSlot.slotNumber, slotIndex, 1);
                 }
+
+                // Handle NumKey-moving
+            } else if (Util.client.thePlayer.inventory.getItemStack() != null) {
+                Logger.warn("acceptKey()", "NumKey-Moving does not work yet. Will probably work never.");
+                //handleNumKey();
             }
         }
     }
