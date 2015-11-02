@@ -32,8 +32,7 @@ public abstract class ContainerManager {
 
     protected void handleNumKey() {
 
-        // see: http://wiki.vg/Inventory
-        // hotbar-slots are always the last 9 slots of the currently opened inventory.
+        // hotbar-slots are always the last 9 slots of the currently opened inventory
         int hotbarStartIndex = Util.client.thePlayer.openContainer.getInventory().size() - 9 - 1;
 
         if (Keyboard.isKeyDown(Keyboard.KEY_1)) {
@@ -59,8 +58,8 @@ public abstract class ContainerManager {
         }
 
         moveStackToInventory(-1);
-        // Minecraft handles the Keyboard-keys as well, that's why we need to clear them first
-        // see: GuiContainer#keyTyped(char,int); -> checkHotbarKeys
+
+        // Handle Minecraft handling. Ah...
         while (Keyboard.next()) {
         }
     }
@@ -146,13 +145,16 @@ public abstract class ContainerManager {
         // Move some
         if (destination == null || source.isItemEqual(destination)) {
 
-            leftClick(srcIndex);
+            if (srcIndex > 0) {
+                leftClick(srcIndex);
+            }
+
             for (int i = 0; i < movedAmount; i++) {
                 rightClick(destIndex);
             }
 
             // Move back
-            if (movedAmount < sourceSize) {
+            if (movedAmount < sourceSize && srcIndex > 0) {
                 leftClick(srcIndex);
             }
 
@@ -176,6 +178,8 @@ public abstract class ContainerManager {
             Slot slot = (Slot) (container.inventorySlots.get(index));
             return (slot == null) ? null : slot.getStack();
 
+        } else if (index == -1 && Util.client.thePlayer.inventory.getItemStack() != null) {
+            return Util.client.thePlayer.inventory.getItemStack();
         } else {
 
             Logger.debug("getItemStack(i)", "Invalid index");

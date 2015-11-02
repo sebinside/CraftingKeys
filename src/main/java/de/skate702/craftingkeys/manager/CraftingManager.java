@@ -57,6 +57,10 @@ public class CraftingManager extends ContainerManager {
                 // Get from output
             } else if (isInteractionKeyDown()) {
 
+                if (Util.client.thePlayer.inventory.getItemStack() != null) {
+                    moveStackToInventory(-1);
+                }
+
                 if (isStackKeyDown()) {
 
                     int oldStackSize = -1;
@@ -73,8 +77,9 @@ public class CraftingManager extends ContainerManager {
                     clickOnCraftingOutput();
                 }
 
-                // Move
-            } else if (slotIndex > 0 && currentHoveredSlot != null) {
+                // Move from hovered slot
+            } else if (slotIndex > 0 && currentHoveredSlot != null &&
+                    Util.client.thePlayer.inventory.getItemStack() == null) {
 
                 if (isStackKeyDown()) {
                     moveAll(currentHoveredSlot.slotNumber, slotIndex);
@@ -83,8 +88,16 @@ public class CraftingManager extends ContainerManager {
                     move(currentHoveredSlot.slotNumber, slotIndex, 1);
                 }
 
-                // Handle NumKey-moving
+                // Handle NumKey-moving and held-moving
             } else if (Util.client.thePlayer.inventory.getItemStack() != null) {
+
+                if (isStackKeyDown()) {
+                    moveAll(-1, slotIndex);
+                    moveStackToInventory(-1);
+                } else {
+                    move(-1, slotIndex, 1);
+                }
+
                 handleNumKey();
             }
         }
