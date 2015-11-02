@@ -34,33 +34,38 @@ public abstract class ContainerManager {
 
         // hotbar-slots are always the last 9 slots of the currently opened inventory
         int hotbarStartIndex = Util.client.thePlayer.openContainer.getInventory().size() - 9 - 1;
+        int inputdelta;
 
         if (Keyboard.isKeyDown(Keyboard.KEY_1)) {
-            leftClick(hotbarStartIndex + 1);
+            inputdelta = 1;
         } else if (Keyboard.isKeyDown(Keyboard.KEY_2)) {
-            leftClick(hotbarStartIndex + 2);
+            inputdelta = 2;
         } else if (Keyboard.isKeyDown(Keyboard.KEY_3)) {
-            leftClick(hotbarStartIndex + 3);
+            inputdelta = 3;
         } else if (Keyboard.isKeyDown(Keyboard.KEY_4)) {
-            leftClick(hotbarStartIndex + 4);
+            inputdelta = 4;
         } else if (Keyboard.isKeyDown(Keyboard.KEY_5)) {
-            leftClick(hotbarStartIndex + 5);
+            inputdelta = 5;
         } else if (Keyboard.isKeyDown(Keyboard.KEY_6)) {
-            leftClick(hotbarStartIndex + 6);
+            inputdelta = 6;
         } else if (Keyboard.isKeyDown(Keyboard.KEY_7)) {
-            leftClick(hotbarStartIndex + 7);
+            inputdelta = 7;
         } else if (Keyboard.isKeyDown(Keyboard.KEY_8)) {
-            leftClick(hotbarStartIndex + 8);
+            inputdelta = 8;
         } else if (Keyboard.isKeyDown(Keyboard.KEY_9)) {
-            leftClick(hotbarStartIndex + 9);
+            inputdelta = 9;
         } else {
             return;
         }
+
+        leftClick(hotbarStartIndex + inputdelta);
+        Logger.info("handleNumKey()", "Moved to hotbar slot " + inputdelta + ".");
 
         moveStackToInventory(-1);
 
         // Handle Minecraft handling. Ah...
         while (Keyboard.next()) {
+            Logger.info("handleNumKey()", "The cake is a lie!");
         }
     }
 
@@ -171,7 +176,7 @@ public abstract class ContainerManager {
      * @param index The index of the slot in the container
      * @return Returns the ItemStack
      */
-    private ItemStack getItemStack(int index) {
+    protected ItemStack getItemStack(int index) {
 
         if (index >= 0 && index < container.inventorySlots.size()) {
 
@@ -229,9 +234,11 @@ public abstract class ContainerManager {
 
         // Move the item
         if (destIndex == -1) { // -1 means: Found none, drop item
-            leftClick(-999); // Nice one, InvTweaks!
+            leftClick(-999);
+            Logger.info("moveStackToInventory(i)", "Dropped item from index " + sourceIndex + ".");
         } else {
             leftClick(destIndex);
+            Logger.info("moveStackToInventory(i)", "Moved item from index " + sourceIndex + " to " + destIndex + ".");
         }
 
     }

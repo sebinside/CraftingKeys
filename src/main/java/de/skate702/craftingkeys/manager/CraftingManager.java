@@ -50,6 +50,8 @@ public class CraftingManager extends ContainerManager {
             // Drop
             if (isDropKeyDown()) {
 
+                Logger.info("acceptKey()", "Drop Key down.");
+
                 for (int i = 1; i < 10; i++) {
                     moveStackToInventory(i);
                 }
@@ -57,7 +59,13 @@ public class CraftingManager extends ContainerManager {
                 // Get from output
             } else if (isInteractionKeyDown()) {
 
-                if (Util.client.thePlayer.inventory.getItemStack() != null) {
+                Logger.info("acceptKey()", "Interaction Key down.");
+
+                // Handles Interaction with items held
+                if (Util.client.thePlayer.inventory.getItemStack() != null && (
+                        !Util.client.thePlayer.inventory.getItemStack().isItemEqual(getItemStack(0))
+                                || Util.client.thePlayer.inventory.getItemStack().stackSize + getItemStack(0).stackSize
+                                >= getItemStack(0).getMaxStackSize())) {
                     moveStackToInventory(-1);
                 }
 
@@ -80,6 +88,8 @@ public class CraftingManager extends ContainerManager {
                 // Move from hovered slot
             } else if (slotIndex > 0 && currentHoveredSlot != null &&
                     Util.client.thePlayer.inventory.getItemStack() == null) {
+
+                Logger.info("acceptKey()", "Key for index " + slotIndex + " down.");
 
                 if (isStackKeyDown()) {
                     moveAll(currentHoveredSlot.slotNumber, slotIndex);

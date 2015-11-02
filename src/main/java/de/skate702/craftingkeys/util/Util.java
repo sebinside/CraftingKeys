@@ -2,6 +2,7 @@ package de.skate702.craftingkeys.util;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentTranslation;
 
 /**
@@ -22,6 +23,22 @@ public class Util {
      * Private Constructor. This is a utility class!
      */
     private Util() {
+    }
+
+    /**
+     * Returns the current held item stack.
+     * @return A item stack
+     */
+    public static ItemStack getHeldStack() {
+        return client.thePlayer.inventory.getItemStack();
+    }
+
+    /**
+     * Returns if the current player is helding a item stack.
+     * @return True, if held stack != null
+     */
+    public static boolean isHeldingStack() {
+        return (getHeldStack() != null);
     }
 
     /**
@@ -46,15 +63,6 @@ public class Util {
      */
     public static void printMessage(String lang_key) {
         client.thePlayer.addChatMessage(new ChatComponentTranslation(lang_key));
-    }
-
-    /**
-     * Prints a warning, that this mod is still in alpha-state.
-     */
-    public static void printWarning() {
-        printMessage("de.skate702.craftingkeys.warn.line1");
-        printMessage("de.skate702.craftingkeys.warn.line2");
-        printMessage("de.skate702.craftingkeys.warn.line3");
     }
 
 }

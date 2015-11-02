@@ -2,6 +2,7 @@ package de.skate702.craftingkeys.config;
 
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import de.skate702.craftingkeys.CraftingKeys;
+import de.skate702.craftingkeys.util.Logger;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import org.lwjgl.input.Keyboard;
@@ -120,11 +121,11 @@ public class Config {
     public static void syncConfig() {
 
         if (configFile == null) {
-            // TODO: Throw Error!
+            Logger.error("syncConfig()", "Unable to read config file!");
             return;
         }
 
-        syncProperties(); // TODO: Why here?
+        syncProperties();
 
         if (configFile.hasChanged())
             configFile.save();

@@ -55,7 +55,9 @@ public class CraftingKeys {
      */
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        Logger.info("preInit(e)", "Loading Config now.");
         Config.loadConfig(event);
+        Logger.info("preInit(e)", "Finished loading Config.");
     }
 
     /**
@@ -69,6 +71,7 @@ public class CraftingKeys {
         // Registering
         proxy.registerRenderers();
         FMLCommonHandler.instance().bus().register(this);
+        Logger.info("load(e)", "Registered Mod.");
 
     }
 
@@ -83,8 +86,10 @@ public class CraftingKeys {
 
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
-        if (eventArgs.modID.equals(MODID))
+        if (eventArgs.modID.equals(MODID)) {
             Config.syncConfig();
+            Logger.info("onConfigChanged(e)", "Changed config.");
+        }
     }
 
     /**
@@ -94,11 +99,6 @@ public class CraftingKeys {
      */
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent tick) {
-
-        // Message
-        if (Util.isFirstInWorldTick()) {
-            Util.printWarning();
-        }
 
         // Get current Screen, then test
         GuiScreen currentScreen = Util.client.currentScreen;
@@ -128,8 +128,6 @@ public class CraftingKeys {
 
                 Logger.warn("onTick()", "BrewingStand not implemented");
             }
-
-            // TODO: What else should we support?
 
         }
 

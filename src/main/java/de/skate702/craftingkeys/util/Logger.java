@@ -20,16 +20,14 @@ public class Logger {
 
     private static void print(String method, String message, LevelOfDetail in) {
         System.out.println(StdOutput + in.toString() + "] " + method + ": " + message);
-
-
-        /**
-         * Prints a INFO-Message if allowed.
-         *
-         * @param method  The calling method / method info
-         * @param message The message to print
-         */
     }
 
+    /**
+     * Prints a INFO-Message if allowed.
+     *
+     * @param method  The calling method / method info
+     * @param message The message to print
+     */
     public static void info(String method, String message) {
         if (MODE.getLevel() <= 0) {
             print(method, message, LevelOfDetail.INFO);
