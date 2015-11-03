@@ -11,11 +11,6 @@ import net.minecraft.entity.player.EntityPlayer;
 public class CraftingKeysClientProxy extends CraftingKeysProxy {
 
     @Override
-    public void registerRenderers() {
-
-    }
-
-    @Override
     public void sendSlotClick(PlayerControllerMP controller, int windowId, int slot, int rightClick, int action,
                               EntityPlayer player) {
 

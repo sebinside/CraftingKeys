@@ -11,15 +11,21 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import de.skate702.craftingkeys.config.Config;
+import de.skate702.craftingkeys.config.GuiConfig;
+import de.skate702.craftingkeys.config.GuiConfigHandler;
 import de.skate702.craftingkeys.manager.*;
 import de.skate702.craftingkeys.proxies.CraftingKeysProxy;
 import de.skate702.craftingkeys.util.Logger;
 import de.skate702.craftingkeys.util.Util;
 import net.minecraft.client.gui.GuiEnchantment;
+import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiMerchant;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.*;
+import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraftforge.common.MinecraftForge;
 
 /**
  * The Main Class of the Mod with the important onTick-Method. Some Methods are
@@ -69,8 +75,9 @@ public class CraftingKeys {
     public void load(FMLInitializationEvent event) {
 
         // Registering
-        proxy.registerRenderers();
         FMLCommonHandler.instance().bus().register(this);
+        MinecraftForge.EVENT_BUS.register(this);
+        NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiConfigHandler());
         Logger.info("load(e)", "Registered Mod.");
 
     }
@@ -84,11 +91,28 @@ public class CraftingKeys {
     public void postInit(FMLPostInitializationEvent event) {
     }
 
+    /**
+     * This method will be executed when the Config is changed. Update!
+     *
+     * @param eventArgs Input event from FML
+     */
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
         if (eventArgs.modID.equals(MODID)) {
             Config.syncConfig();
             Logger.info("onConfigChanged(e)", "Changed config.");
+        }
+    }
+
+    /**
+     * This method listens on GUIs open. Just to test my own gui!
+     *
+     * @param event Some Forge input event
+     */
+    @SubscribeEvent
+    public void onGuiOpened(GuiOpenEvent event) {
+        if (event.gui instanceof GuiMainMenu) {
+            event.gui = new GuiConfig(); // Delete this!
         }
     }
 
@@ -99,6 +123,10 @@ public class CraftingKeys {
      */
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent tick) {
+
+        if (Util.client.currentScreen == null) {
+            //  Util.client.thePlayer.openGui(instance, 702, Util.client.theWorld, 0, 0, 0);
+        }
 
         // Get current Screen, then test
         GuiScreen currentScreen = Util.client.currentScreen;

@@ -13,13 +13,6 @@ import net.minecraft.entity.player.EntityPlayer;
 public class CraftingKeysProxy {
 
     /**
-     * Register Renderers (not needed here).
-     */
-    public void registerRenderers() {
-
-    }
-
-    /**
      * The Minecraft call to send a mouse click to a GUI. [Based on INVTW]
      *
      * @param controller The playerController (from Client)
