@@ -16,7 +16,6 @@ public class GuiConfig extends GuiScreen {
     public void initGui() {
 
         buttonList.add((new GuiButton(0, width / 2 - 58, height / 2 - 84, 19, 18, "Q")));
-
     }
 
     @Override
