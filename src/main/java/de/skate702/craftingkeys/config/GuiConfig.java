@@ -71,12 +71,12 @@ public class GuiConfig extends GuiScreen {
             // Info-text and fake line
         drawCenteredString(fontRendererObj, "Configure your keys here. Click \"Save\" when finished!", width / 2, height / 2 - 10, pureWhite.getRGB());
         drawCenteredString(fontRendererObj, "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", width / 2, height / 2 + 8, lightGray.getRGB());
-        drawCenteredString(fontRendererObj, "Use the buttons to set the GUI which you want to see the Keybindings for!", width / 2, height / 2 + 23, pureWhite.getRGB());
+        drawCenteredString(fontRendererObj, "Use the buttons to select the GUI which you want to see the Keybindings for!", width / 2, height / 2 + 23, pureWhite.getRGB());
             // Key Info
         drawCenteredString(fontRendererObj, "Stack Key", guiBasePosition + 130, height / 2 - 96, pureWhite.getRGB());
         drawCenteredString(fontRendererObj, "Drop Key", guiBasePosition + 130, height / 2 - 58, pureWhite.getRGB());
-
-        //drawHorizontalLine(craftingBasePosition - 100, width / 2 + 100 + craftingBaseOffset, height / 2 - 20, pureWhite.getRGB());
+            //Draw line to let it look better
+        drawHorizontalLine(guiBasePosition - 86, guiBasePosition + 85, height / 2 - 20, pureWhite.getRGB());
 
         drawCraftingTable();
         // Insert Gui by selected Type
@@ -95,6 +95,8 @@ public class GuiConfig extends GuiScreen {
         }else if(guiShowType == GuiType.ANVIL){
             genAnvilInfo();
         }
+        //Draw line to let it look better
+        drawHorizontalLine(guiShowBasePosition - 86, guiShowBasePosition + 85, guiShowBaseHeight + 80, lightGray.getRGB());
 
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
@@ -141,10 +143,10 @@ public class GuiConfig extends GuiScreen {
         drawTexturedModalRect(guiShowBasePosition - 86, guiShowBaseHeight, 1, 0, 174, 80);
 
         drawString(fontRendererObj, "Furnace", guiShowBasePosition - 15, guiShowBaseHeight + 3, lightGray.getRGB());
-        /*
-        drawCenteredString(fontRendererObj, "W", xBase + 63, yBase + 21, highlight.getRGB());
-        drawCenteredString(fontRendererObj, "S", xBase + 63, yBase + 57, highlight.getRGB());
-        drawCenteredString(fontRendererObj, "Ctrl", xBase + 123, yBase + 39, highlight.getRGB());*/
+
+        drawCenteredString(fontRendererObj, "W", guiShowBasePosition - 86 + 63, guiShowBaseHeight + 21, highlight.getRGB());
+        drawCenteredString(fontRendererObj, "S", guiShowBasePosition - 86 + 63, guiShowBaseHeight + 57, highlight.getRGB());
+        drawCenteredString(fontRendererObj, "Ctrl", guiShowBasePosition - 86 + 123, guiShowBaseHeight + 39, highlight.getRGB());
     }
 
     private void genBrewingStandInfo() {
@@ -153,10 +155,11 @@ public class GuiConfig extends GuiScreen {
         drawTexturedModalRect(guiShowBasePosition - 86, guiShowBaseHeight, 1, 0, 174, 80);
 
         drawString(fontRendererObj, "Brewing Stand", guiShowBasePosition - 33, guiShowBaseHeight + 3, lightGray.getRGB());
-        /*drawCenteredString(fontRendererObj, "W", guiBasePosition + 86, height / 2 - 100 + 21, highlight.getRGB());
-        drawCenteredString(fontRendererObj, "S", guiBasePosition + 86, height / 2 - 100 + 58, highlight.getRGB());
-        drawCenteredString(fontRendererObj, "A", guiBasePosition + 63, height / 2 - 100 + 50, highlight.getRGB());
-        drawCenteredString(fontRendererObj, "D", guiBasePosition + 109, height / 2 - 100 + 50, highlight.getRGB());*/
+
+        drawCenteredString(fontRendererObj, "W", guiBasePosition, guiShowBaseHeight + 21, highlight.getRGB());
+        drawCenteredString(fontRendererObj, "S", guiBasePosition, guiShowBaseHeight + 58, highlight.getRGB());
+        drawCenteredString(fontRendererObj, "A", guiBasePosition - 86 + 63, guiShowBaseHeight + 50, highlight.getRGB());
+        drawCenteredString(fontRendererObj, "D", guiBasePosition - 86 + 109, guiShowBaseHeight + 50, highlight.getRGB());
     }
 
     private void genEnchantmentInfo(){
