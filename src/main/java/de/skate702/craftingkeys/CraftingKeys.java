@@ -17,6 +17,7 @@ import de.skate702.craftingkeys.config.GuiConfig;
 import de.skate702.craftingkeys.config.GuiConfigHandler;
 import de.skate702.craftingkeys.manager.*;
 import de.skate702.craftingkeys.proxies.CraftingKeysProxy;
+import de.skate702.craftingkeys.util.LanguageLocalizer;
 import de.skate702.craftingkeys.util.Logger;
 import de.skate702.craftingkeys.util.Util;
 import net.minecraft.client.gui.GuiEnchantment;
