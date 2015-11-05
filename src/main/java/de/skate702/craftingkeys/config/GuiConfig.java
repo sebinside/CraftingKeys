@@ -55,9 +55,10 @@ public class GuiConfig extends GuiScreen {
         guiShowBasePosition = width / 2 - 35;
         guiShowBaseHeight = height / 2 + 35;
 
+        guiShowType = GuiType.FURNACE;
+
         //Button Init
         addStandardButtons();
-        guiShowType = GuiType.FURNACE;
     }
 
 
@@ -128,7 +129,7 @@ public class GuiConfig extends GuiScreen {
 
     //GUI GENERATORS:
     /*
-    TODO: Create generators for the Inventory
+    TODO: Create strings for showing the Keybindings
      */
 
     private void drawCraftingTable(){
@@ -186,6 +187,9 @@ public class GuiConfig extends GuiScreen {
 
     private void genInventoryInfo(){
         GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
+        mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/inventory.png"));
+        drawTexturedModalRect(guiShowBasePosition - 86, guiShowBaseHeight, 1, 0, 174, 80);
+        drawString(fontRendererObj, "Inventory", guiShowBasePosition - 20, guiShowBaseHeight + 3, lightGray.getRGB());
     }
 
     private void genDispenserInfo(){
