@@ -3,11 +3,11 @@ package de.skate702.craftingkeys.config;
 import de.skate702.craftingkeys.util.LanguageLocalizer;
 import de.skate702.craftingkeys.util.Logger;
 import de.skate702.craftingkeys.util.Util;
-import net.minecraft.client.Minecraft;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Timer;
+
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -54,7 +54,7 @@ public class GuiConfig extends GuiScreen {
         guiShowBasePosition = width / 2 - 35;
         guiShowBaseHeight = height / 2 + 35;
 
-        guiShowType = GuiType.FURNACE;
+        guiShowType = GuiType.ANVIL;
         guiShowState = 0;
         //Button Init
         addStandardButtons();
@@ -222,6 +222,7 @@ public class GuiConfig extends GuiScreen {
         buttonList.add((new GuiButton(buttonStackID, guiBasePosition + 105, height / 2 - 84, 50, 20, "Shift")));
         buttonList.add((new GuiButton(buttonDropID, guiBasePosition + 105, height / 2 - 46, 50, 20, "Space")));
         //Add Switch Buttons
+        /*
         buttonList.add((new GuiButton(buttonInventoryID, guiShowBasePosition - 86 - 70 - 5, guiShowBaseHeight, 70, 20, "Inventory")));
         buttonList.add((new GuiButton(buttonFurnaceID, guiShowBasePosition - 86 - 70 - 5, guiShowBaseHeight + 20 + 1, 70, 20, "Furnace")));
         buttonList.add((new GuiButton(buttonBrewingstandID, guiShowBasePosition + 86 + 5, guiShowBaseHeight, 90, 20, "Brewing Stand")));
@@ -229,6 +230,7 @@ public class GuiConfig extends GuiScreen {
         buttonList.add((new GuiButton(buttonVillagerID, guiShowBasePosition + 86 + 5, guiShowBaseHeight + 20 + 1, 70, 20, "Villager")));
         buttonList.add((new GuiButton(buttonEnchantmentID, guiShowBasePosition + 86 + 5, guiShowBaseHeight + 2 * 20 + 2, 70, 20, "Enchanting")));
         buttonList.add((new GuiButton(buttonAnvilID, guiShowBasePosition - 86 - 70 - 5, guiShowBaseHeight + 3 * 20 + 3, 70, 20, "Anvil")));
+        */
         //Adding Crafting Buttons
         addCraftingButtons();
     }
