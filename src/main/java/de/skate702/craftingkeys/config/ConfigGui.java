@@ -5,6 +5,7 @@ import cpw.mods.fml.client.config.GuiConfig;
 import cpw.mods.fml.client.config.IConfigElement;
 import de.skate702.craftingkeys.CraftingKeys;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.config.ConfigElement;
 
 import java.util.ArrayList;

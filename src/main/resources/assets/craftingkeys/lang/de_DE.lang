@@ -27,3 +27,10 @@ de.skate702.craftingkeys.config.other.tooltip=Saemtliche anderen Einstellungen s
 de.skate702.craftingkeys.warn.line1=Achtung: Crafting-Keys befindet sich in der Alpha!
 de.skate702.craftingkeys.warn.line2=Es gibt noch viele Fehler, und es fehlen noch einige Funktionen.
 de.skate702.craftingkeys.warn.line3=Mehr Info's findest du auf: https://github.com/0xSeb/CraftingKeys!
+
+craftingkeys.config.title=Crafting Keys Konfiguration
+craftingkeys.config.description=Konfiguriere hier deine Tastenbelegung und klicke dann auf "Sichern".
+craftingkeys.config.button.save=Sichern
+craftingkeys.config.button.abort=Abbruch
+craftingkeys.config.usage=Waehle das GUI, fuer das du die Tastenbelegung sehen moechtest.
+
