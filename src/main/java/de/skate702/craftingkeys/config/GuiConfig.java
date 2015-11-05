@@ -25,6 +25,7 @@ public class GuiConfig extends GuiScreen {
     private int guiShowBaseHeight;
     private GuiType guiShowType;
 
+    private int waitingTimeMS = 2000;
     private int guiShowState;
     private long lastTime = 0;
     private long currentTime;
@@ -82,7 +83,7 @@ public class GuiConfig extends GuiScreen {
         drawCraftingTable();
         // Insert Gui by selected Type
         currentTime = Util.client.getSystemTime();
-        if(currentTime - lastTime > 2000){
+        if(currentTime - lastTime > waitingTimeMS){
             nextShowGui();
             lastTime = Util.client.getSystemTime();
             currentTime = Util.client.getSystemTime();
