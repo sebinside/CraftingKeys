@@ -2,9 +2,12 @@ package de.skate702.craftingkeys.config;
 
 import de.skate702.craftingkeys.util.LanguageLocalizer;
 import de.skate702.craftingkeys.util.Logger;
+import de.skate702.craftingkeys.util.Util;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -21,6 +24,11 @@ public class GuiConfig extends GuiScreen {
     private int guiShowBasePosition;
     private int guiShowBaseHeight;
     private GuiType guiShowType;
+
+    private int waitingTimeMS = 2000;
+    private int guiShowState;
+    private long lastTime = 0;
+    private long currentTime;
 
     //TODO:Give all buttons the name you think are good for the eventhandling
     private int buttonSaveID = 901;
@@ -46,10 +54,12 @@ public class GuiConfig extends GuiScreen {
         guiShowBasePosition = width / 2 - 35;
         guiShowBaseHeight = height / 2 + 35;
 
-        guiShowType = GuiType.FURNACE;
-
+        guiShowType = GuiType.ANVIL;
+        guiShowState = 0;
         //Button Init
         addStandardButtons();
+        lastTime = Util.client.getSystemTime();
+        currentTime = Util.client.getSystemTime();
     }
 
     @Override
@@ -63,7 +73,7 @@ public class GuiConfig extends GuiScreen {
         // Info-text and fake line
         drawCenteredString(fontRendererObj, LanguageLocalizer.localize("craftingkeys.config.description"), width / 2, height / 2 - 10, pureWhite.getRGB());
         drawCenteredString(fontRendererObj, "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", width / 2, height / 2 + 8, lightGray.getRGB());
-        drawCenteredString(fontRendererObj, LanguageLocalizer.localize("craftingkeys.config.usage"), width / 2, height / 2 + 23, pureWhite.getRGB());
+        drawCenteredString(fontRendererObj, LanguageLocalizer.localize("craftingkeys.config.info"), width / 2, height / 2 + 20, pureWhite.getRGB());
         // Key Info
         drawCenteredString(fontRendererObj, "Stack Key", guiBasePosition + 130, height / 2 - 96, pureWhite.getRGB());
         drawCenteredString(fontRendererObj, "Drop Key", guiBasePosition + 130, height / 2 - 58, pureWhite.getRGB());
@@ -72,6 +82,12 @@ public class GuiConfig extends GuiScreen {
 
         drawCraftingTable();
         // Insert Gui by selected Type
+        currentTime = Util.client.getSystemTime();
+        if(currentTime - lastTime > waitingTimeMS){
+            nextShowGui();
+            lastTime = Util.client.getSystemTime();
+            currentTime = Util.client.getSystemTime();
+        }
 
         switch (guiShowType) {
 
@@ -100,7 +116,6 @@ public class GuiConfig extends GuiScreen {
 
         //Draw line to let it look better
         drawHorizontalLine(guiShowBasePosition - 86, guiShowBasePosition + 85, guiShowBaseHeight + 80, lightGray.getRGB());
-
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
@@ -204,10 +219,10 @@ public class GuiConfig extends GuiScreen {
         // Add control buttons
         buttonList.add((new GuiButton(buttonAbortID, width - 53, 3, 50, 20, LanguageLocalizer.localize("craftingkeys.config.button.abort"))));
         buttonList.add((new GuiButton(buttonSaveID, width - 53, 26, 50, 20, LanguageLocalizer.localize("craftingkeys.config.button.save"))));
-        //I don't know if you want to change those for every gui
         buttonList.add((new GuiButton(buttonStackID, guiBasePosition + 105, height / 2 - 84, 50, 20, "Shift")));
         buttonList.add((new GuiButton(buttonDropID, guiBasePosition + 105, height / 2 - 46, 50, 20, "Space")));
         //Add Switch Buttons
+        /*
         buttonList.add((new GuiButton(buttonInventoryID, guiShowBasePosition - 86 - 70 - 5, guiShowBaseHeight, 70, 20, "Inventory")));
         buttonList.add((new GuiButton(buttonFurnaceID, guiShowBasePosition - 86 - 70 - 5, guiShowBaseHeight + 20 + 1, 70, 20, "Furnace")));
         buttonList.add((new GuiButton(buttonBrewingstandID, guiShowBasePosition + 86 + 5, guiShowBaseHeight, 90, 20, "Brewing Stand")));
@@ -215,7 +230,7 @@ public class GuiConfig extends GuiScreen {
         buttonList.add((new GuiButton(buttonVillagerID, guiShowBasePosition + 86 + 5, guiShowBaseHeight + 20 + 1, 70, 20, "Villager")));
         buttonList.add((new GuiButton(buttonEnchantmentID, guiShowBasePosition + 86 + 5, guiShowBaseHeight + 2 * 20 + 2, 70, 20, "Enchanting")));
         buttonList.add((new GuiButton(buttonAnvilID, guiShowBasePosition - 86 - 70 - 5, guiShowBaseHeight + 3 * 20 + 3, 70, 20, "Anvil")));
-
+        */
         //Adding Crafting Buttons
         addCraftingButtons();
     }
@@ -231,6 +246,39 @@ public class GuiConfig extends GuiScreen {
         buttonList.add((new GuiButton(7, guiBasePosition - 41, height / 2 - 49, 20, 20, "X")));
         buttonList.add((new GuiButton(8, guiBasePosition - 22, height / 2 - 49, 20, 20, "C")));
         buttonList.add((new GuiButton(9, guiBasePosition + 34, height / 2 - 67, 22, 20, "Ctrl")));
+    }
+
+    public void nextShowGui(){
+        switch(guiShowState){
+            case 0:
+                guiShowType = GuiType.FURNACE;
+                break;
+            case 1:
+                guiShowType = GuiType.BREWINGSTAND;
+                break;
+            case 2:
+                guiShowType = GuiType.INVENTORY;
+                break;
+            case 3:
+                guiShowType = GuiType.ENCHANTMENT;
+                break;
+            case 4:
+                guiShowType = GuiType.DISPENSER;
+                break;
+            case 5:
+                guiShowType = GuiType.VILAGER;
+                break;
+            case 6:
+                guiShowType = GuiType.ANVIL;
+                break;
+        }
+        if(guiShowState >= 6){
+            guiShowState = 0;
+        }else{
+            guiShowState++;
+        }
+
+
     }
 
     public enum GuiType {

@@ -32,6 +32,6 @@ craftingkeys.config.title=Crafting Keys Config
 craftingkeys.config.description=Configure your keys here. Click "Save" when finished!
 craftingkeys.config.button.save=Save
 craftingkeys.config.button.abort=Abort
-craftingkeys.config.usage=Use the buttons to select the GUI which you want to see the Keybindings for!
+craftingkeys.config.info=Here are the Keybindings for the other GUIs shown!
 
 # TODO: Same style for the keys
