@@ -1,5 +1,6 @@
 package de.skate702.craftingkeys.config;
 
+import de.skate702.craftingkeys.util.LanguageLocalizer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
@@ -67,11 +68,11 @@ public class GuiConfig extends GuiScreen {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         drawDefaultBackground(); //drawWorldBackground(0);
             //Title
-        drawCenteredString(fontRendererObj, "Crafting Keys Config", width / 2, height / 2 - 115, pureWhite.getRGB());
+        drawCenteredString(fontRendererObj, LanguageLocalizer.localize("craftingkeys.config.title"), width / 2, height / 2 - 115, pureWhite.getRGB());
             // Info-text and fake line
-        drawCenteredString(fontRendererObj, "Configure your keys here. Click \"Save\" when finished!", width / 2, height / 2 - 10, pureWhite.getRGB());
+        drawCenteredString(fontRendererObj, LanguageLocalizer.localize("craftingkeys.config.description"), width / 2, height / 2 - 10, pureWhite.getRGB());
         drawCenteredString(fontRendererObj, "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", width / 2, height / 2 + 8, lightGray.getRGB());
-        drawCenteredString(fontRendererObj, "Use the buttons to select the GUI which you want to see the Keybindings for!", width / 2, height / 2 + 23, pureWhite.getRGB());
+        drawCenteredString(fontRendererObj, LanguageLocalizer.localize("craftingkeys.config.usage"), width / 2, height / 2 + 23, pureWhite.getRGB());
             // Key Info
         drawCenteredString(fontRendererObj, "Stack Key", guiBasePosition + 130, height / 2 - 96, pureWhite.getRGB());
         drawCenteredString(fontRendererObj, "Drop Key", guiBasePosition + 130, height / 2 - 58, pureWhite.getRGB());
@@ -197,8 +198,8 @@ public class GuiConfig extends GuiScreen {
 
     private void addStandardButtons(){
         // Add control buttons
-        buttonList.add((new GuiButton(buttonAbortID, width - 53, 3, 50, 20, "Abort")));
-        buttonList.add((new GuiButton(buttonSaveID, width - 53, 26, 50, 20, "Save")));
+        buttonList.add((new GuiButton(buttonAbortID, width - 53, 3, 50, 20, LanguageLocalizer.localize("craftingkeys.config.button.abort"))));
+        buttonList.add((new GuiButton(buttonSaveID, width - 53, 26, 50, 20, LanguageLocalizer.localize("craftingkeys.config.button.save"))));
         //I don't know if you want to change those for every gui
         buttonList.add((new GuiButton(buttonStackID, guiBasePosition + 105, height / 2 - 84, 50, 20, "Shift")));
         buttonList.add((new GuiButton(buttonDropID, guiBasePosition + 105, height / 2 - 46, 50, 20, "Space")));
