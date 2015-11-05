@@ -4,7 +4,6 @@ import de.skate702.craftingkeys.util.Logger;
 import net.minecraft.inventory.Container;
 
 public class AnvilManager extends ContainerManager {
-    //TODO:Get it to work...It's just a copy of the brewingManager
     private static AnvilManager instance = null;
 
     private AnvilManager(Container container) {
@@ -22,31 +21,33 @@ public class AnvilManager extends ContainerManager {
 
     @Override
     protected int specificKeyToSlotIndex() {
-        return mapKeyToSlot(-1, 3, -1, 0, 1, 2, -1, -1, -1);
+        return mapKeyToSlot(-1, -1, -1, 0, 1, -1 , -1, -1, -1);
     }
 
     @Override
     protected int getInventoryStartIndex() {
-        return 4;
+        return 3;
     }
 
     @Override
     protected int getInteractionSlotIndex() {
-        return -1;
+        return 2;
     }
 
     @Override
     protected void onInteractionKeyPressed() {
-        Logger.info("onInteractionKeyPressed()", "Brewing stands have no interaction!");
+        interact();
     }
 
     @Override
     protected int[] getDropSlots() {
-        return new int[]{0, 1, 2, 3};
+        return new int[]{0, 1};
     }
 
     @Override
     protected void interact() {
-
+        leftClick(2);
     }
+
+
 }
