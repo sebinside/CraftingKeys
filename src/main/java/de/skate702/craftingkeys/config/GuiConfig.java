@@ -26,7 +26,7 @@ public class GuiConfig extends GuiScreen {
     private int buttonDropID = 903;
     private int buttonStackID = 904;
 
-    private int buttonCraftingID = 301;
+    private int buttonAnvilID = 301;
     private int buttonBrewingstandID = 302;
     private int buttonDispenserID = 303;
     private int buttonFurnaceID = 304;
@@ -35,6 +35,7 @@ public class GuiConfig extends GuiScreen {
     private int buttonVillagerID = 307;
 
     public enum GuiType{
+        ANVIL,
         FURNACE,
         BREWINGSTAND,
         ENCHANTMENT,
@@ -58,9 +59,6 @@ public class GuiConfig extends GuiScreen {
         guiShowType = GuiType.FURNACE;
     }
 
-    /*
-    Hallo Skate vielleicht gefällt dir ja meine Idee - mit Buttons - oben das GUI auszuwechseln... Ups das war wohl von dir nicht so gedacht ich fix das liber mal...
-     */
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
@@ -94,6 +92,8 @@ public class GuiConfig extends GuiScreen {
             genInventoryInfo();
         }else if(guiShowType == GuiType.VILAGER){
             genVillagerInfo();
+        }else if(guiShowType == GuiType.ANVIL){
+            genAnvilInfo();
         }
 
         super.drawScreen(mouseX, mouseY, partialTicks);
@@ -118,6 +118,8 @@ public class GuiConfig extends GuiScreen {
             guiShowType = GuiType.FURNACE;
         }else if(button.id == buttonVillagerID){
             guiShowType = GuiType.VILAGER;
+        }else if(button.id == buttonAnvilID){
+            guiShowType = GuiType.ANVIL;
         }
     }
 
@@ -164,6 +166,13 @@ public class GuiConfig extends GuiScreen {
         drawString(fontRendererObj, "Enchanting", guiShowBasePosition - 20, guiShowBaseHeight + 3, lightGray.getRGB());
     }
 
+    private void genAnvilInfo(){
+        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
+        mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/anvil.png"));
+        drawTexturedModalRect(guiShowBasePosition - 86, guiShowBaseHeight, 1, 0, 174, 80);
+        drawString(fontRendererObj, "Anvil", guiShowBasePosition - 17, guiShowBaseHeight + 3, lightGray.getRGB());
+    }
+
     private void genVillagerInfo(){
         GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/villager.png"));
@@ -191,12 +200,14 @@ public class GuiConfig extends GuiScreen {
         buttonList.add((new GuiButton(buttonStackID, guiBasePosition + 105, height / 2 - 84, 50, 20, "Shift")));
         buttonList.add((new GuiButton(buttonDropID, guiBasePosition + 105, height / 2 - 46, 50, 20, "Space")));
         //Add Switch Buttons
-        buttonList.add((new GuiButton(buttonInventoryID, 15 + 70 + 5, height / 2 + 40, 70, 20, "Inventory")));
-        buttonList.add((new GuiButton(buttonFurnaceID, 15 + 2*70 + 2*5, height / 2 + 40, 70, 20, "Furnace")));
-        buttonList.add((new GuiButton(buttonBrewingstandID, 15 + 3*70 + 3*5, height / 2 + 40, 90, 20, "Brewing Stand")));
-        buttonList.add((new GuiButton(buttonDispenserID, 15 + 4*70 + 20 + 4*5, height / 2 + 40, 70, 20, "Dispenser")));
-        buttonList.add((new GuiButton(buttonVillagerID, 15, height / 2 + 40 + 20 + 4, 70, 20, "Villager")));
-        buttonList.add((new GuiButton(buttonEnchantmentID, 15 + 70 + 5, height / 2 + 40 + 20 + 4, 70, 20, "Enchanting")));
+        buttonList.add((new GuiButton(buttonInventoryID, guiShowBasePosition - 86 - 70 - 5, guiShowBaseHeight, 70, 20, "Inventory")));
+        buttonList.add((new GuiButton(buttonFurnaceID, guiShowBasePosition - 86 - 70 - 5, guiShowBaseHeight + 20 + 1, 70, 20, "Furnace")));
+        buttonList.add((new GuiButton(buttonBrewingstandID, guiShowBasePosition + 86 + 5, guiShowBaseHeight, 90, 20, "Brewing Stand")));
+        buttonList.add((new GuiButton(buttonDispenserID, guiShowBasePosition - 86 - 70 - 5, guiShowBaseHeight + 2*20 + 2*1, 70, 20, "Dispenser")));
+        buttonList.add((new GuiButton(buttonVillagerID, guiShowBasePosition + 86 + 5, guiShowBaseHeight + 20 + 1, 70, 20, "Villager")));
+        buttonList.add((new GuiButton(buttonEnchantmentID, guiShowBasePosition + 86 + 5, guiShowBaseHeight + 2*20 + 2*1, 70, 20, "Enchanting")));
+        buttonList.add((new GuiButton(buttonAnvilID, guiShowBasePosition - 86 - 70 - 5, guiShowBaseHeight + 3*20 + 3*1, 70, 20, "Anvil")));
+
         //Adding Crafting Buttons
         addCraftingButtons();
     }
