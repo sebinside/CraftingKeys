@@ -20,8 +20,8 @@ public class GuiConfig extends GuiScreen {
     //TODO:Give all buttons the name you think are good for the eventhandling
     private int buttonSaveID = 901;
     private int buttonAbortID = 902;
-    private int buttonSpaceID = 903;
-    private int buttonShiftID = 904;
+    private int buttonDropID = 903;
+    private int buttonStackID = 904;
 
     private int buttonCraftingID = 301;
     private int buttonBrewingstandID = 302;
@@ -84,17 +84,18 @@ public class GuiConfig extends GuiScreen {
         }else if(guiType == GuiType.BREWINGSTAND){
             genBrewingStandInfo();
         }else if(guiType == GuiType.DISPENSER){
-
+            genDispenserInfo();
         }else if(guiType == GuiType.ENCHANTMENT){
-
+            genEnchantmentInfo();
         }else if(guiType == GuiType.INVENTORY){
-
+            genInventoryInfo();
         }else if(guiType == GuiType.VILAGER){
-
+            genVillagerInfo();
         }
 
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
+
     //TODO: Set here the buttons with the function
     @Override
     public void actionPerformed(GuiButton button) {
@@ -107,18 +108,22 @@ public class GuiConfig extends GuiScreen {
             addCraftingButtons();
         }else if(button.id == buttonInventoryID) {
             guiType = GuiType.INVENTORY;
+            addInventoryButtons();
         }else if(button.id == buttonEnchantmentID){
             guiType = GuiType.ENCHANTMENT;
+            addEnchantmentButtons();
         }else if(button.id == buttonBrewingstandID){
             guiType = GuiType.BREWINGSTAND;
             addBrewingStandButtons();
         }else if(button.id == buttonDispenserID){
             guiType = GuiType.DISPENSER;
+            addDispenserButtons();
         }else if(button.id == buttonFurnaceID){
             guiType = GuiType.FURNACE;
             addFurnaceButtons();
         }else if(button.id == buttonVillagerID){
             guiType = GuiType.VILAGER;
+            addVillagerButtons();
         }
     }
 
@@ -130,8 +135,10 @@ public class GuiConfig extends GuiScreen {
      */
 
     private void genCraftingInfo(){
+        GL11.glColor4f(1F, 1F, 1F, 1F);
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/crafting_table.png"));
         drawTexturedModalRect(guiBasePosition - 86, height / 2 - 100, 1, 0, 174, 80);
+        drawString(fontRendererObj, "Crafting Table", guiBasePosition - 33, height / 2 - 100 + 3, lightGray.getRGB());
     }
 
     private void addCraftingButtons(){
@@ -149,11 +156,13 @@ public class GuiConfig extends GuiScreen {
         addStandardButtons();
     }
 
+
     private void genFurnaceInfo() {
         GL11.glColor4f(1F, 1F, 1F, 1F);
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/furnace.png"));
         drawTexturedModalRect(guiBasePosition - 86, height / 2 - 100, 1, 0, 174, 80);
 
+        drawString(fontRendererObj, "Furnace", guiBasePosition - 15, height / 2 - 100 + 3, lightGray.getRGB());
         /*drawString(fontRendererObj, "Furnace", xBase + 5, yBase + 5, lightGray.getRGB());
         drawCenteredString(fontRendererObj, "W", xBase + 63, yBase + 21, highlight.getRGB());
         drawCenteredString(fontRendererObj, "S", xBase + 63, yBase + 57, highlight.getRGB());
@@ -162,36 +171,85 @@ public class GuiConfig extends GuiScreen {
 
     private void addFurnaceButtons(){
         buttonList.clear();
-
-
-
         addStandardButtons();
     }
 
+
     private void genBrewingStandInfo() {
-        GL11.glColor4f(1F, 1F, 1F, 1.0F);
+        GL11.glColor4f(1F, 1F, 1F, 1F);
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/brewing_stand.png"));
         drawTexturedModalRect(guiBasePosition - 86, height / 2 - 100, 1, 0, 174, 80);
 
-        /*drawString(fontRendererObj, "Brewing Stand", guiBasePosition + 5, height / 2 - 100 + 5, lightGray.getRGB());
-        drawCenteredString(fontRendererObj, "W", guiBasePosition + 86, height / 2 - 100 + 21, highlight.getRGB());
+        drawString(fontRendererObj, "Brewing Stand", guiBasePosition - 33, height / 2 - 100 + 3, lightGray.getRGB());
+        /*drawCenteredString(fontRendererObj, "W", guiBasePosition + 86, height / 2 - 100 + 21, highlight.getRGB());
         drawCenteredString(fontRendererObj, "S", guiBasePosition + 86, height / 2 - 100 + 58, highlight.getRGB());
         drawCenteredString(fontRendererObj, "A", guiBasePosition + 63, height / 2 - 100 + 50, highlight.getRGB());
         drawCenteredString(fontRendererObj, "D", guiBasePosition + 109, height / 2 - 100 + 50, highlight.getRGB());*/
     }
 
-    public void addBrewingStandButtons(){
-
+    private void addBrewingStandButtons(){
+        buttonList.clear();
+        addStandardButtons();
     }
+
+
+    private void genEnchantmentInfo(){
+        GL11.glColor4f(1F, 1F, 1F, 1F);
+        mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/enchanting_table.png"));
+        drawTexturedModalRect(guiBasePosition - 86, height / 2 - 100, 1, 0, 174, 80);
+        drawString(fontRendererObj, "Enchanting", guiBasePosition - 20, height / 2 - 100 + 3, lightGray.getRGB());
+    }
+
+    private void addEnchantmentButtons(){
+        buttonList.clear();
+        addStandardButtons();
+    }
+
+
+    private void genVillagerInfo(){
+        GL11.glColor4f(1F, 1F, 1F, 1F);
+        mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/villager.png"));
+        drawTexturedModalRect(guiBasePosition - 86, height / 2 - 100, 1, 0, 174, 80);
+        drawString(fontRendererObj, "Villager", guiBasePosition - 17, height / 2 - 100 + 5, lightGray.getRGB());
+    }
+
+    private void addVillagerButtons(){
+        buttonList.clear();
+        addStandardButtons();
+    }
+
+
+    private void genInventoryInfo(){
+        GL11.glColor4f(1F, 1F, 1F, 1F);
+    }
+
+    private void addInventoryButtons(){
+        buttonList.clear();
+        addStandardButtons();
+    }
+
+
+    private void genDispenserInfo(){
+        GL11.glColor4f(1F, 1F, 1F, 1F);
+        mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/dispenser.png"));
+        drawTexturedModalRect(guiBasePosition - 86, height / 2 - 100, 1, 0, 174, 80);
+        drawString(fontRendererObj, "Dispenser", guiBasePosition - 23, height / 2 - 100 + 5, lightGray.getRGB());
+    }
+
+    private void addDispenserButtons(){
+        buttonList.clear();
+        addStandardButtons();
+    }
+
 
 
     private void addStandardButtons(){
         // Add control buttons
         buttonList.add((new GuiButton(buttonAbortID, width - 53, 3, 50, 20, "Abort")));
         buttonList.add((new GuiButton(buttonSaveID, width - 53, 26, 50, 20, "Save")));
-        //I don't know if you need to change those for every gui
-        buttonList.add((new GuiButton(buttonShiftID, guiBasePosition + 105, height / 2 - 84, 50, 20, "Shift")));
-        buttonList.add((new GuiButton(buttonSpaceID, guiBasePosition + 105, height / 2 - 46, 50, 20, "Space")));
+        //I don't know if you want to change those for every gui
+        buttonList.add((new GuiButton(buttonStackID, guiBasePosition + 105, height / 2 - 84, 50, 20, "Shift")));
+        buttonList.add((new GuiButton(buttonDropID, guiBasePosition + 105, height / 2 - 46, 50, 20, "Space")));
         //Add Switch Buttons
         buttonList.add((new GuiButton(buttonCraftingID, 15, height / 2 + 40, 70, 20, "Crafting")));
         buttonList.add((new GuiButton(buttonInventoryID, 15 + 70 + 5, height / 2 + 40, 70, 20, "Inventory")));
@@ -199,9 +257,9 @@ public class GuiConfig extends GuiScreen {
         buttonList.add((new GuiButton(buttonBrewingstandID, 15 + 3*70 + 3*5, height / 2 + 40, 90, 20, "Brewing Stand")));
         buttonList.add((new GuiButton(buttonDispenserID, 15 + 4*70 + 20 + 4*5, height / 2 + 40, 70, 20, "Dispenser")));
         buttonList.add((new GuiButton(buttonVillagerID, 15, height / 2 + 40 + 20 + 4, 70, 20, "Villager")));
-        buttonList.add((new GuiButton(buttonEnchantmentID, 15 + 70 + 5, height / 2 + 40 + 20 + 4, 70, 20, "Enchantment")));
+        buttonList.add((new GuiButton(buttonEnchantmentID, 15 + 70 + 5, height / 2 + 40 + 20 + 4, 70, 20, "Enchanting")));
     }
 
     //TODO:Get strings from language file(Localizer)...
-
+    //TODO:Add things that make this GUI to an Config ... :P
 }
