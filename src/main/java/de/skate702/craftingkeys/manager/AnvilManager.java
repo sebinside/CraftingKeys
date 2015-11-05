@@ -3,13 +3,27 @@ package de.skate702.craftingkeys.manager;
 import de.skate702.craftingkeys.util.Logger;
 import net.minecraft.inventory.Container;
 
+/**
+ * Manages a Anvil GUI Inventory.
+ */
 public class AnvilManager extends ContainerManager {
     private static AnvilManager instance = null;
 
+    /**
+     * Creates a new Anvil Manager with the given container.
+     *
+     * @param container The container from a crafting GUI
+     */
     private AnvilManager(Container container) {
         super(container);
     }
 
+    /**
+     * Returns a Anvil Manager Instance operating on the given container
+     *
+     * @param container A container from a GUI
+     * @return manager-singleton
+     */
     public static AnvilManager getInstance(Container container) {
         if (instance == null) {
             instance = new AnvilManager(container);
@@ -21,7 +35,7 @@ public class AnvilManager extends ContainerManager {
 
     @Override
     protected int specificKeyToSlotIndex() {
-        return mapKeyToSlot(-1, -1, -1, 0, 1, -1 , -1, -1, -1);
+        return mapKeyToSlot(-1, -1, -1, 0, 1, -1, -1, -1, -1);
     }
 
     @Override
@@ -46,7 +60,10 @@ public class AnvilManager extends ContainerManager {
 
     @Override
     protected void interact() {
+
+        Logger.info("interact()", "Clicked on Anvil Output.");
         leftClick(2);
+
     }
 
 

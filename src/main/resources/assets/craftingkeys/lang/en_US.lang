@@ -34,3 +34,4 @@ craftingkeys.config.button.save=Save
 craftingkeys.config.button.abort=Abort
 craftingkeys.config.usage=Use the buttons to select the GUI which you want to see the Keybindings for!
 
+# TODO: Same style for the keys

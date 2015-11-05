@@ -29,8 +29,8 @@ de.skate702.craftingkeys.warn.line2=Es gibt noch viele Fehler, und es fehlen noc
 de.skate702.craftingkeys.warn.line3=Mehr Info's findest du auf: https://github.com/0xSeb/CraftingKeys!
 
 craftingkeys.config.title=Crafting Keys Konfiguration
-craftingkeys.config.description=Konfiguriere hier deine Tastenbelegung und klicke dann auf "Sichern".
-craftingkeys.config.button.save=Sichern
+craftingkeys.config.description=Konfiguriere hier deine Tastenbelegung und klicke dann auf "Speichern".
+craftingkeys.config.button.save=Speichern
 craftingkeys.config.button.abort=Abbruch
-craftingkeys.config.usage=Waehle das GUI, fuer das du die Tastenbelegung sehen moechtest.
+craftingkeys.config.usage=Waehle die Oberflaeche fuer die du die Tastenbelegung sehen moechtest.
 
