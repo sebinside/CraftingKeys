@@ -73,7 +73,7 @@ public class GuiConfig extends GuiScreen {
         // Info-text and fake line
         drawCenteredString(fontRendererObj, LanguageLocalizer.localize("craftingkeys.config.description"), width / 2, height / 2 - 10, pureWhite.getRGB());
         drawCenteredString(fontRendererObj, "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", width / 2, height / 2 + 8, lightGray.getRGB());
-        drawCenteredString(fontRendererObj, LanguageLocalizer.localize("craftingkeys.config.usage"), width / 2, height / 2 + 23, pureWhite.getRGB());
+        drawCenteredString(fontRendererObj, LanguageLocalizer.localize("craftingkeys.config.info"), width / 2, height / 2 + 20, pureWhite.getRGB());
         // Key Info
         drawCenteredString(fontRendererObj, "Stack Key", guiBasePosition + 130, height / 2 - 96, pureWhite.getRGB());
         drawCenteredString(fontRendererObj, "Drop Key", guiBasePosition + 130, height / 2 - 58, pureWhite.getRGB());

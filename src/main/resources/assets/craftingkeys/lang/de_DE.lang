@@ -32,5 +32,5 @@ craftingkeys.config.title=Crafting Keys Konfiguration
 craftingkeys.config.description=Konfiguriere hier deine Tastenbelegung und klicke dann auf "Speichern".
 craftingkeys.config.button.save=Speichern
 craftingkeys.config.button.abort=Abbruch
-craftingkeys.config.usage=Waehle die Oberflaeche fuer die du die Tastenbelegung sehen moechtest.
+craftingkeys.config.info=Hier werden die Keybindings fuer die anderen GUIs angezeigt!
 
