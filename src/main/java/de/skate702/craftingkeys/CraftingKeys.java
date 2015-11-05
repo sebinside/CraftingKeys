@@ -110,7 +110,7 @@ public class CraftingKeys {
     @SubscribeEvent
     public void onGuiOpened(GuiOpenEvent event) {
         if (event.gui instanceof GuiMainMenu) {
-            //event.gui = new GuiConfig(); // Delete this!
+            event.gui = new GuiConfig(); // Delete this!
         }
     }
 

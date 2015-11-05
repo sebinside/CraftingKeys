@@ -15,7 +15,10 @@ public class GuiConfig extends GuiScreen {
     private static final Color highlight = new Color(86, 144, 72, 255);
     private int guiBasePosition;
     private int guiBaseOffset;
-    private GuiType guiType;
+
+    private int guiShowBasePosition;
+    private int guiShowBaseHeight;
+    private GuiType guiShowType;
 
     //TODO:Give all buttons the name you think are good for the eventhandling
     private int buttonSaveID = 901;
@@ -32,7 +35,6 @@ public class GuiConfig extends GuiScreen {
     private int buttonVillagerID = 307;
 
     public enum GuiType{
-        CRAFTING,
         FURNACE,
         BREWINGSTAND,
         ENCHANTMENT,
@@ -48,14 +50,16 @@ public class GuiConfig extends GuiScreen {
         guiBaseOffset = 35;
         guiBasePosition = width / 2 - guiBaseOffset;
 
+        guiShowBasePosition = width / 2 - 35;
+        guiShowBaseHeight = height / 2 + 35;
+
         //Button Init
         addStandardButtons();
-        guiType = GuiType.CRAFTING;
-        addCraftingButtons();
+        guiShowType = GuiType.FURNACE;
     }
 
     /*
-    Hallo Skate vielleicht gefällt dir ja meine Idee - mit Buttons - oben das GUI auszuwechseln.
+    Hallo Skate vielleicht gefällt dir ja meine Idee - mit Buttons - oben das GUI auszuwechseln... Ups das war wohl von dir nicht so gedacht ich fix das liber mal...
      */
 
     @Override
@@ -69,27 +73,26 @@ public class GuiConfig extends GuiScreen {
             // Info-text and fake line
         drawCenteredString(fontRendererObj, "Configure your keys here. Click \"Save\" when finished!", width / 2, height / 2 - 10, pureWhite.getRGB());
         drawCenteredString(fontRendererObj, "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", width / 2, height / 2 + 8, lightGray.getRGB());
-        drawCenteredString(fontRendererObj, "Use the buttons to set the GUI which you want to edit the Keybindings for!", width / 2, height / 2 + 23, pureWhite.getRGB());
+        drawCenteredString(fontRendererObj, "Use the buttons to set the GUI which you want to see the Keybindings for!", width / 2, height / 2 + 23, pureWhite.getRGB());
             // Key Info
         drawCenteredString(fontRendererObj, "Stack Key", guiBasePosition + 130, height / 2 - 96, pureWhite.getRGB());
         drawCenteredString(fontRendererObj, "Drop Key", guiBasePosition + 130, height / 2 - 58, pureWhite.getRGB());
 
         //drawHorizontalLine(craftingBasePosition - 100, width / 2 + 100 + craftingBaseOffset, height / 2 - 20, pureWhite.getRGB());
 
+        drawCraftingTable();
         // Insert Gui by selected Type
-        if(guiType == GuiType.CRAFTING){
-            genCraftingInfo();
-        }else if(guiType == GuiType.FURNACE){
+        if(guiShowType == GuiType.FURNACE){
             genFurnaceInfo();
-        }else if(guiType == GuiType.BREWINGSTAND){
+        }else if(guiShowType == GuiType.BREWINGSTAND){
             genBrewingStandInfo();
-        }else if(guiType == GuiType.DISPENSER){
+        }else if(guiShowType == GuiType.DISPENSER){
             genDispenserInfo();
-        }else if(guiType == GuiType.ENCHANTMENT){
+        }else if(guiShowType == GuiType.ENCHANTMENT){
             genEnchantmentInfo();
-        }else if(guiType == GuiType.INVENTORY){
+        }else if(guiShowType == GuiType.INVENTORY){
             genInventoryInfo();
-        }else if(guiType == GuiType.VILAGER){
+        }else if(guiShowType == GuiType.VILAGER){
             genVillagerInfo();
         }
 
@@ -103,144 +106,81 @@ public class GuiConfig extends GuiScreen {
 
         }else if (button.id == buttonSaveID) {
 
-        }else if(button.id == buttonCraftingID){
-            guiType = GuiType.CRAFTING;
-            addCraftingButtons();
         }else if(button.id == buttonInventoryID) {
-            guiType = GuiType.INVENTORY;
-            addInventoryButtons();
+            guiShowType = GuiType.INVENTORY;
         }else if(button.id == buttonEnchantmentID){
-            guiType = GuiType.ENCHANTMENT;
-            addEnchantmentButtons();
+            guiShowType = GuiType.ENCHANTMENT;
         }else if(button.id == buttonBrewingstandID){
-            guiType = GuiType.BREWINGSTAND;
-            addBrewingStandButtons();
+            guiShowType = GuiType.BREWINGSTAND;
         }else if(button.id == buttonDispenserID){
-            guiType = GuiType.DISPENSER;
-            addDispenserButtons();
+            guiShowType = GuiType.DISPENSER;
         }else if(button.id == buttonFurnaceID){
-            guiType = GuiType.FURNACE;
-            addFurnaceButtons();
+            guiShowType = GuiType.FURNACE;
         }else if(button.id == buttonVillagerID){
-            guiType = GuiType.VILAGER;
-            addVillagerButtons();
+            guiShowType = GuiType.VILAGER;
         }
     }
 
     //GUI GENERATORS:
     /*
-    TODO: Fix everything for changing the gui...
-    TODO: Create buttons
-    TODO: Create generators for all other textures
+    TODO: Create generators for the Inventory
      */
 
-    private void genCraftingInfo(){
+    private void drawCraftingTable(){
         GL11.glColor4f(1F, 1F, 1F, 1F);
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/crafting_table.png"));
         drawTexturedModalRect(guiBasePosition - 86, height / 2 - 100, 1, 0, 174, 80);
         drawString(fontRendererObj, "Crafting Table", guiBasePosition - 33, height / 2 - 100 + 3, lightGray.getRGB());
     }
 
-    private void addCraftingButtons(){
-        buttonList.clear();
-        buttonList.add((new GuiButton(0, guiBasePosition - 60, height / 2 - 87, 20, 20, "Q")));
-        buttonList.add((new GuiButton(1, guiBasePosition - 41, height / 2 - 87, 20, 20, "W")));
-        buttonList.add((new GuiButton(2, guiBasePosition - 22, height / 2 - 87, 20, 20, "E")));
-        buttonList.add((new GuiButton(3, guiBasePosition - 60, height / 2 - 68, 20, 20, "A")));
-        buttonList.add((new GuiButton(4, guiBasePosition - 41, height / 2 - 68, 20, 20, "S")));
-        buttonList.add((new GuiButton(5, guiBasePosition - 22, height / 2 - 68, 20, 20, "D")));
-        buttonList.add((new GuiButton(6, guiBasePosition - 60, height / 2 - 49, 20, 20, "Y")));
-        buttonList.add((new GuiButton(7, guiBasePosition - 41, height / 2 - 49, 20, 20, "X")));
-        buttonList.add((new GuiButton(8, guiBasePosition - 22, height / 2 - 49, 20, 20, "C")));
-        buttonList.add((new GuiButton(9, guiBasePosition + 34, height / 2 - 67, 22, 20, "Ctrl")));
-        addStandardButtons();
-    }
-
-
     private void genFurnaceInfo() {
-        GL11.glColor4f(1F, 1F, 1F, 1F);
+        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/furnace.png"));
-        drawTexturedModalRect(guiBasePosition - 86, height / 2 - 100, 1, 0, 174, 80);
+        drawTexturedModalRect(guiShowBasePosition - 86, guiShowBaseHeight, 1, 0, 174, 80);
 
-        drawString(fontRendererObj, "Furnace", guiBasePosition - 15, height / 2 - 100 + 3, lightGray.getRGB());
-        /*drawString(fontRendererObj, "Furnace", xBase + 5, yBase + 5, lightGray.getRGB());
+        drawString(fontRendererObj, "Furnace", guiShowBasePosition - 15, guiShowBaseHeight + 3, lightGray.getRGB());
+        /*
         drawCenteredString(fontRendererObj, "W", xBase + 63, yBase + 21, highlight.getRGB());
         drawCenteredString(fontRendererObj, "S", xBase + 63, yBase + 57, highlight.getRGB());
         drawCenteredString(fontRendererObj, "Ctrl", xBase + 123, yBase + 39, highlight.getRGB());*/
     }
 
-    private void addFurnaceButtons(){
-        buttonList.clear();
-        addStandardButtons();
-    }
-
-
     private void genBrewingStandInfo() {
-        GL11.glColor4f(1F, 1F, 1F, 1F);
+        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/brewing_stand.png"));
-        drawTexturedModalRect(guiBasePosition - 86, height / 2 - 100, 1, 0, 174, 80);
+        drawTexturedModalRect(guiShowBasePosition - 86, guiShowBaseHeight, 1, 0, 174, 80);
 
-        drawString(fontRendererObj, "Brewing Stand", guiBasePosition - 33, height / 2 - 100 + 3, lightGray.getRGB());
+        drawString(fontRendererObj, "Brewing Stand", guiShowBasePosition - 33, guiShowBaseHeight + 3, lightGray.getRGB());
         /*drawCenteredString(fontRendererObj, "W", guiBasePosition + 86, height / 2 - 100 + 21, highlight.getRGB());
         drawCenteredString(fontRendererObj, "S", guiBasePosition + 86, height / 2 - 100 + 58, highlight.getRGB());
         drawCenteredString(fontRendererObj, "A", guiBasePosition + 63, height / 2 - 100 + 50, highlight.getRGB());
         drawCenteredString(fontRendererObj, "D", guiBasePosition + 109, height / 2 - 100 + 50, highlight.getRGB());*/
     }
 
-    private void addBrewingStandButtons(){
-        buttonList.clear();
-        addStandardButtons();
-    }
-
-
     private void genEnchantmentInfo(){
-        GL11.glColor4f(1F, 1F, 1F, 1F);
+        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/enchanting_table.png"));
-        drawTexturedModalRect(guiBasePosition - 86, height / 2 - 100, 1, 0, 174, 80);
-        drawString(fontRendererObj, "Enchanting", guiBasePosition - 20, height / 2 - 100 + 3, lightGray.getRGB());
+        drawTexturedModalRect(guiShowBasePosition - 86, guiShowBaseHeight, 1, 0, 174, 80);
+        drawString(fontRendererObj, "Enchanting", guiShowBasePosition - 20, guiShowBaseHeight + 3, lightGray.getRGB());
     }
-
-    private void addEnchantmentButtons(){
-        buttonList.clear();
-        addStandardButtons();
-    }
-
 
     private void genVillagerInfo(){
-        GL11.glColor4f(1F, 1F, 1F, 1F);
+        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/villager.png"));
-        drawTexturedModalRect(guiBasePosition - 86, height / 2 - 100, 1, 0, 174, 80);
-        drawString(fontRendererObj, "Villager", guiBasePosition - 17, height / 2 - 100 + 5, lightGray.getRGB());
+        drawTexturedModalRect(guiShowBasePosition - 86, guiShowBaseHeight, 1, 0, 174, 80);
+        drawString(fontRendererObj, "Villager", guiShowBasePosition - 17, guiShowBaseHeight + 3, lightGray.getRGB());
     }
-
-    private void addVillagerButtons(){
-        buttonList.clear();
-        addStandardButtons();
-    }
-
 
     private void genInventoryInfo(){
-        GL11.glColor4f(1F, 1F, 1F, 1F);
+        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
     }
-
-    private void addInventoryButtons(){
-        buttonList.clear();
-        addStandardButtons();
-    }
-
 
     private void genDispenserInfo(){
-        GL11.glColor4f(1F, 1F, 1F, 1F);
+        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/dispenser.png"));
-        drawTexturedModalRect(guiBasePosition - 86, height / 2 - 100, 1, 0, 174, 80);
-        drawString(fontRendererObj, "Dispenser", guiBasePosition - 23, height / 2 - 100 + 5, lightGray.getRGB());
+        drawTexturedModalRect(guiShowBasePosition - 86, guiShowBaseHeight, 1, 0, 174, 80);
+        drawString(fontRendererObj, "Dispenser", guiShowBasePosition - 23, guiShowBaseHeight + 3, lightGray.getRGB());
     }
-
-    private void addDispenserButtons(){
-        buttonList.clear();
-        addStandardButtons();
-    }
-
 
 
     private void addStandardButtons(){
@@ -251,15 +191,29 @@ public class GuiConfig extends GuiScreen {
         buttonList.add((new GuiButton(buttonStackID, guiBasePosition + 105, height / 2 - 84, 50, 20, "Shift")));
         buttonList.add((new GuiButton(buttonDropID, guiBasePosition + 105, height / 2 - 46, 50, 20, "Space")));
         //Add Switch Buttons
-        buttonList.add((new GuiButton(buttonCraftingID, 15, height / 2 + 40, 70, 20, "Crafting")));
         buttonList.add((new GuiButton(buttonInventoryID, 15 + 70 + 5, height / 2 + 40, 70, 20, "Inventory")));
         buttonList.add((new GuiButton(buttonFurnaceID, 15 + 2*70 + 2*5, height / 2 + 40, 70, 20, "Furnace")));
         buttonList.add((new GuiButton(buttonBrewingstandID, 15 + 3*70 + 3*5, height / 2 + 40, 90, 20, "Brewing Stand")));
         buttonList.add((new GuiButton(buttonDispenserID, 15 + 4*70 + 20 + 4*5, height / 2 + 40, 70, 20, "Dispenser")));
         buttonList.add((new GuiButton(buttonVillagerID, 15, height / 2 + 40 + 20 + 4, 70, 20, "Villager")));
         buttonList.add((new GuiButton(buttonEnchantmentID, 15 + 70 + 5, height / 2 + 40 + 20 + 4, 70, 20, "Enchanting")));
+        //Adding Crafting Buttons
+        addCraftingButtons();
+    }
+
+    private void addCraftingButtons(){
+        buttonList.add((new GuiButton(0, guiBasePosition - 60, height / 2 - 87, 20, 20, "Q")));
+        buttonList.add((new GuiButton(1, guiBasePosition - 41, height / 2 - 87, 20, 20, "W")));
+        buttonList.add((new GuiButton(2, guiBasePosition - 22, height / 2 - 87, 20, 20, "E")));
+        buttonList.add((new GuiButton(3, guiBasePosition - 60, height / 2 - 68, 20, 20, "A")));
+        buttonList.add((new GuiButton(4, guiBasePosition - 41, height / 2 - 68, 20, 20, "S")));
+        buttonList.add((new GuiButton(5, guiBasePosition - 22, height / 2 - 68, 20, 20, "D")));
+        buttonList.add((new GuiButton(6, guiBasePosition - 60, height / 2 - 49, 20, 20, "Y")));
+        buttonList.add((new GuiButton(7, guiBasePosition - 41, height / 2 - 49, 20, 20, "X")));
+        buttonList.add((new GuiButton(8, guiBasePosition - 22, height / 2 - 49, 20, 20, "C")));
+        buttonList.add((new GuiButton(9, guiBasePosition + 34, height / 2 - 67, 22, 20, "Ctrl")));
     }
 
     //TODO:Get strings from language file(Localizer)...
-    //TODO:Add things that make this GUI to an Config ... :P
+    //TODO:Add things that make this GUI an Config ... :P
 }
