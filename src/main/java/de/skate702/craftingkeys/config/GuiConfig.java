@@ -1,5 +1,6 @@
 package de.skate702.craftingkeys.config;
 
+import de.skate702.craftingkeys.CraftingKeys;
 import de.skate702.craftingkeys.util.LanguageLocalizer;
 import de.skate702.craftingkeys.util.Logger;
 import de.skate702.craftingkeys.util.Util;
@@ -8,6 +9,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -36,13 +38,27 @@ public class GuiConfig extends GuiScreen {
     private int buttonDropID = 903;
     private int buttonStackID = 904;
 
-    private int buttonAnvilID = 301;
+    /*private int buttonAnvilID = 301;
     private int buttonBrewingstandID = 302;
     private int buttonDispenserID = 303;
     private int buttonFurnaceID = 304;
     private int buttonEnchantmentID = 305;
     private int buttonInventoryID = 306;
-    private int buttonVillagerID = 307;
+    private int buttonVillagerID = 307;*/
+
+    private int buttonUpLeftID = 111;
+    private int buttonUpMiddleID = 112;
+    private int buttonUpRightID = 113;
+
+    private int buttonMiddleLeftID = 121;
+    private int buttonMiddleMiddleID = 122;
+    private int buttonMiddleRightID = 123;
+
+    private int buttonLowLeftID = 131;
+    private int buttonLowMiddleID = 132;
+    private int buttonLowRightID = 133;
+
+    private int buttonInteractID = 100;
 
     @Override
     public void initGui() {
@@ -121,11 +137,38 @@ public class GuiConfig extends GuiScreen {
 
     @Override
     public void actionPerformed(GuiButton button) {
-        if (button.id == buttonAbortID) {
+        if(button.id == buttonAbortID) {
             Logger.warn("actionPerformed(b)", "Not implemented yet");
-        } else if (button.id == buttonSaveID) {
+        }else if(button.id == buttonSaveID) {
             Logger.warn("actionPerformed(b)", "Not implemented yet");
-        } else if (button.id == buttonInventoryID) {
+        }
+
+        if(button.id == buttonInteractID){
+
+        }else if(button.id == buttonStackID){
+
+        }else if(button.id == buttonDropID){
+
+        }else if(button.id == buttonUpLeftID){
+
+        }else if(button.id == buttonUpMiddleID){
+
+        }else if(button.id == buttonUpRightID){
+
+        }else if(button.id == buttonMiddleLeftID){
+
+        }else if(button.id == buttonMiddleMiddleID){
+
+        }else if(button.id == buttonMiddleRightID){
+
+        }else if(button.id == buttonLowLeftID){
+
+        }else if(button.id == buttonLowMiddleID){
+
+        }else if(button.id == buttonLowRightID){
+
+        }
+        /* else if (button.id == buttonInventoryID) {
             guiShowType = GuiType.INVENTORY;
         } else if (button.id == buttonEnchantmentID) {
             guiShowType = GuiType.ENCHANTMENT;
@@ -139,7 +182,9 @@ public class GuiConfig extends GuiScreen {
             guiShowType = GuiType.VILAGER;
         } else if (button.id == buttonAnvilID) {
             guiShowType = GuiType.ANVIL;
-        }
+        }*/
+
+
     }
 
     private void drawCraftingTable() {
@@ -235,16 +280,19 @@ public class GuiConfig extends GuiScreen {
     }
 
     private void addCraftingButtons() {
-        buttonList.add((new GuiButton(0, guiBasePosition - 60, height / 2 - 87, 20, 20, "Q")));
-        buttonList.add((new GuiButton(1, guiBasePosition - 41, height / 2 - 87, 20, 20, "W")));
-        buttonList.add((new GuiButton(2, guiBasePosition - 22, height / 2 - 87, 20, 20, "E")));
-        buttonList.add((new GuiButton(3, guiBasePosition - 60, height / 2 - 68, 20, 20, "A")));
-        buttonList.add((new GuiButton(4, guiBasePosition - 41, height / 2 - 68, 20, 20, "S")));
-        buttonList.add((new GuiButton(5, guiBasePosition - 22, height / 2 - 68, 20, 20, "D")));
-        buttonList.add((new GuiButton(6, guiBasePosition - 60, height / 2 - 49, 20, 20, "Y")));
-        buttonList.add((new GuiButton(7, guiBasePosition - 41, height / 2 - 49, 20, 20, "X")));
-        buttonList.add((new GuiButton(8, guiBasePosition - 22, height / 2 - 49, 20, 20, "C")));
-        buttonList.add((new GuiButton(9, guiBasePosition + 34, height / 2 - 67, 22, 20, "Ctrl")));
+        buttonList.add((new GuiButton(buttonUpLeftID, guiBasePosition - 60, height / 2 - 87, 20, 20, Keyboard.getKeyName(CraftingKeys.config.keyUpLeft))));
+        buttonList.add((new GuiButton(buttonUpMiddleID, guiBasePosition - 41, height / 2 - 87, 20, 20, "W")));
+        buttonList.add((new GuiButton(buttonUpRightID, guiBasePosition - 22, height / 2 - 87, 20, 20, "E")));
+
+        buttonList.add((new GuiButton(buttonMiddleLeftID, guiBasePosition - 60, height / 2 - 68, 20, 20, "A")));
+        buttonList.add((new GuiButton(buttonMiddleMiddleID, guiBasePosition - 41, height / 2 - 68, 20, 20, "S")));
+        buttonList.add((new GuiButton(buttonMiddleRightID, guiBasePosition - 22, height / 2 - 68, 20, 20, "D")));
+
+        buttonList.add((new GuiButton(buttonLowLeftID, guiBasePosition - 60, height / 2 - 49, 20, 20, "Y")));
+        buttonList.add((new GuiButton(buttonLowMiddleID, guiBasePosition - 41, height / 2 - 49, 20, 20, "X")));
+        buttonList.add((new GuiButton(buttonLowRightID, guiBasePosition - 22, height / 2 - 49, 20, 20, "C")));
+
+        buttonList.add((new GuiButton(buttonInteractID, guiBasePosition + 34, height / 2 - 67, 22, 20, "Ctrl")));
     }
 
     public void nextShowGui(){
