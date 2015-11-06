@@ -119,7 +119,6 @@ public class GuiConfig extends GuiScreen {
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
-    //TODO: Set here the buttons with the function
     @Override
     public void actionPerformed(GuiButton button) {
         if (button.id == buttonAbortID) {

@@ -13,6 +13,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import de.skate702.craftingkeys.config.Config;
+import de.skate702.craftingkeys.config.ConfigFile;
 import de.skate702.craftingkeys.config.GuiConfig;
 import de.skate702.craftingkeys.config.GuiConfigHandler;
 import de.skate702.craftingkeys.manager.*;
@@ -24,6 +25,7 @@ import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.inventory.*;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.MinecraftForge;
+import org.lwjgl.Sys;
 
 /**
  * The Main Class of the Mod with the important onTick-Method. Some Methods are
@@ -38,6 +40,8 @@ public class CraftingKeys {
     public static final String MODID = "craftingkeys";
     public static final String VERSION = "1.0.0";
     public static final String NAME = "Crafting Keys";
+
+    public static ConfigFile config;
 
     /**
      * Current Instance of CraftingKeys.
@@ -62,6 +66,15 @@ public class CraftingKeys {
         Logger.info("preInit(e)", "Loading Config now.");
         Config.loadConfig(event);
         Logger.info("preInit(e)", "Finished loading Config.");
+
+        config = new ConfigFile("CraftingKeys","config.txt");
+        if(!config.load()){
+            Logger.warn("preInit(e)", "Couldn't load config! Setting keybindings to default...");
+        }else{
+            Logger.info("preInit(e)", "Loaded Config.");
+
+        }
+
     }
 
     /**
@@ -110,7 +123,7 @@ public class CraftingKeys {
     @SubscribeEvent
     public void onGuiOpened(GuiOpenEvent event) {
         if (event.gui instanceof GuiMainMenu) {
-            event.gui = new GuiConfig(); // Delete this!
+           // event.gui = new GuiConfig(); // Delete this!
         }
     }
 
