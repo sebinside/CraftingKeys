@@ -10,6 +10,7 @@ import org.lwjgl.input.Keyboard;
 /**
  * Configuration Management for Keys, etc.
  */
+@Deprecated
 public class Config {
 
 

@@ -214,6 +214,10 @@ public class ConfigFile {
         return isDown;
     }
 
+    public boolean isNumpadEnabled(){
+        return enableNumpad;
+    }
+
     public enum KeyType{
         UpLEFT,
         UpMIDDLE,
