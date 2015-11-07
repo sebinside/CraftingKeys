@@ -2,6 +2,7 @@ package de.skate702.craftingkeys.manager;
 
 import de.skate702.craftingkeys.CraftingKeys;
 import de.skate702.craftingkeys.config.Config;
+import de.skate702.craftingkeys.config.ConfigFile.KeyType;
 import de.skate702.craftingkeys.util.InputUtil;
 import de.skate702.craftingkeys.util.Logger;
 import de.skate702.craftingkeys.util.Util;
@@ -44,12 +45,12 @@ public abstract class ContainerManager {
         if (!InputUtil.isSameKey(slotIndex)) {
 
 
-            if (Config.isKeyDropPressed()) { // DROP
+            if (CraftingKeys.config.isKeyDown(KeyType.DROP)) { // DROP
 
                 Logger.info("acceptKey()", "Drop Key pressed.");
                 onDropKeyPressed();
 
-            } else if (Config.isKeyInteractPressed()) { // INTERACT
+            } else if (CraftingKeys.config.isKeyDown(KeyType.INTERACT)) { // INTERACT
 
                 Logger.info("acceptKey()", "Interaction Key pressed.");
                 onInteractionKeyPressed();
@@ -100,7 +101,7 @@ public abstract class ContainerManager {
         }
 
         // Handle Interaction
-        if (Config.isKeyStackPressed()) {
+        if (CraftingKeys.config.isKeyDown(KeyType.STACK)) {
 
             int oldStackSize = -1;
             interact();
@@ -126,7 +127,7 @@ public abstract class ContainerManager {
      */
     protected void onSpecificKeyPressed(int currentHoveredSlot, int slotIndex) {
 
-        if (Config.isKeyStackPressed()) {
+        if (CraftingKeys.config.isKeyDown(KeyType.STACK)) {
             moveAll(currentHoveredSlot, slotIndex);
             moveStackToInventory(-1);
         } else {
@@ -214,27 +215,27 @@ public abstract class ContainerManager {
                                int centerLeft, int centerCenter, int centerRight,
                                int lowerLeft, int lowerCenter, int lowerRight) {
 
-        if (Config.isKeyTopLeftPressed()) {
+        if (CraftingKeys.config.isKeyDown(KeyType.UpLEFT)) {
             return topLeft;
-        } else if (Config.isKeyTopCenterPressed()) {
+        } else if (CraftingKeys.config.isKeyDown(KeyType.UpMIDDLE)) {
             return topCenter;
-        } else if (Config.isKeyTopRightPressed()) {
+        } else if (CraftingKeys.config.isKeyDown(KeyType.UpRIGHT)) {
             return topRight;
-        } else if (Config.isKeyCenterLeftPressed()) {
+        } else if (CraftingKeys.config.isKeyDown(KeyType.MiddleLEFT)) {
             return centerLeft;
-        } else if (Config.isKeyCenterCenterPressed()) {
+        } else if (CraftingKeys.config.isKeyDown(KeyType.MiddleMIDDLE)) {
             return centerCenter;
-        } else if (Config.isKeyCenterRightPressed()) {
+        } else if (CraftingKeys.config.isKeyDown(KeyType.MiddleRIGHT)) {
             return centerRight;
-        } else if (Config.isKeyLowerLeftPressed()) {
+        } else if (CraftingKeys.config.isKeyDown(KeyType.LowLEFT)) {
             return lowerLeft;
-        } else if (Config.isKeyLowerCenterPressed()) {
+        } else if (CraftingKeys.config.isKeyDown(KeyType.LowMIDDLE)) {
             return lowerCenter;
-        } else if (Config.isKeyLowerRightPressed()) {
+        } else if (CraftingKeys.config.isKeyDown(KeyType.LowRIGHT)) {
             return lowerRight;
-        } else if (Config.isKeyInteractPressed()) {
+        } else if (CraftingKeys.config.isKeyDown(KeyType.INTERACT)) {
             return -101;
-        } else if (Config.isKeyDropPressed()) {
+        } else if (CraftingKeys.config.isKeyDown(KeyType.DROP)) {
             return -102;
         } else {
             return -1;
