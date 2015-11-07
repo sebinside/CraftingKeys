@@ -80,6 +80,7 @@ public class GuiConfig extends GuiScreen {
 
     private GuiButton buttonInteract;
 
+    //TODO:Add gui to minecraft
 
     public GuiConfig(){
         CraftingKeys.config.load();
