@@ -13,7 +13,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import de.skate702.craftingkeys.config.Config;
-import de.skate702.craftingkeys.config.GuiConfig;
 import de.skate702.craftingkeys.config.GuiConfigHandler;
 import de.skate702.craftingkeys.manager.*;
 import de.skate702.craftingkeys.proxies.CraftingKeysProxy;
@@ -109,7 +108,7 @@ public class CraftingKeys {
     @SubscribeEvent
     public void onGuiOpened(GuiOpenEvent event) {
         if (event.gui instanceof GuiMainMenu) {
-            event.gui = new GuiConfig(); // Delete this!
+            //event.gui = new GuiConfig(); // Delete this!
         }
     }
 
@@ -122,7 +121,7 @@ public class CraftingKeys {
     public void onTick(TickEvent.ClientTickEvent tick) {
 
         if (Util.client.currentScreen == null) {
-            //  Util.client.thePlayer.openGui(instance, 702, Util.client.theWorld, 0, 0, 0);
+            Util.client.thePlayer.openGui(instance, 702, Util.client.theWorld, 0, 0, 0);
         }
 
         // Get current Screen, then test

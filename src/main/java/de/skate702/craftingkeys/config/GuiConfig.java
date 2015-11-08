@@ -2,10 +2,12 @@ package de.skate702.craftingkeys.config;
 
 import de.skate702.craftingkeys.util.LanguageLocalizer;
 import de.skate702.craftingkeys.util.Logger;
+import de.skate702.craftingkeys.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
+import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
@@ -19,7 +21,7 @@ public class GuiConfig extends GuiScreen {
     private static final Color pureWhite = new Color(255, 255, 255, 255);
     private static final Color lightGray = new Color(128, 128, 128, 255);
     private static final Color highlight = new Color(86, 144, 72, 255);
-    int[] keyValues;
+    private int[] keyValues = new int[]{};
     private int guiBasePosition;
     private int guiShowBasePosition;
     private int guiShowBaseHeight;
@@ -30,6 +32,7 @@ public class GuiConfig extends GuiScreen {
     private int buttonSaveID = 901;
     private int buttonAbortID = 902;
     private ArrayList<GuiButton> configButtons;
+    private int selectedButtonID = -1;
 
     @Override
     public void initGui() {
@@ -127,16 +130,58 @@ public class GuiConfig extends GuiScreen {
     @Override
     public void actionPerformed(GuiButton button) {
         if (button.id == buttonAbortID) {
-            Logger.warn("actionPerformed(b)", "Not implemented yet");
+            Logger.info("actionPerformed(b)", "Closing Crafting Keys GUI now!");
+            Util.client.thePlayer.closeScreen();
+            mc.thePlayer.closeScreen();
+            Util.client.displayGuiScreen(null);
         } else if (button.id == buttonSaveID) {
-            Logger.warn("actionPerformed(b)", "Not implemented yet");
+            save();
+            Logger.info("actionPerformed(b)", "Saving & closing Crafting Keys GUI now!");
+            Util.client.thePlayer.closeScreen();
+        } else if (button.id >= 0 && button.id <= 11) {
+            if (selectedButtonID == -1) {
+                selectedButtonID = button.id;
+                configButtons.get(selectedButtonID).displayString = "...";
+            }
         }
+    }
+
+    private void save() {
+        Config.keyTopLeft.set(keyValues[0]);
+        Config.keyTopCenter.set(keyValues[1]);
+        Config.keyTopRight.set(keyValues[2]);
+        Config.keyCenterLeft.set(keyValues[3]);
+        Config.keyCenterCenter.set(keyValues[4]);
+        Config.keyCenterRight.set(keyValues[5]);
+        Config.keyLowerLeft.set(keyValues[6]);
+        Config.keyLowerCenter.set(keyValues[7]);
+        Config.keyLowerRight.set(keyValues[8]);
+        Config.keyInteract.set(keyValues[9]);
+        Config.keyStack.set(keyValues[10]);
+        Config.keyDrop.set(keyValues[11]);
+        Config.syncConfig();
     }
 
     @Override
     public void keyTyped(char character, int keyCode) {
 
+        if (keyCode == Keyboard.KEY_ESCAPE) {
+            selectedButtonID = -1;
+            drawKeyValues();
+        } else if (selectedButtonID != -1) {
+            if (!ArrayUtils.contains(keyValues, keyCode)) { // No double keys
+                keyValues[selectedButtonID] = keyCode;
+                selectedButtonID = -1;
+                drawKeyValues();
+            }
+        }
+
     }
+
+    // TODO: Lang files
+    // TODO: Config files
+    // TODO: Crafting symbols
+    // TODO: KeyBindings
 
     private void drawCraftingTable() {
         GL11.glColor4f(1F, 1F, 1F, 1F);
@@ -230,19 +275,21 @@ public class GuiConfig extends GuiScreen {
     }
 
     private void initKeyValues() {
-        keyValues = new int[]{
-                Config.keyTopLeft.getInt(),
-                Config.keyTopCenter.getInt(),
-                Config.keyTopRight.getInt(),
-                Config.keyCenterLeft.getInt(),
-                Config.keyCenterCenter.getInt(),
-                Config.keyCenterRight.getInt(),
-                Config.keyLowerLeft.getInt(),
-                Config.keyLowerCenter.getInt(),
-                Config.keyLowerRight.getInt(),
-                Config.keyInteract.getInt(),
-                Config.keyStack.getInt(),
-                Config.keyDrop.getInt()};
+        if (keyValues.length == 0) {
+            keyValues = new int[]{
+                    Config.keyTopLeft.getInt(),
+                    Config.keyTopCenter.getInt(),
+                    Config.keyTopRight.getInt(),
+                    Config.keyCenterLeft.getInt(),
+                    Config.keyCenterCenter.getInt(),
+                    Config.keyCenterRight.getInt(),
+                    Config.keyLowerLeft.getInt(),
+                    Config.keyLowerCenter.getInt(),
+                    Config.keyLowerRight.getInt(),
+                    Config.keyInteract.getInt(),
+                    Config.keyStack.getInt(),
+                    Config.keyDrop.getInt()};
+        }
     }
 
     private void drawKeyValues() {
