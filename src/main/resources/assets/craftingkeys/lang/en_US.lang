@@ -32,6 +32,5 @@ craftingkeys.config.title=Crafting Keys Config
 craftingkeys.config.description=Configure your keys here. Click "Save" when finished!
 craftingkeys.config.button.save=Save
 craftingkeys.config.button.abort=Abort
-craftingkeys.config.info=Here are the Keybindings for the other GUIs shown!
-
-# TODO: Same style for the keys
+craftingkeys.config.stack=Stack key
+craftingkeys.config.drop=Drop key
