@@ -65,8 +65,10 @@ public abstract class ContainerManager {
             } else if (Util.isHoldingStack()) { // MOVE FROM HAND
 
                 onHolding(slotIndex);
-                handleNumKey();
+                handleNumKey(currentHoveredSlot);
+            } else { // HANDLE NUM KEY MOVING (also with empty hand now -> speed-up)
 
+                handleNumKey(currentHoveredSlot);
             }
 
         }
@@ -148,8 +150,9 @@ public abstract class ContainerManager {
 
     /**
      * Handles what to do with NumKey-Inputs while holding a item.
+     * @param currentHoveredSlot
      */
-    protected void handleNumKey() {
+    protected void handleNumKey(Slot currentHoveredSlot) {
 
         // hotbar-slots are always the last 9 slots of the currently opened inventory
         int hotbarStartIndex = Util.client.thePlayer.openContainer.getInventory().size() - 9 - 1;
@@ -177,15 +180,33 @@ public abstract class ContainerManager {
             return;
         }
 
-        leftClick(hotbarStartIndex + inputdelta);
-        Logger.info("handleNumKey()", "Moved to hotbar slot " + inputdelta + ".");
+        // If no stack is held and a num-key is pressed, get the output by interaction, but only
+        // if there could not be meant another stack at mouse position. cool logic!
+        if (!Util.isHoldingStack()) {
 
-        moveStackToInventory(-1);
-
-        // Handle Minecraft handling. Ah...
-        while (Keyboard.next()) {
-            Logger.info("handleNumKey()", "The cake is a lie!");
+            if (currentHoveredSlot == null || !currentHoveredSlot.getHasStack()) {
+                Logger.info("handleNumKey()", "Trying output to hotbar speedup.");
+                onInteractionKeyPressed();
+            }
         }
+
+        // If held, move!
+        if (Util.isHoldingStack()) {
+
+            // TODO: Make place?
+
+            leftClick(hotbarStartIndex + inputdelta);
+            Logger.info("handleNumKey()", "Moved to hotbar slot " + inputdelta + ".");
+
+            moveStackToInventory(-1);
+
+            // Handle Minecraft handling. Ah...
+            while (Keyboard.next()) {
+                Logger.info("handleNumKey()", "The cake is a lie!");
+            }
+        }
+
+
     }
 
     /**
