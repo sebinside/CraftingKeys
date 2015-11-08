@@ -1,36 +1,11 @@
-﻿# Control Names
-key.topleft=1. Top Left
-key.topcenter=2. Top Center
-key.topright=3. Top Right
-key.centerleft=4. Center Left
-key.centercenter=5. Center Center
-key.centerright=6. Center Right
-key.lowerleft=7. Lower Left
-key.lowercenter=8. Lower Center
-key.lowerright=9. Lower Right
-key.stack=Stack Key
-key.interact=Interaction Key
-key.drop=Drop Key
-
-options.numpadEnabled=Enable Num Pad
-
-# Control Category Name
-key.categories.craftingkeys=Crafting Keys
-
-# Config Stuff
-de.skate702.craftingkeys.config.keys=Keys
-de.skate702.craftingkeys.config.other=Other
-de.skate702.craftingkeys.config.keys.tooltip=Set your Keys here (Just google "LWJGL Key codes"!)
-de.skate702.craftingkeys.config.other.tooltip=All other settings are here!
-
-# Warning
-de.skate702.craftingkeys.warn.line1=Warning: Crafting Keys is still in development!
-de.skate702.craftingkeys.warn.line2=This mod is not complete and there are some errors left.
-de.skate702.craftingkeys.warn.line3=More Information: https://github.com/0xSeb/CraftingKeys!
-
+﻿# Config Stuff
 craftingkeys.config.title=Crafting Keys Config
 craftingkeys.config.description=Configure your keys here. Click "Save" when finished!
 craftingkeys.config.button.save=Save
 craftingkeys.config.button.abort=Abort
 craftingkeys.config.stack=Stack key
 craftingkeys.config.drop=Drop key
+
+# Key Bindings
+craftingkeys.binding.opengui=Open config-gui
+craftingkeys.binding.cat=Crafting Keys

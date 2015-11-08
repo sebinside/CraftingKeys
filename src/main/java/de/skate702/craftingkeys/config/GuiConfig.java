@@ -2,7 +2,6 @@ package de.skate702.craftingkeys.config;
 
 import de.skate702.craftingkeys.util.LanguageLocalizer;
 import de.skate702.craftingkeys.util.Logger;
-import de.skate702.craftingkeys.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -131,13 +130,11 @@ public class GuiConfig extends GuiScreen {
     public void actionPerformed(GuiButton button) {
         if (button.id == buttonAbortID) {
             Logger.info("actionPerformed(b)", "Closing Crafting Keys GUI now!");
-            Util.client.thePlayer.closeScreen();
             mc.thePlayer.closeScreen();
-            Util.client.displayGuiScreen(null);
         } else if (button.id == buttonSaveID) {
             save();
             Logger.info("actionPerformed(b)", "Saving & closing Crafting Keys GUI now!");
-            Util.client.thePlayer.closeScreen();
+            mc.thePlayer.closeScreen();
         } else if (button.id >= 0 && button.id <= 11) {
             if (selectedButtonID == -1) {
                 selectedButtonID = button.id;
@@ -166,8 +163,14 @@ public class GuiConfig extends GuiScreen {
     public void keyTyped(char character, int keyCode) {
 
         if (keyCode == Keyboard.KEY_ESCAPE) {
-            selectedButtonID = -1;
-            drawKeyValues();
+            if (selectedButtonID != -1) {
+                selectedButtonID = -1;
+                drawKeyValues();
+            } else {
+                Logger.info("keyTyped(c,i)", "Trying to close inventory with esc.");
+                super.keyTyped(character, keyCode); // Enable standard gui closing
+            }
+
         } else if (selectedButtonID != -1) {
             if (!ArrayUtils.contains(keyValues, keyCode)) { // No double keys
                 keyValues[selectedButtonID] = keyCode;
@@ -178,10 +181,7 @@ public class GuiConfig extends GuiScreen {
 
     }
 
-    // TODO: Lang files
-    // TODO: Config files
-    // TODO: Crafting symbols
-    // TODO: KeyBindings
+    // TODO: Crafting symbols & labels
 
     private void drawCraftingTable() {
         GL11.glColor4f(1F, 1F, 1F, 1F);

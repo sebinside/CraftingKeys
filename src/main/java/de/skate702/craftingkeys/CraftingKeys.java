@@ -10,10 +10,13 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.InputEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import de.skate702.craftingkeys.config.Config;
+import de.skate702.craftingkeys.config.GuiConfig;
 import de.skate702.craftingkeys.config.GuiConfigHandler;
+import de.skate702.craftingkeys.config.KeyBindings;
 import de.skate702.craftingkeys.manager.*;
 import de.skate702.craftingkeys.proxies.CraftingKeysProxy;
 import de.skate702.craftingkeys.util.Logger;
@@ -29,8 +32,7 @@ import net.minecraftforge.common.MinecraftForge;
  *
  * @author skate702
  */
-@Mod(modid = CraftingKeys.MODID, name = CraftingKeys.NAME, version = CraftingKeys.VERSION,
-        guiFactory = "de.skate702.craftingkeys.config.ConfigGuiFactory")
+@Mod(modid = CraftingKeys.MODID, name = CraftingKeys.NAME, version = CraftingKeys.VERSION)
 public class CraftingKeys {
 
     public static final String MODID = "craftingkeys";
@@ -74,6 +76,7 @@ public class CraftingKeys {
         FMLCommonHandler.instance().bus().register(this);
         MinecraftForge.EVENT_BUS.register(this);
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiConfigHandler());
+        KeyBindings.init();
         Logger.info("load(e)", "Registered Mod.");
 
     }
@@ -85,6 +88,18 @@ public class CraftingKeys {
      */
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
+    }
+
+    @SubscribeEvent
+    public void onKeyInput(InputEvent.KeyInputEvent event) {
+        if (KeyBindings.openGuiBinding.isPressed()) {
+            Logger.info("onKeyInput(e)", "Open Crafting Keys Config Gui.");
+            Util.client.thePlayer.openGui(instance, GuiConfig.GuiID, Util.client.theWorld,
+                    ((int) Util.client.thePlayer.posX), (int) Util.client.thePlayer.posY,
+                    (int) Util.client.thePlayer.posZ);
+        }
+
+
     }
 
     /**
@@ -108,7 +123,7 @@ public class CraftingKeys {
     @SubscribeEvent
     public void onGuiOpened(GuiOpenEvent event) {
         if (event.gui instanceof GuiMainMenu) {
-            //event.gui = new GuiConfig(); // Delete this!
+            //event.gui = new GuiConfig(); // (Only for testing)
         }
     }
 
@@ -119,10 +134,6 @@ public class CraftingKeys {
      */
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent tick) {
-
-        if (Util.client.currentScreen == null) {
-            Util.client.thePlayer.openGui(instance, 702, Util.client.theWorld, 0, 0, 0);
-        }
 
         // Get current Screen, then test
         GuiScreen currentScreen = Util.client.currentScreen;
