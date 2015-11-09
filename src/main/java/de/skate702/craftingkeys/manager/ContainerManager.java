@@ -193,8 +193,6 @@ public abstract class ContainerManager {
         // If held, move!
         if (Util.isHoldingStack()) {
 
-            // TODO: Make place?
-
             leftClick(hotbarStartIndex + inputdelta);
             Logger.info("handleNumKey()", "Moved to hotbar slot " + inputdelta + ".");
 

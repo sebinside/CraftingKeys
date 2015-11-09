@@ -172,7 +172,7 @@ public class GuiConfig extends GuiScreen {
             }
 
         } else if (selectedButtonID != -1) {
-            if (!ArrayUtils.contains(keyValues, keyCode)) { // No double keys
+            if (!ArrayUtils.contains(keyValues, keyCode) || keyValues[selectedButtonID] == keyCode) { // No double keys
                 keyValues[selectedButtonID] = keyCode;
                 selectedButtonID = -1;
                 drawKeyValues();
