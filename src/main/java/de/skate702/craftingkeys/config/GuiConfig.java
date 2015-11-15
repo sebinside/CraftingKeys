@@ -20,6 +20,14 @@ public class GuiConfig extends GuiScreen {
     private static final Color pureWhite = new Color(255, 255, 255, 255);
     private static final Color lightGray = new Color(128, 128, 128, 255);
     private static final Color highlight = new Color(86, 144, 72, 255);
+    /**
+     * 0,1,2 = top,
+     * 3,4,5 = mid,
+     * 6,7,8 = low,
+     * 9     = interact,
+     * 10    = stack,
+     * 11    = drop
+     */
     private int[] keyValues = new int[]{};
     private int guiBasePosition;
     private int guiShowBasePosition;
@@ -97,6 +105,7 @@ public class GuiConfig extends GuiScreen {
         int waitingTimeMS = 3000;
         if (currentTime - lastTime > waitingTimeMS) {
             showNextGui();
+            GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
             lastTime = Minecraft.getSystemTime();
         }
 
@@ -191,60 +200,60 @@ public class GuiConfig extends GuiScreen {
     }
 
     private void genFurnaceInfo() {
-        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
+
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/furnace.png"));
         drawTexturedModalRect(guiShowBasePosition - 86, guiShowBaseHeight, 1, 0, 174, 80);
 
         drawString(fontRendererObj, "Furnace", guiShowBasePosition - 15, guiShowBaseHeight + 3, lightGray.getRGB());
 
-        drawCenteredString(fontRendererObj, "W", guiShowBasePosition - 86 + 63, guiShowBaseHeight + 21, highlight.getRGB());
-        drawCenteredString(fontRendererObj, "S", guiShowBasePosition - 86 + 63, guiShowBaseHeight + 57, highlight.getRGB());
-        drawCenteredString(fontRendererObj, "Ctrl", guiShowBasePosition - 86 + 123, guiShowBaseHeight + 39, highlight.getRGB());
+        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[1]), guiShowBasePosition - 86 + 63, guiShowBaseHeight + 21, highlight.getRGB());
+        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[4]), guiShowBasePosition - 86 + 63, guiShowBaseHeight + 57, highlight.getRGB());
+        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[9]), guiShowBasePosition - 86 + 123, guiShowBaseHeight + 39, highlight.getRGB());
     }
 
     private void genBrewingStandInfo() {
-        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
+
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/brewing_stand.png"));
         drawTexturedModalRect(guiShowBasePosition - 86, guiShowBaseHeight, 1, 0, 174, 80);
 
         drawString(fontRendererObj, "Brewing Stand", guiShowBasePosition - 33, guiShowBaseHeight + 3, lightGray.getRGB());
 
-        drawCenteredString(fontRendererObj, "W", guiBasePosition, guiShowBaseHeight + 21, highlight.getRGB());
-        drawCenteredString(fontRendererObj, "S", guiBasePosition, guiShowBaseHeight + 58, highlight.getRGB());
-        drawCenteredString(fontRendererObj, "A", guiBasePosition - 86 + 63, guiShowBaseHeight + 50, highlight.getRGB());
-        drawCenteredString(fontRendererObj, "D", guiBasePosition - 86 + 109, guiShowBaseHeight + 50, highlight.getRGB());
+        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[1]), guiBasePosition, guiShowBaseHeight + 21, highlight.getRGB());
+        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[4]), guiBasePosition, guiShowBaseHeight + 58, highlight.getRGB());
+        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[3]), guiBasePosition - 86 + 63, guiShowBaseHeight + 50, highlight.getRGB());
+        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[5]), guiBasePosition - 86 + 109, guiShowBaseHeight + 50, highlight.getRGB());
     }
 
     private void genEnchantmentInfo() {
-        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
+
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/enchanting_table.png"));
         drawTexturedModalRect(guiShowBasePosition - 86, guiShowBaseHeight, 1, 0, 174, 80);
         drawString(fontRendererObj, "Enchanting", guiShowBasePosition - 20, guiShowBaseHeight + 3, lightGray.getRGB());
     }
 
     private void genAnvilInfo() {
-        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
+
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/anvil.png"));
         drawTexturedModalRect(guiShowBasePosition - 86, guiShowBaseHeight, 1, 0, 174, 80);
         drawString(fontRendererObj, "Anvil", guiShowBasePosition - 17, guiShowBaseHeight + 3, lightGray.getRGB());
     }
 
     private void genVillagerInfo() {
-        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
+
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/villager.png"));
         drawTexturedModalRect(guiShowBasePosition - 86, guiShowBaseHeight, 1, 0, 174, 80);
         drawString(fontRendererObj, "Villager", guiShowBasePosition - 17, guiShowBaseHeight + 3, lightGray.getRGB());
     }
 
     private void genInventoryInfo() {
-        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
+
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/inventory.png"));
         drawTexturedModalRect(guiShowBasePosition - 86, guiShowBaseHeight, 1, 0, 174, 80);
         drawString(fontRendererObj, "Inventory", guiShowBasePosition - 20, guiShowBaseHeight + 3, lightGray.getRGB());
     }
 
     private void genDispenserInfo() {
-        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
+
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/dispenser.png"));
         drawTexturedModalRect(guiShowBasePosition - 86, guiShowBaseHeight, 1, 0, 174, 80);
         drawString(fontRendererObj, "Dispenser", guiShowBasePosition - 23, guiShowBaseHeight + 3, lightGray.getRGB());
@@ -277,18 +286,18 @@ public class GuiConfig extends GuiScreen {
     private void initKeyValues() {
         if (keyValues.length == 0) {
             keyValues = new int[]{
-                    Config.keyTopLeft.getInt(),
-                    Config.keyTopCenter.getInt(),
-                    Config.keyTopRight.getInt(),
-                    Config.keyCenterLeft.getInt(),
-                    Config.keyCenterCenter.getInt(),
-                    Config.keyCenterRight.getInt(),
-                    Config.keyLowerLeft.getInt(),
-                    Config.keyLowerCenter.getInt(),
-                    Config.keyLowerRight.getInt(),
-                    Config.keyInteract.getInt(),
-                    Config.keyStack.getInt(),
-                    Config.keyDrop.getInt()};
+                    Config.keyTopLeft.getInt(),      // 0
+                    Config.keyTopCenter.getInt(),    // 1
+                    Config.keyTopRight.getInt(),     // 2
+                    Config.keyCenterLeft.getInt(),   // 3
+                    Config.keyCenterCenter.getInt(), // 4
+                    Config.keyCenterRight.getInt(),  // 5
+                    Config.keyLowerLeft.getInt(),    // 6
+                    Config.keyLowerCenter.getInt(),  // 7
+                    Config.keyLowerRight.getInt(),   // 8
+                    Config.keyInteract.getInt(),     // 9
+                    Config.keyStack.getInt(),        // 10
+                    Config.keyDrop.getInt()};        // 11
         }
     }
 

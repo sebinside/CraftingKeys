@@ -99,7 +99,6 @@ public class CraftingKeys {
                     (int) Util.client.thePlayer.posZ);
         }
 
-
     }
 
     /**
@@ -123,7 +122,7 @@ public class CraftingKeys {
     @SubscribeEvent
     public void onGuiOpened(GuiOpenEvent event) {
         if (event.gui instanceof GuiMainMenu) {
-            //event.gui = new GuiConfig(); // (Only for testing)
+            event.gui = new GuiConfig(); // (Only for testing)
         }
     }
 
