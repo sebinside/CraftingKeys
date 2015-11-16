@@ -30,8 +30,8 @@ public class GuiConfig extends GuiScreen {
      */
     private int[] keyValues = new int[]{};
     private int guiBasePosition;
-    private int guiShowBasePosition;
-    private int guiShowBaseHeight;
+    private int guiShowBasePosX;
+    private int guiShowBasePosY;
     private GuiType guiShowType;
     private int guiShowState;
     private long lastTime = 0;
@@ -48,8 +48,8 @@ public class GuiConfig extends GuiScreen {
         int guiBaseOffset = 35;
         guiBasePosition = width / 2 - guiBaseOffset;
 
-        guiShowBasePosition = width / 2 - 35;
-        guiShowBaseHeight = height / 2 + 25;
+        guiShowBasePosX = width / 2 - 35;
+        guiShowBasePosY = height / 2 + 25;
 
         guiShowType = GuiType.ANVIL;
         guiShowState = 0;
@@ -92,7 +92,7 @@ public class GuiConfig extends GuiScreen {
         drawInfo();
 
         //Draw line to let it look better
-        drawHorizontalLine(guiShowBasePosition - 86, guiShowBasePosition + 85, guiShowBaseHeight + 80, lightGray.getRGB());
+        drawHorizontalLine(guiShowBasePosX - 86, guiShowBasePosX + 85, guiShowBasePosY + 80, lightGray.getRGB());
 
         // Super
         super.drawScreen(mouseX, mouseY, partialTicks);
@@ -202,61 +202,63 @@ public class GuiConfig extends GuiScreen {
     private void genFurnaceInfo() {
 
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/furnace.png"));
-        drawTexturedModalRect(guiShowBasePosition - 86, guiShowBaseHeight, 1, 0, 174, 80);
+        drawTexturedModalRect(guiShowBasePosX - 86, guiShowBasePosY, 1, 0, 174, 80);
 
-        drawString(fontRendererObj, "Furnace", guiShowBasePosition - 15, guiShowBaseHeight + 3, lightGray.getRGB());
+        drawString(fontRendererObj, "Furnace", guiShowBasePosX - 15, guiShowBasePosY + 3, lightGray.getRGB());
 
-        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[1]), guiShowBasePosition - 86 + 63, guiShowBaseHeight + 21, highlight.getRGB());
-        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[4]), guiShowBasePosition - 86 + 63, guiShowBaseHeight + 57, highlight.getRGB());
-        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[9]), guiShowBasePosition - 86 + 123, guiShowBaseHeight + 39, highlight.getRGB());
+        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[1]), guiShowBasePosX - 86 + 63, guiShowBasePosY + 21, highlight.getRGB());
+        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[4]), guiShowBasePosX - 86 + 63, guiShowBasePosY + 57, highlight.getRGB());
+        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[9]), guiShowBasePosX - 86 + 123, guiShowBasePosY + 39, highlight.getRGB());
     }
 
     private void genBrewingStandInfo() {
 
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/brewing_stand.png"));
-        drawTexturedModalRect(guiShowBasePosition - 86, guiShowBaseHeight, 1, 0, 174, 80);
+        drawTexturedModalRect(guiShowBasePosX - 86, guiShowBasePosY, 1, 0, 174, 80);
 
-        drawString(fontRendererObj, "Brewing Stand", guiShowBasePosition - 33, guiShowBaseHeight + 3, lightGray.getRGB());
+        drawString(fontRendererObj, "Brewing Stand", guiShowBasePosX - 33, guiShowBasePosY + 3, lightGray.getRGB());
 
-        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[1]), guiBasePosition, guiShowBaseHeight + 21, highlight.getRGB());
-        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[4]), guiBasePosition, guiShowBaseHeight + 58, highlight.getRGB());
-        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[3]), guiBasePosition - 86 + 63, guiShowBaseHeight + 50, highlight.getRGB());
-        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[5]), guiBasePosition - 86 + 109, guiShowBaseHeight + 50, highlight.getRGB());
+        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[1]), guiBasePosition, guiShowBasePosY + 21, highlight.getRGB());
+        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[4]), guiBasePosition, guiShowBasePosY + 58, highlight.getRGB());
+        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[3]), guiBasePosition - 86 + 63, guiShowBasePosY + 50, highlight.getRGB());
+        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[5]), guiBasePosition - 86 + 109, guiShowBasePosY + 50, highlight.getRGB());
     }
 
     private void genEnchantmentInfo() {
 
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/enchanting_table.png"));
-        drawTexturedModalRect(guiShowBasePosition - 86, guiShowBaseHeight, 1, 0, 174, 80);
-        drawString(fontRendererObj, "Enchanting", guiShowBasePosition - 20, guiShowBaseHeight + 3, lightGray.getRGB());
+        drawTexturedModalRect(guiShowBasePosX - 86, guiShowBasePosY, 1, 0, 174, 80);
+        drawString(fontRendererObj, "Enchanting", guiShowBasePosX - 20, guiShowBasePosY + 3, lightGray.getRGB());
     }
 
     private void genAnvilInfo() {
 
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/anvil.png"));
-        drawTexturedModalRect(guiShowBasePosition - 86, guiShowBaseHeight, 1, 0, 174, 80);
-        drawString(fontRendererObj, "Anvil", guiShowBasePosition - 17, guiShowBaseHeight + 3, lightGray.getRGB());
+        drawTexturedModalRect(guiShowBasePosX - 86, guiShowBasePosY, 1, 0, 174, 80);
+        drawString(fontRendererObj, "Anvil", guiShowBasePosX - 17, guiShowBasePosY + 3, lightGray.getRGB());
+
+        // TODO: Draw additional black rec
     }
 
     private void genVillagerInfo() {
 
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/villager.png"));
-        drawTexturedModalRect(guiShowBasePosition - 86, guiShowBaseHeight, 1, 0, 174, 80);
-        drawString(fontRendererObj, "Villager", guiShowBasePosition - 17, guiShowBaseHeight + 3, lightGray.getRGB());
+        drawTexturedModalRect(guiShowBasePosX - 86, guiShowBasePosY, 1, 0, 174, 80);
+        drawString(fontRendererObj, "Villager", guiShowBasePosX - 17, guiShowBasePosY + 3, lightGray.getRGB());
     }
 
     private void genInventoryInfo() {
 
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/inventory.png"));
-        drawTexturedModalRect(guiShowBasePosition - 86, guiShowBaseHeight, 1, 0, 174, 80);
-        drawString(fontRendererObj, "Inventory", guiShowBasePosition - 20, guiShowBaseHeight + 3, lightGray.getRGB());
+        drawTexturedModalRect(guiShowBasePosX - 86, guiShowBasePosY, 1, 0, 174, 80);
+        drawString(fontRendererObj, "Inventory", guiShowBasePosX - 20, guiShowBasePosY + 3, lightGray.getRGB());
     }
 
     private void genDispenserInfo() {
 
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/dispenser.png"));
-        drawTexturedModalRect(guiShowBasePosition - 86, guiShowBaseHeight, 1, 0, 174, 80);
-        drawString(fontRendererObj, "Dispenser", guiShowBasePosition - 23, guiShowBaseHeight + 3, lightGray.getRGB());
+        drawTexturedModalRect(guiShowBasePosX - 86, guiShowBasePosY, 1, 0, 174, 80);
+        drawString(fontRendererObj, "Dispenser", guiShowBasePosX - 23, guiShowBasePosY + 3, lightGray.getRGB());
     }
 
     private void addStandardButtons() {
