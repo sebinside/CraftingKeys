@@ -247,7 +247,6 @@ public class GuiConfig extends GuiScreen {
         drawInfoString(4, 34, 51);
         drawInfoString(5, 83, 51);
         drawInfoString(9, 141, 51);
-        // TODO: Draw additional black rec
     }
 
     private void genVillagerInfo() {
@@ -255,6 +254,10 @@ public class GuiConfig extends GuiScreen {
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/villager.png"));
         drawTexturedModalRect(guiShowBasePosX - 86, guiShowBasePosY, 1, 0, 174, 80);
         drawString(fontRendererObj, "Villager", guiShowBasePosX - 17, guiShowBasePosY + 3, lightGray.getRGB());
+
+        drawInfoString(4, 43, 57);
+        drawInfoString(5, 69, 57);
+        drawInfoString(9, 126, 58);
     }
 
     private void genInventoryInfo() {
@@ -262,6 +265,12 @@ public class GuiConfig extends GuiScreen {
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/inventory.png"));
         drawTexturedModalRect(guiShowBasePosX - 86, guiShowBasePosY, 1, 0, 174, 80);
         drawString(fontRendererObj, "Inventory", guiShowBasePosX - 20, guiShowBasePosY + 3, lightGray.getRGB());
+
+        drawInfoString(1, 95, 30);
+        drawInfoString(2, 113, 30);
+        drawInfoString(4, 95, 48);
+        drawInfoString(5, 113, 48);
+        drawInfoString(9, 151, 40);
     }
 
     private void genDispenserInfo() {
@@ -269,6 +278,18 @@ public class GuiConfig extends GuiScreen {
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/dispenser.png"));
         drawTexturedModalRect(guiShowBasePosX - 86, guiShowBasePosY, 1, 0, 174, 80);
         drawString(fontRendererObj, "Dispenser", guiShowBasePosX - 23, guiShowBasePosY + 3, lightGray.getRGB());
+
+        drawInfoString(0, 69, 21);
+        drawInfoString(1, 87, 21);
+        drawInfoString(2, 105, 21);
+
+        drawInfoString(3, 69, 39);
+        drawInfoString(4, 87, 39);
+        drawInfoString(5, 105, 39);
+
+        drawInfoString(6, 69, 57);
+        drawInfoString(7, 87, 57);
+        drawInfoString(8, 105, 57);
     }
 
     private void drawInfoString(int index, int posX, int posY) {
@@ -353,10 +374,6 @@ public class GuiConfig extends GuiScreen {
         } else {
             guiShowState++;
         }
-
-        // DEBUG
-        guiShowType = GuiType.ANVIL;
-
 
     }
 
