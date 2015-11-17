@@ -109,6 +109,7 @@ public class GuiConfig extends GuiScreen {
             lastTime = Minecraft.getSystemTime();
         }
 
+
         switch (guiShowType) {
 
             case FURNACE:
@@ -206,9 +207,9 @@ public class GuiConfig extends GuiScreen {
 
         drawString(fontRendererObj, "Furnace", guiShowBasePosX - 15, guiShowBasePosY + 3, lightGray.getRGB());
 
-        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[1]), guiShowBasePosX - 86 + 63, guiShowBasePosY + 21, highlight.getRGB());
-        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[4]), guiShowBasePosX - 86 + 63, guiShowBasePosY + 57, highlight.getRGB());
-        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[9]), guiShowBasePosX - 86 + 123, guiShowBasePosY + 39, highlight.getRGB());
+        drawInfoString(1, 63, 21);
+        drawInfoString(4, 63, 57);
+        drawInfoString(9, 123, 39);
     }
 
     private void genBrewingStandInfo() {
@@ -218,10 +219,10 @@ public class GuiConfig extends GuiScreen {
 
         drawString(fontRendererObj, "Brewing Stand", guiShowBasePosX - 33, guiShowBasePosY + 3, lightGray.getRGB());
 
-        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[1]), guiBasePosition, guiShowBasePosY + 21, highlight.getRGB());
-        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[4]), guiBasePosition, guiShowBasePosY + 58, highlight.getRGB());
-        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[3]), guiBasePosition - 86 + 63, guiShowBasePosY + 50, highlight.getRGB());
-        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[5]), guiBasePosition - 86 + 109, guiShowBasePosY + 50, highlight.getRGB());
+        drawInfoString(1, 86, 21);
+        drawInfoString(4, 86, 58);
+        drawInfoString(3, 63, 50);
+        drawInfoString(5, 109, 50);
     }
 
     private void genEnchantmentInfo() {
@@ -229,7 +230,11 @@ public class GuiConfig extends GuiScreen {
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/enchanting_table.png"));
         drawTexturedModalRect(guiShowBasePosX - 86, guiShowBasePosY, 1, 0, 174, 80);
         drawString(fontRendererObj, "Enchanting", guiShowBasePosX - 20, guiShowBasePosY + 3, lightGray.getRGB());
+
+        drawInfoString(1, 32, 51);
+        // TODO: 1.8 Enchantment Table
     }
+
 
     private void genAnvilInfo() {
 
@@ -237,6 +242,11 @@ public class GuiConfig extends GuiScreen {
         drawTexturedModalRect(guiShowBasePosX - 86, guiShowBasePosY, 1, 0, 174, 80);
         drawString(fontRendererObj, "Anvil", guiShowBasePosX - 17, guiShowBasePosY + 3, lightGray.getRGB());
 
+        drawRect(guiShowBasePosX + -30, guiShowBasePosY + 20, guiShowBasePosX + 83, guiShowBasePosY + 36, Color.black.getRGB());
+
+        drawInfoString(4, 34, 51);
+        drawInfoString(5, 83, 51);
+        drawInfoString(9, 141, 51);
         // TODO: Draw additional black rec
     }
 
@@ -259,6 +269,11 @@ public class GuiConfig extends GuiScreen {
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/dispenser.png"));
         drawTexturedModalRect(guiShowBasePosX - 86, guiShowBasePosY, 1, 0, 174, 80);
         drawString(fontRendererObj, "Dispenser", guiShowBasePosX - 23, guiShowBasePosY + 3, lightGray.getRGB());
+    }
+
+    private void drawInfoString(int index, int posX, int posY) {
+        drawCenteredString(fontRendererObj, Keyboard.getKeyName(keyValues[index]),
+                guiShowBasePosX + posX - 86, guiShowBasePosY + posY, highlight.getRGB());
     }
 
     private void addStandardButtons() {
@@ -338,6 +353,9 @@ public class GuiConfig extends GuiScreen {
         } else {
             guiShowState++;
         }
+
+        // DEBUG
+        guiShowType = GuiType.ANVIL;
 
 
     }
