@@ -1,5 +1,6 @@
 package de.skate702.craftingkeys.config;
 
+import de.skate702.craftingkeys.CraftingKeys;
 import de.skate702.craftingkeys.util.LanguageLocalizer;
 import de.skate702.craftingkeys.util.Logger;
 import net.minecraft.client.Minecraft;
@@ -243,6 +244,10 @@ public class GuiConfig extends GuiScreen {
         drawString(fontRendererObj, "Anvil", guiShowBasePosX - 17, guiShowBasePosY + 3, lightGray.getRGB());
 
         drawRect(guiShowBasePosX + -30, guiShowBasePosY + 20, guiShowBasePosX + 83, guiShowBasePosY + 36, Color.black.getRGB());
+
+        GL11.glColor4f(1F, 1F, 1F, 1F);
+        mc.renderEngine.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/test.png"));
+        drawTexturedModalRect(guiShowBasePosX - 50, guiShowBasePosY, 0, 0, 100, 100);
 
         drawInfoString(4, 34, 51);
         drawInfoString(5, 83, 51);
