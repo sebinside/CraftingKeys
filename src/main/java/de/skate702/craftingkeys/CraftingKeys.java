@@ -21,7 +21,10 @@ import de.skate702.craftingkeys.manager.*;
 import de.skate702.craftingkeys.proxies.CraftingKeysProxy;
 import de.skate702.craftingkeys.util.Logger;
 import de.skate702.craftingkeys.util.Util;
-import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.GuiEnchantment;
+import net.minecraft.client.gui.GuiMerchant;
+import net.minecraft.client.gui.GuiRepair;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.*;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -121,9 +124,9 @@ public class CraftingKeys {
      */
     @SubscribeEvent
     public void onGuiOpened(GuiOpenEvent event) {
-        if (event.gui instanceof GuiMainMenu) {
-            event.gui = new GuiConfig(); // (Only for testing)
-        }
+        //if (event.gui instanceof GuiMainMenu) {
+        //event.gui = new GuiConfig(); // (Only for testing)
+        //}
     }
 
     /**

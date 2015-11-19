@@ -198,15 +198,17 @@ public class GuiConfig extends GuiScreen {
         GL11.glColor4f(1F, 1F, 1F, 1F);
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/crafting_table.png"));
         drawTexturedModalRect(guiBasePosition - 86, height / 2 - 100, 1, 0, 174, 80);
-        drawString(fontRendererObj, "Crafting Table", guiBasePosition - 33, height / 2 - 100 + 3, lightGray.getRGB());
     }
 
     private void genFurnaceInfo() {
 
+        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/furnace.png"));
         drawTexturedModalRect(guiShowBasePosX - 86, guiShowBasePosY, 1, 0, 174, 80);
 
-        drawString(fontRendererObj, "Furnace", guiShowBasePosX - 15, guiShowBasePosY + 3, lightGray.getRGB());
+        GL11.glColor4f(1F, 1F, 1F, 1F);
+        mc.renderEngine.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
+        drawTexturedModalRect(guiShowBasePosX + 105, guiShowBasePosY + 17, 0, 100, 50, 50);
 
         drawInfoString(1, 63, 21);
         drawInfoString(4, 63, 57);
@@ -215,10 +217,13 @@ public class GuiConfig extends GuiScreen {
 
     private void genBrewingStandInfo() {
 
+        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/brewing_stand.png"));
         drawTexturedModalRect(guiShowBasePosX - 86, guiShowBasePosY, 1, 0, 174, 80);
 
-        drawString(fontRendererObj, "Brewing Stand", guiShowBasePosX - 33, guiShowBasePosY + 3, lightGray.getRGB());
+        GL11.glColor4f(1F, 1F, 1F, 1F);
+        mc.renderEngine.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
+        drawTexturedModalRect(guiShowBasePosX + 105, guiShowBasePosY + 17, 200, 0, 50, 50);
 
         drawInfoString(1, 86, 21);
         drawInfoString(4, 86, 58);
@@ -228,9 +233,13 @@ public class GuiConfig extends GuiScreen {
 
     private void genEnchantmentInfo() {
 
+        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/enchanting_table.png"));
         drawTexturedModalRect(guiShowBasePosX - 86, guiShowBasePosY, 1, 0, 174, 80);
-        drawString(fontRendererObj, "Enchanting", guiShowBasePosX - 20, guiShowBasePosY + 3, lightGray.getRGB());
+
+        GL11.glColor4f(1F, 1F, 1F, 1F);
+        mc.renderEngine.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
+        drawTexturedModalRect(guiShowBasePosX + 105, guiShowBasePosY + 17, 150, 50, 50, 50);
 
         drawInfoString(1, 32, 51);
         // TODO: 1.8 Enchantment Table
@@ -239,15 +248,15 @@ public class GuiConfig extends GuiScreen {
 
     private void genAnvilInfo() {
 
+        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/anvil.png"));
         drawTexturedModalRect(guiShowBasePosX - 86, guiShowBasePosY, 1, 0, 174, 80);
-        drawString(fontRendererObj, "Anvil", guiShowBasePosX - 17, guiShowBasePosY + 3, lightGray.getRGB());
 
-        drawRect(guiShowBasePosX + -30, guiShowBasePosY + 20, guiShowBasePosX + 83, guiShowBasePosY + 36, Color.black.getRGB());
+        drawRect(guiShowBasePosX + -30, guiShowBasePosY + 17, guiShowBasePosX + 83, guiShowBasePosY + 36, Color.black.getRGB());
 
         GL11.glColor4f(1F, 1F, 1F, 1F);
-        mc.renderEngine.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/test.png"));
-        drawTexturedModalRect(guiShowBasePosX - 50, guiShowBasePosY, 0, 0, 100, 100);
+        mc.renderEngine.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
+        drawTexturedModalRect(guiShowBasePosX + 105, guiShowBasePosY + 17, 100, 0, 50, 50);
 
         drawInfoString(4, 34, 51);
         drawInfoString(5, 83, 51);
@@ -256,9 +265,13 @@ public class GuiConfig extends GuiScreen {
 
     private void genVillagerInfo() {
 
+        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/villager.png"));
         drawTexturedModalRect(guiShowBasePosX - 86, guiShowBasePosY, 1, 0, 174, 80);
-        drawString(fontRendererObj, "Villager", guiShowBasePosX - 17, guiShowBasePosY + 3, lightGray.getRGB());
+
+        GL11.glColor4f(1F, 1F, 1F, 1F);
+        mc.renderEngine.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
+        drawTexturedModalRect(guiShowBasePosX + 105, guiShowBasePosY + 17, 100, 100, 50, 50);
 
         drawInfoString(4, 43, 57);
         drawInfoString(5, 69, 57);
@@ -267,9 +280,13 @@ public class GuiConfig extends GuiScreen {
 
     private void genInventoryInfo() {
 
+        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/inventory.png"));
         drawTexturedModalRect(guiShowBasePosX - 86, guiShowBasePosY, 1, 0, 174, 80);
-        drawString(fontRendererObj, "Inventory", guiShowBasePosX - 20, guiShowBasePosY + 3, lightGray.getRGB());
+
+        GL11.glColor4f(1F, 1F, 1F, 1F);
+        mc.renderEngine.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
+        drawTexturedModalRect(guiShowBasePosX + 105, guiShowBasePosY + 17, 0, 0, 50, 50);
 
         drawInfoString(1, 95, 30);
         drawInfoString(2, 113, 30);
@@ -280,9 +297,13 @@ public class GuiConfig extends GuiScreen {
 
     private void genDispenserInfo() {
 
+        GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
         mc.renderEngine.bindTexture(new ResourceLocation("textures/gui/container/dispenser.png"));
         drawTexturedModalRect(guiShowBasePosX - 86, guiShowBasePosY, 1, 0, 174, 80);
-        drawString(fontRendererObj, "Dispenser", guiShowBasePosX - 23, guiShowBasePosY + 3, lightGray.getRGB());
+
+        GL11.glColor4f(1F, 1F, 1F, 1F);
+        mc.renderEngine.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
+        drawTexturedModalRect(guiShowBasePosX + 105, guiShowBasePosY + 17, 50, 50, 50, 50);
 
         drawInfoString(0, 69, 21);
         drawInfoString(1, 87, 21);

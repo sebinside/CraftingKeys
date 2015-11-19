@@ -45,6 +45,8 @@ public class InventoryManager extends ContainerManager {
         return 9;
     }
 
+    // TODO: 1.8 Fix inventory slot bug
+
     @Override
     protected int getInteractionSlotIndex() {
         return 0;

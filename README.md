@@ -6,7 +6,15 @@ Crafting Keys is a modification which adds a lot of new key bindings to minecraf
 ##Development Progress
 
 The whole project had been refactored and is now almost ready to be release. Still missing:
-- Fixing the last bugs
+- Full support for numPad
+- BETA Build (1.7.10)
+- 1.8 Port + Inventory/Gui Fix
+- BETA Build (1.8)
+
+Optional:
+
+- Logic incremental feature
+- API
 
 ## More Information
 
