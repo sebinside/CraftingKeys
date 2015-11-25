@@ -37,14 +37,14 @@ public class EnchantmentManager extends ContainerManager {
     @Override
     protected int specificKeyToSlotIndex() {
         return mapKeyToSlot(-1, 0, -1, -1, 0, -1, -1, -1, -1);
-        // return mapKeyToSlot(-1, 0, 1, -1, 0, 1, -1, -1, -1);
+        // 1.8 return mapKeyToSlot(-1, 0, 1, -1, 0, 1, -1, -1, -1);
 
     }
 
     @Override
     protected int getInventoryStartIndex() {
         return 1;
-        // return 2;
+        // 1.8 return 2;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class EnchantmentManager extends ContainerManager {
     @Override
     protected int[] getDropSlots() {
         return new int[]{0};
-        // return new int[] {0, 1};
+        // 1.8 return new int[] {0, 1};
     }
 
     @Override

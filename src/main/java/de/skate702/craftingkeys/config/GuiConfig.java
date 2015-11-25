@@ -180,7 +180,12 @@ public class GuiConfig extends GuiScreen {
                 drawKeyValues();
             } else {
                 Logger.info("keyTyped(c,i)", "Trying to close inventory with esc.");
-                super.keyTyped(character, keyCode); // Enable standard gui closing
+
+                try {
+                    super.keyTyped(character, keyCode); // Enable standard gui closing
+                } catch (Exception ignored) {
+                    // support for newer versions, just do nothing
+                }
             }
 
         } else if (selectedButtonID != -1) {
@@ -192,8 +197,6 @@ public class GuiConfig extends GuiScreen {
         }
 
     }
-
-    // TODO: Crafting symbols & labels
 
     private void drawCraftingTable() {
         GL11.glColor4f(1F, 1F, 1F, 1F);
@@ -243,7 +246,7 @@ public class GuiConfig extends GuiScreen {
         drawTexturedModalRect(guiShowBasePosX + 105, guiShowBasePosY + 17, 150, 50, 50, 50);
 
         drawInfoString(1, 32, 51);
-        // TODO: 1.8 Enchantment Table
+        // 1.8 drawInfoString(2, 42, 51);
     }
 
 
