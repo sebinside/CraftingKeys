@@ -16,35 +16,32 @@ public class Config {
     /**
      * Defines the config string for the keys-category.
      */
-    protected static final String categoryKeys = "keys";
+    private static final String categoryKeys = "keys";
 
     /**
      * Defines the config string for the other-category.
      */
-    protected static final String categoryOther = "other";
+    private static final String categoryOther = "other";
 
     /**
      * Standard Return Key if there is a problem reading the config.
      */
     private static final int retDefKey = -1;
-
-    /**
-     * Provides the Suggested Config File.
-     */
-    protected static Configuration configFile = null;
-
     /**
      * Defines all 11 Keys you can use with Crafting Keys.
      */
-    protected static Property keyTopLeft, keyTopCenter, keyTopRight,
+    static Property keyTopLeft, keyTopCenter, keyTopRight,
             keyCenterLeft, keyCenterCenter, keyCenterRight,
             keyLowerLeft, keyLowerCenter, keyLowerRight,
             keyStack, keyInteract, keyDrop;
-
+    /**
+     * Provides the Suggested Config File.
+     */
+    private static Configuration configFile = null;
     /**
      * Defines, if NumPad is always active for crafting.
      */
-    protected static Property enableNumPad;
+    private static Property enableNumPad;
 
     public static boolean isKeyTopLeftPressed() {
         return Keyboard.isKeyDown(keyTopLeft.getInt(retDefKey)) || isNumPadEnabled() && Keyboard.isKeyDown(71);
@@ -94,7 +91,7 @@ public class Config {
         return Keyboard.isKeyDown(keyDrop.getInt(retDefKey));
     }
 
-    public static boolean isNumPadEnabled() {
+    private static boolean isNumPadEnabled() {
         return enableNumPad.getBoolean(true);
     }
 

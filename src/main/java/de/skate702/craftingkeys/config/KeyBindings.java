@@ -11,7 +11,7 @@ public class KeyBindings {
 
     private static final String category = "craftingkeys.binding.cat";
 
-    public static KeyBinding openGuiBinding = new KeyBinding("craftingkeys.binding.opengui",
+    public static final KeyBinding openGuiBinding = new KeyBinding("craftingkeys.binding.opengui",
             Keyboard.KEY_K, category);
 
     /**

@@ -21,6 +21,8 @@ public class GuiConfig extends GuiScreen {
     private static final Color pureWhite = new Color(255, 255, 255, 255);
     private static final Color lightGray = new Color(128, 128, 128, 255);
     private static final Color highlight = new Color(86, 144, 72, 255);
+    private final int buttonSaveID = 901;
+    private final int buttonAbortID = 902;
     /**
      * 0,1,2 = top,
      * 3,4,5 = mid,
@@ -37,8 +39,7 @@ public class GuiConfig extends GuiScreen {
     private int guiShowState;
     private long lastTime = 0;
     private long currentTime;
-    private int buttonSaveID = 901;
-    private int buttonAbortID = 902;
+    @SuppressWarnings("FieldCanBeLocal")
     private ArrayList<GuiButton> configButtons;
     private int selectedButtonID = -1;
 
@@ -371,7 +372,7 @@ public class GuiConfig extends GuiScreen {
         }
     }
 
-    public void showNextGui() {
+    private void showNextGui() {
         switch (guiShowState) {
             case 0:
                 guiShowType = GuiType.FURNACE;

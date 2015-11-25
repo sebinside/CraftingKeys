@@ -19,14 +19,14 @@ public abstract class ContainerManager {
     /**
      * The Container to work with.
      */
-    protected Container container;
+    Container container;
 
     /**
      * Creates a new ContainerManager with the given container.
      *
      * @param container The container to work with
      */
-    protected ContainerManager(Container container) {
+    ContainerManager(Container container) {
         this.container = container;
     }
 
@@ -78,7 +78,8 @@ public abstract class ContainerManager {
     /**
      * Handles what to do when the DropKey is pressed in acceptKey().
      */
-    protected void onDropKeyPressed() {
+    @SuppressWarnings("WeakerAccess")
+    void onDropKeyPressed() {
 
         // Drop every defined dropSlot-Item
         for (int i : getDropSlots()) {
@@ -90,7 +91,7 @@ public abstract class ContainerManager {
     /**
      * Handles what to do when the InteractionKey is pressed in acceptKey().
      */
-    protected void onInteractionKeyPressed() {
+    void onInteractionKeyPressed() {
 
         // Handles Interaction with items held
         // Stack up on hand if equal or small enough, else throw held stack away
@@ -126,7 +127,7 @@ public abstract class ContainerManager {
      * @param currentHoveredSlot the slot number of the currently hovered Slot (mouse hover)
      * @param slotIndex          the slot index returned from the key input calculation
      */
-    protected void onSpecificKeyPressed(int currentHoveredSlot, int slotIndex) {
+    void onSpecificKeyPressed(int currentHoveredSlot, int slotIndex) {
 
         if (Config.isKeyStackPressed()) {
             moveAll(currentHoveredSlot, slotIndex);
@@ -142,7 +143,7 @@ public abstract class ContainerManager {
      *
      * @param slotIndex the slot index returned from the key input calculation
      */
-    protected void onHolding(int slotIndex) {
+    void onHolding(int slotIndex) {
 
         onSpecificKeyPressed(-1, slotIndex);
 
@@ -150,9 +151,10 @@ public abstract class ContainerManager {
 
     /**
      * Handles what to do with NumKey-Inputs while holding a item.
-     * @param currentHoveredSlot
+     *
+     * @param currentHoveredSlot slot where the mouse is right now
      */
-    protected void handleNumKey(Slot currentHoveredSlot) {
+    void handleNumKey(Slot currentHoveredSlot) {
 
         // hotbar-slots are always the last 9 slots of the currently opened inventory
         int hotbarStartIndex = Util.client.thePlayer.openContainer.getInventory().size() - 9 - 1;
@@ -229,9 +231,9 @@ public abstract class ContainerManager {
      * @param lowerRight   lower-right slot index
      * @return a slot index. wow!
      */
-    protected int mapKeyToSlot(int topLeft, int topCenter, int topRight,
-                               int centerLeft, int centerCenter, int centerRight,
-                               int lowerLeft, int lowerCenter, int lowerRight) {
+    int mapKeyToSlot(int topLeft, int topCenter, int topRight,
+                     int centerLeft, int centerCenter, int centerRight,
+                     int lowerLeft, int lowerCenter, int lowerRight) {
 
         if (Config.isKeyTopLeftPressed()) {
             return topLeft;
@@ -267,7 +269,7 @@ public abstract class ContainerManager {
      * @param srcIndex  The Source Slot Index of the Container
      * @param destIndex The Destination Slot Index of the Container
      */
-    protected void moveAll(int srcIndex, int destIndex) {
+    void moveAll(int srcIndex, int destIndex) {
 
         ItemStack source = getItemStack(srcIndex);
 
@@ -287,7 +289,7 @@ public abstract class ContainerManager {
      * @param destIndex The Destination Slot Index of the Container
      * @param amount    The amount of items to move (can be bigger then Stack Size)
      */
-    protected void move(int srcIndex, int destIndex, int amount) {
+    void move(int srcIndex, int destIndex, int amount) {
 
         // Stacks
         ItemStack source = getItemStack(srcIndex);
@@ -339,7 +341,7 @@ public abstract class ContainerManager {
      * @param index The index of the slot in the container
      * @return Returns the ItemStack
      */
-    protected ItemStack getItemStack(int index) {
+    ItemStack getItemStack(int index) {
 
         if (index >= 0 && index < container.inventorySlots.size()) {
 
@@ -362,7 +364,7 @@ public abstract class ContainerManager {
      *
      * @param sourceIndex A slot index of the source items
      */
-    protected void moveStackToInventory(int sourceIndex) {
+    void moveStackToInventory(int sourceIndex) {
 
         // Moving Stack
         ItemStack stackToMove = null;
@@ -459,7 +461,7 @@ public abstract class ContainerManager {
      *
      * @param index The index of the slot in the container
      */
-    protected void leftClick(int index) {
+    void leftClick(int index) {
         slotClick(index, false);
     }
 
@@ -468,7 +470,7 @@ public abstract class ContainerManager {
      *
      * @param index The index of the slot in the container
      */
-    protected void rightClick(int index) {
+    void rightClick(int index) {
         slotClick(index, true);
     }
 
@@ -478,7 +480,7 @@ public abstract class ContainerManager {
      * @param index      The index of the slot in the container
      * @param rightClick True, if the click is with the right mouse button
      */
-    protected void slotClick(int index, boolean rightClick) {
+    private void slotClick(int index, boolean rightClick) {
 
         Logger.info("slotClick(i,b)", "Clicked @ Slot " + index + " with data " + rightClick + ".");
 

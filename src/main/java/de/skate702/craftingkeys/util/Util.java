@@ -13,7 +13,7 @@ public class Util {
     /**
      * Current Instance Client, used for a lot of operations.
      */
-    public static Minecraft client = FMLClientHandler.instance().getClient();
+    public static final Minecraft client = FMLClientHandler.instance().getClient();
     /**
      * Only used by isFirstInWorldTick()
      */
@@ -27,6 +27,7 @@ public class Util {
 
     /**
      * Returns the current held item stack.
+     *
      * @return A item stack
      */
     public static ItemStack getHeldStack() {
@@ -35,6 +36,7 @@ public class Util {
 
     /**
      * Returns if the current player is helding a item stack.
+     *
      * @return True, if held stack != null
      */
     public static boolean isHoldingStack() {

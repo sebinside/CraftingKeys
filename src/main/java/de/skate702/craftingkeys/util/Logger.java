@@ -64,6 +64,7 @@ public class Logger {
      * @param method  The calling method / method info
      * @param message The message to print
      */
+    @SuppressWarnings("SameParameterValue")
     public static void error(String method, String message) {
         if (MODE.getLevel() <= 3) {
             print(method, message, LevelOfDetail.ERROR);

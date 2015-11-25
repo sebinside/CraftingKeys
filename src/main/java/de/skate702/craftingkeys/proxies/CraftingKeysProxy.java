@@ -23,7 +23,7 @@ public class CraftingKeysProxy {
      * @param player     The current player (from Client)
      */
     @SideOnly(Side.CLIENT)
-    public void sendSlotClick(PlayerControllerMP controller, int windowId, int slot, int rightClick, int action,
+    public void sendSlotClick(PlayerControllerMP controller, int windowId, int slot, int rightClick, @SuppressWarnings("SameParameterValue") int action,
                               EntityPlayer player) {
 
     }
