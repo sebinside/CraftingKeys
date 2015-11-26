@@ -5,18 +5,16 @@ Crafting Keys is a modification which adds a lot of new key bindings to minecraf
 
 ##Development Progress
 
-The whole project had been refactored and is now almost ready to be release. Still missing:
-- 1.8 Port + Inventory/Gui Fix
-- BETA Build (1.8)
+The BETA-Version is released! (26.11.2015)
 
-Optional:
+Optional new features:
 
 - Logic incremental feature
 - API
 
 ## More Information
 
-There are several videos about this on my youtube channel. E.g. https://www.youtube.com/watch?v=y0iD8ReCKgU
+Visit the official thread: www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/2566400-crafting-keys-simple-better-crafting-minecraft
 
 ## Support
 
