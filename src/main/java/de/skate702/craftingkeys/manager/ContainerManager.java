@@ -2,10 +2,12 @@ package de.skate702.craftingkeys.manager;
 
 import de.skate702.craftingkeys.CraftingKeys;
 import de.skate702.craftingkeys.config.Config;
+import de.skate702.craftingkeys.config.KeyBindings;
 import de.skate702.craftingkeys.util.InputUtil;
 import de.skate702.craftingkeys.util.Logger;
 import de.skate702.craftingkeys.util.Util;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -159,24 +161,25 @@ public abstract class ContainerManager {
         // hotbar-slots are always the last 9 slots of the currently opened inventory
         int hotbarStartIndex = Util.client.thePlayer.openContainer.getInventory().size() - 9 - 1;
         int inputdelta;
+        KeyBinding[] hotbar = Util.client.gameSettings.keyBindsHotbar;
 
-        if (Keyboard.isKeyDown(Keyboard.KEY_1)) {
+        if (Keyboard.isKeyDown(hotbar[0].getKeyCode())) {
             inputdelta = 1;
-        } else if (Keyboard.isKeyDown(Keyboard.KEY_2)) {
+        } else if (Keyboard.isKeyDown(hotbar[1].getKeyCode())) {
             inputdelta = 2;
-        } else if (Keyboard.isKeyDown(Keyboard.KEY_3)) {
+        } else if (Keyboard.isKeyDown(hotbar[2].getKeyCode())) {
             inputdelta = 3;
-        } else if (Keyboard.isKeyDown(Keyboard.KEY_4)) {
+        } else if (Keyboard.isKeyDown(hotbar[3].getKeyCode())) {
             inputdelta = 4;
-        } else if (Keyboard.isKeyDown(Keyboard.KEY_5)) {
+        } else if (Keyboard.isKeyDown(hotbar[4].getKeyCode())) {
             inputdelta = 5;
-        } else if (Keyboard.isKeyDown(Keyboard.KEY_6)) {
+        } else if (Keyboard.isKeyDown(hotbar[5].getKeyCode())) {
             inputdelta = 6;
-        } else if (Keyboard.isKeyDown(Keyboard.KEY_7)) {
+        } else if (Keyboard.isKeyDown(hotbar[6].getKeyCode())) {
             inputdelta = 7;
-        } else if (Keyboard.isKeyDown(Keyboard.KEY_8)) {
+        } else if (Keyboard.isKeyDown(hotbar[7].getKeyCode())) {
             inputdelta = 8;
-        } else if (Keyboard.isKeyDown(Keyboard.KEY_9)) {
+        } else if (Keyboard.isKeyDown(hotbar[8].getKeyCode())) {
             inputdelta = 9;
         } else {
             return;

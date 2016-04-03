@@ -11,7 +11,7 @@ public class Logger {
     /**
      * Static Final Level. Compiler optimizing will kill all other calls!
      */
-    private static final LevelOfDetail MODE = LevelOfDetail.INFO;
+    private static final LevelOfDetail MODE = LevelOfDetail.NONE;
 
     /**
      * Standard Output in front of every logger action.
