@@ -1,6 +1,6 @@
 package de.skate702.craftingkeys.util;
 
-// NEW_1_9 cpw.mods.fml => net.minecraftforge.fml
+// NEW_1_8 cpw.mods.fml => net.minecraftforge.fml
 // NEW_1_9 net.minecraft.util.text.TextComponentTranslation;
 
 import cpw.mods.fml.client.FMLClientHandler;

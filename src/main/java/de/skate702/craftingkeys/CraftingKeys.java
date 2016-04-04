@@ -1,6 +1,6 @@
 package de.skate702.craftingkeys;
 
-// NEW_1_9 cpw.mods.fml => net.minecraftforge.fml
+// NEW_1_8 cpw.mods.fml => net.minecraftforge.fml
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.FMLCommonHandler;

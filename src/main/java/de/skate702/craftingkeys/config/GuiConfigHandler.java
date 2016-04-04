@@ -1,6 +1,6 @@
 package de.skate702.craftingkeys.config;
 
-// NEW_1_9 cpw.mods.fml => net.minecraftforge.fml
+// NEW_1_8 cpw.mods.fml => net.minecraftforge.fml
 
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
