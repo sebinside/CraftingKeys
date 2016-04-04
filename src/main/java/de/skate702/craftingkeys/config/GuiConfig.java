@@ -246,7 +246,7 @@ public class GuiConfig extends GuiScreen {
         drawTexturedModalRect(guiShowBasePosX + 105, guiShowBasePosY + 17, 150, 50, 50, 50);
 
         drawInfoString(1, 32, 51);
-        // 1.8 drawInfoString(2, 42, 51);
+        // NEW_1_8 drawInfoString(2, 42, 51);
     }
 
 

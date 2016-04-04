@@ -2,7 +2,6 @@ package de.skate702.craftingkeys.manager;
 
 import de.skate702.craftingkeys.CraftingKeys;
 import de.skate702.craftingkeys.config.Config;
-import de.skate702.craftingkeys.config.KeyBindings;
 import de.skate702.craftingkeys.util.InputUtil;
 import de.skate702.craftingkeys.util.Logger;
 import de.skate702.craftingkeys.util.Util;

@@ -1,5 +1,7 @@
 package de.skate702.craftingkeys.proxies;
 
+// NEW_1_9 import net.minecraft.inventory.ClickType;
+
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -15,6 +17,7 @@ public class CraftingKeysClientProxy extends CraftingKeysProxy {
                               EntityPlayer player) {
 
         controller.windowClick(windowId, slot, rightClick, action, player);
+        // NEW_1_9 controller.func_187098_a(windowId, slot, rightClick, ClickType.PICKUP, player);
     }
 
 }

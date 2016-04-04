@@ -1,5 +1,8 @@
 package de.skate702.craftingkeys.util;
 
+// NEW_1_9 cpw.mods.fml => net.minecraftforge.fml
+// NEW_1_9 net.minecraft.util.text.TextComponentTranslation;
+
 import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -65,6 +68,7 @@ public class Util {
      */
     public static void printMessage(String lang_key) {
         client.thePlayer.addChatMessage(new ChatComponentTranslation(lang_key));
+        // NEW_1_9 client.thePlayer.addChatMessage(new TextComponentTranslation(lang_key));
     }
 
 }

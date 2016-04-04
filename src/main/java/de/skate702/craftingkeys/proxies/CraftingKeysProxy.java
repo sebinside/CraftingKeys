@@ -1,5 +1,7 @@
 package de.skate702.craftingkeys.proxies;
 
+// NEW_1_9 cpw.mods.fml => net.minecraftforge.fml
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
