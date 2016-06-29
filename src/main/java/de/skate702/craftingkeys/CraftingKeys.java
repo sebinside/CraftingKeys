@@ -41,7 +41,7 @@ import net.minecraftforge.common.MinecraftForge;
 public class CraftingKeys {
 
     public static final String MODID = "craftingkeys";
-    public static final String VERSION = "1.0.1";
+    public static final String VERSION = "1.0.2";
     public static final String NAME = "Crafting Keys";
 
     /**
@@ -144,7 +144,6 @@ public class CraftingKeys {
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent tick) {
 
-        // Get current Screen, then test
         GuiScreen currentScreen = Util.client.currentScreen;
 
         if (currentScreen != null) {

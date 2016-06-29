@@ -3,10 +3,10 @@
 "modid": "craftingkeys",
 "name": "Crafting Keys",
 "description": "Simple better crafting! Crafing Keys enables new inventory key-bindings to speed up your crafting.",
-"version": "1.0.1",
+"version": "1.0.2",
 "credits": "Based on the open-source InvTweaks-Mod. Thanks a lot!",
-"mcversion": "1.7.10, 1.8, 1.8.9, 1.9",
-"url": "http://skate702.de",
-"authorList": [ "skate702", "sebinside" ]
+"mcversion": "1.7.10 - 1.10.*",
+"url": "http://craftingkeys.skate702.de",
+"authorList": [ "skate702 (sebinside)" ]
 }
 ]

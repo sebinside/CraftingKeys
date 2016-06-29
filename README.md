@@ -18,7 +18,7 @@ Visit the official thread: www.minecraftforum.net/forums/mapping-and-modding/min
 
 ## Support
 
-If you like my work, you are welcome to [donate](https://www.twitchalerts.com/donate/skate702germany)! Programming is even more fun with hot pizza or cold coffee.
+If you like my work, you are welcome to [donate](https://www.tipeeestream.com/skate702germany/donation)! Programming is even more fun with hot pizza or cold coffee.
 Also, you can support the code directly with pull requests if you have a cool idea. Feedback is nice, too!
 
 Mail-Address: dev@skate702.de
