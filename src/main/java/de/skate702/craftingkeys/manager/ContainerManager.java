@@ -159,6 +159,12 @@ public abstract class ContainerManager {
 
         // hotbar-slots are always the last 9 slots of the currently opened inventory
         int hotbarStartIndex = Util.client.thePlayer.openContainer.getInventory().size() - 9 - 1;
+
+        // NEW_1_9 Player inventory Shield fix
+        //if (Util.client.currentScreen instanceof GuiInventory) {
+        //    hotbarStartIndex -= 1;
+        //}
+
         int inputdelta;
         KeyBinding[] hotbar = Util.client.gameSettings.keyBindsHotbar;
 

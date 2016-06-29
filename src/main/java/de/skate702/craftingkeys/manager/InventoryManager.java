@@ -38,6 +38,7 @@ public class InventoryManager extends ContainerManager {
     protected int specificKeyToSlotIndex() {
 
         return mapKeyToSlot(-1, 1, 2, -1, 3, 4, -1, -1, -1);
+        // NEW_1_9 return mapKeyToSlot(-1, 1, 2, 45, 3, 4, 45, -1, -1);
     }
 
     @Override
