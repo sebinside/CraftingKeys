@@ -17,6 +17,8 @@ import org.lwjgl.input.Keyboard;
  */
 public abstract class ContainerManager {
 
+    // NEW_1_11 stackSize is private. Use: func_190916_E()
+
     /**
      * The Container to work with.
      */
@@ -354,6 +356,16 @@ public abstract class ContainerManager {
         if (index >= 0 && index < container.inventorySlots.size()) {
 
             Slot slot = (Slot) (container.inventorySlots.get(index));
+
+            // NEW_1_11 No Null-Stacks anymore. Empty Stacks with air...
+            /*ItemStack returnStack =  (slot == null) ? null : slot.getStack();
+
+            if(returnStack.func_190916_E() == 0 && returnStack.getItem() == Item.getItemFromBlock(Blocks.AIR)) {
+                returnStack = null;
+            }
+
+            return returnStack;*/
+
             return (slot == null) ? null : slot.getStack();
 
         } else if (index == -1 && Util.isHoldingStack()) {

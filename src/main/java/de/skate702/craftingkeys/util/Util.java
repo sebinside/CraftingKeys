@@ -43,6 +43,7 @@ public class Util {
      * @return True, if held stack != null
      */
     public static boolean isHoldingStack() {
+        // NEW_1_11 return (getHeldStack().func_190916_E() != 0);
         return (getHeldStack() != null);
     }
 
