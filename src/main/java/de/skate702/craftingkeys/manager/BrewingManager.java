@@ -36,7 +36,8 @@ public class BrewingManager extends ContainerManager {
 
     @Override
     protected int specificKeyToSlotIndex() {
-        return mapKeyToSlot(4, 3, -1, 0, 1, 2, -1, -1, -1);
+        //NEW_1.11 return mapKeyToSlot(4, 3, -1, 0, 1, 2, -1, -1, -1);
+        return mapKeyToSlot(-1, 3, -1, 0, 1, 2, -1, -1, -1);
     }
 
     @Override
