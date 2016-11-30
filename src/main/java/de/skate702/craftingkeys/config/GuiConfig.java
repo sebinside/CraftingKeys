@@ -228,7 +228,15 @@ public class GuiConfig extends GuiScreen {
         GL11.glColor4f(1F, 1F, 1F, 1F);
         mc.renderEngine.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
         drawTexturedModalRect(guiShowBasePosX + 105, guiShowBasePosY + 17, 200, 0, 50, 50);
-
+        
+        //NEW_1.11
+        /*
+        drawInfoString(0, 24, 21);
+        drawInfoString(4, 86, 63);
+        drawInfoString(3, 64, 56);
+        drawInfoString(5, 109, 56);
+        */
+        
         drawInfoString(1, 86, 21);
         drawInfoString(4, 86, 58);
         drawInfoString(3, 63, 50);
@@ -245,6 +253,12 @@ public class GuiConfig extends GuiScreen {
         mc.renderEngine.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
         drawTexturedModalRect(guiShowBasePosX + 105, guiShowBasePosY + 17, 150, 50, 50, 50);
 
+        //NEW_1.11
+        /*
+        drawInfoString(1, 22, 51);
+        drawInfoString(2, 42, 51);
+        */
+        
         drawInfoString(1, 32, 51);
         // NEW_1_8 drawInfoString(2, 42, 51);
     }
@@ -277,6 +291,15 @@ public class GuiConfig extends GuiScreen {
         mc.renderEngine.bindTexture(new ResourceLocation(CraftingKeys.MODID, "textures/gui/symbols.png"));
         drawTexturedModalRect(guiShowBasePosX + 105, guiShowBasePosY + 17, 100, 100, 50, 50);
 
+        //NEW_1.11
+        /*
+        drawInfoString(1, 105, 22);
+        drawInfoString(2, 123, 22);
+        drawInfoString(4, 105, 40);
+        drawInfoString(5, 123, 40);
+        drawInfoString(9, 161, 32);
+        */
+        
         drawInfoString(4, 43, 57);
         drawInfoString(5, 69, 57);
         drawInfoString(9, 126, 58);
