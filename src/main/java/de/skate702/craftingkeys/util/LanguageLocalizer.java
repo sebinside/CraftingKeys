@@ -1,7 +1,7 @@
 package de.skate702.craftingkeys.util;
 
 //NEW_1_9: net.minecraft.util.text.translation.I18n;
-//NEW:1.9.4: import static net.minecraft.client.resources.I18n.format;
+//NEW_1_11: net.minecraft.client.resources.I18n;
 import net.minecraft.util.StatCollector;
 
 public class LanguageLocalizer {
