@@ -18,6 +18,7 @@ public class CraftingKeysClientProxy extends CraftingKeysProxy {
 
         controller.windowClick(windowId, slot, rightClick, action, player);
         // NEW_1_9 controller.func_187098_a(windowId, slot, rightClick, ClickType.PICKUP, player);
+        // NEW_1_11 controller.windowClick(windowId, slot, rightClick, ClickType.PICKUP, player);
     }
 
 }
