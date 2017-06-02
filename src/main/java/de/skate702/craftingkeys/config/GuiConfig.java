@@ -142,11 +142,11 @@ public class GuiConfig extends GuiScreen {
     public void actionPerformed(GuiButton button) {
         if (button.id == buttonAbortID) {
             Logger.info("actionPerformed(b)", "Closing Crafting Keys GUI now!");
-            mc.thePlayer.closeScreen();
+            mc.player.closeScreen();
         } else if (button.id == buttonSaveID) {
             save();
             Logger.info("actionPerformed(b)", "Saving & closing Crafting Keys GUI now!");
-            mc.thePlayer.closeScreen();
+            mc.player.closeScreen();
         } else if (button.id >= 0 && button.id <= 11) {
             if (selectedButtonID == -1) {
                 selectedButtonID = button.id;

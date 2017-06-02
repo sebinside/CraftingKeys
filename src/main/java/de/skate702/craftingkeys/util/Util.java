@@ -32,7 +32,7 @@ public class Util {
      * @return A item stack
      */
     public static ItemStack getHeldStack() {
-        return client.thePlayer.inventory.getItemStack();
+        return client.player.inventory.getItemStack();
     }
 
     /**
@@ -50,10 +50,10 @@ public class Util {
      * @return True, if this is the first tick
      */
     public static boolean isFirstInWorldTick() {
-        if (firstInWorldTick && client.theWorld != null) {
+        if (firstInWorldTick && client.world != null) {
             firstInWorldTick = false;
             return true;
-        } else if (client.theWorld == null) {
+        } else if (client.world == null) {
             firstInWorldTick = true;
         }
         return false;
@@ -65,7 +65,8 @@ public class Util {
      * @param lang_key key from lang-file
      */
     public static void printMessage(String lang_key) {
-        client.thePlayer.addChatMessage(new TextComponentTranslation(lang_key));
+    	String translated = (new TextComponentTranslation(lang_key)).getUnformattedComponentText();
+        client.player.sendChatMessage(translated);
     }
 
 }

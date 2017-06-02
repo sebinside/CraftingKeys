@@ -161,7 +161,7 @@ public abstract class ContainerManager {
     void handleNumKey(Slot currentHoveredSlot) {
 
         // hotbar-slots are always the last 9 slots of the currently opened inventory
-        int hotbarStartIndex = Util.client.thePlayer.openContainer.getInventory().size() - 9 - 1;
+        int hotbarStartIndex = Util.client.player.openContainer.getInventory().size() - 9 - 1;
 
         if (Util.client.currentScreen instanceof GuiInventory) {
             hotbarStartIndex -= 1;
@@ -505,7 +505,7 @@ public abstract class ContainerManager {
         int rightClickData = (rightClick) ? 1 : 0;
 
         CraftingKeys.proxy.sendSlotClick(Util.client.playerController, container.windowId, index,
-                rightClickData, 0, Util.client.thePlayer);
+                rightClickData, 0, Util.client.player);
 
     }
 

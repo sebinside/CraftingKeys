@@ -101,9 +101,9 @@ public class CraftingKeys {
     public void onKeyInput(InputEvent.KeyInputEvent event) {
         if (KeyBindings.openGuiBinding.isPressed()) {
             Logger.info("onKeyInput(e)", "Open Crafting Keys Config Gui.");
-            Util.client.thePlayer.openGui(instance, GuiConfig.GuiID, Util.client.theWorld,
-                    ((int) Util.client.thePlayer.posX), (int) Util.client.thePlayer.posY,
-                    (int) Util.client.thePlayer.posZ);
+            Util.client.player.openGui(instance, GuiConfig.GuiID, Util.client.world,
+                    ((int) Util.client.player.posX), (int) Util.client.player.posY,
+                    (int) Util.client.player.posZ);
         }
 
     }
