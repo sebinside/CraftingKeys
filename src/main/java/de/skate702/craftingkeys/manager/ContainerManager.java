@@ -6,9 +6,12 @@ import de.skate702.craftingkeys.util.InputUtil;
 import de.skate702.craftingkeys.util.Logger;
 import de.skate702.craftingkeys.util.Util;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.input.Keyboard;
 
@@ -16,8 +19,6 @@ import org.lwjgl.input.Keyboard;
  * Provides all needed methods to handle and manage a gui inventory. Does also provide frames for own implementations.
  */
 public abstract class ContainerManager {
-
-    // NEW_1_11 stackSize is private. Use: func_190916_E()
 
     /**
      * The Container to work with.
@@ -100,7 +101,7 @@ public abstract class ContainerManager {
         // Stack up on hand if equal or small enough, else throw held stack away
         if (Util.isHoldingStack() && getItemStack(getInteractionSlotIndex()) != null && (
                 !Util.getHeldStack().isItemEqual(getItemStack(getInteractionSlotIndex()))
-                        || Util.getHeldStack().stackSize + getItemStack(getInteractionSlotIndex()).stackSize
+                        || Util.getHeldStack().getCount() + getItemStack(getInteractionSlotIndex()).getCount()
                         > getItemStack(getInteractionSlotIndex()).getMaxStackSize())) {
             moveStackToInventory(-1);
         }
@@ -112,9 +113,9 @@ public abstract class ContainerManager {
             interact();
 
             while (Util.isHoldingStack() &&
-                    oldStackSize != Util.getHeldStack().stackSize) {
+                    oldStackSize != Util.getHeldStack().getCount()) {
 
-                oldStackSize = Util.getHeldStack().stackSize;
+                oldStackSize = Util.getHeldStack().getCount();
                 interact();
             }
 
@@ -162,10 +163,9 @@ public abstract class ContainerManager {
         // hotbar-slots are always the last 9 slots of the currently opened inventory
         int hotbarStartIndex = Util.client.thePlayer.openContainer.getInventory().size() - 9 - 1;
 
-        // NEW_1_9 Player inventory Shield fix
-        //if (Util.client.currentScreen instanceof GuiInventory) {
-        //    hotbarStartIndex -= 1;
-        //}
+        if (Util.client.currentScreen instanceof GuiInventory) {
+            hotbarStartIndex -= 1;
+        }
 
         int inputdelta;
         KeyBinding[] hotbar = Util.client.gameSettings.keyBindsHotbar;
@@ -286,7 +286,7 @@ public abstract class ContainerManager {
         if (source == null) {
             Logger.debug("moveAll(i,i)", "Source ItemStack from Index == null");
         } else {
-            move(srcIndex, destIndex, source.stackSize);
+            move(srcIndex, destIndex, source.getCount());
         }
 
     }
@@ -313,7 +313,7 @@ public abstract class ContainerManager {
         }
 
         // Test for max. moving Amount
-        int sourceSize = source.stackSize;
+        int sourceSize = source.getCount();
         int movedAmount = Math.min(amount, sourceSize);
 
         // Clear goal slot (May fail on full inventory!); only available if not holdling
@@ -358,15 +358,13 @@ public abstract class ContainerManager {
             Slot slot = (Slot) (container.inventorySlots.get(index));
 
             // NEW_1_11 No Null-Stacks anymore. Empty Stacks with air...
-            /*ItemStack returnStack =  (slot == null) ? null : slot.getStack();
+            ItemStack returnStack =  (slot == null) ? null : slot.getStack();
 
-            if(returnStack.func_190916_E() == 0 && returnStack.getItem() == Item.getItemFromBlock(Blocks.AIR)) {
+            if(returnStack.getCount() == 0 && returnStack.getItem() == Item.getItemFromBlock(Blocks.AIR)) {
                 returnStack = null;
             }
 
-            return returnStack;*/
-
-            return (slot == null) ? null : slot.getStack();
+            return returnStack;
 
         } else if (index == -1 && Util.isHoldingStack()) {
             return Util.getHeldStack();
@@ -444,7 +442,7 @@ public abstract class ContainerManager {
 
             if (potentialGoalStack != null && stackToMove != null) {
                 if (potentialGoalStack.isItemEqual(stackToMove)) {
-                    if (potentialGoalStack.stackSize + stackToMove.stackSize <= stackToMove.getMaxStackSize()) {
+                    if (potentialGoalStack.getCount() + stackToMove.getCount() <= stackToMove.getMaxStackSize()) {
                         return i;
                     }
                 }
