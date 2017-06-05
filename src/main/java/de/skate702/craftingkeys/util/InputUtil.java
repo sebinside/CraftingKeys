@@ -61,8 +61,8 @@ public class InputUtil {
             // Constants from Minecraft Source Code
             x -= (guiContainer.width - 176) / 2;
             y -= (guiContainer.height - 166) / 2;
-            return x >= slot.xDisplayPosition - 1 && x < slot.xDisplayPosition + 16 + 1
-                    && y >= slot.yDisplayPosition - 1 && y < slot.yDisplayPosition + 16 + 1;
+            return x >= slot.xPos - 1 && x < slot.xPos + 16 + 1
+                    && y >= slot.yPos - 1 && y < slot.yPos + 16 + 1;
         } else {
             return false;
         }
