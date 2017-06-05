@@ -1,9 +1,9 @@
-#Crafting Keys - Simple better Crafting!
-##Minecraft Forge Mod
+# Crafting Keys - Simple better Crafting!
+## Minecraft Forge Mod
 
 Crafting Keys is a modification which adds a lot of new key bindings to minecraft to enable crafting simply using the keyboard. There are also speed ups for moving items to furnaces or brewing stands. Basically every vanilla gui is supported. In future, there will hopefully be a API, to use this mod with other guis (e.g. EnderIO), too. Let's see...
 
-##Development Progress
+## Development Progress
 
 The BETA-Version is released! (26.11.2015)
 
